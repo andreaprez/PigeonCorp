@@ -1,13 +1,14 @@
+using PigeonCorp.Persistence.TitleData;
+
 namespace PigeonCorp.MainBuyButton
 {
     public class MainBuyButtonModel
     {
         public readonly int PigeonsPerClick;
 
-        public MainBuyButtonModel()
+        public MainBuyButtonModel(MainBuyButtonTitleData config)
         {
-            // TODO: Get from config
-            PigeonsPerClick = 1;
+            PigeonsPerClick = config.PigeonsPerClick;
         }
     }
 }

@@ -332,6 +332,7 @@ MonoBehaviour:
     type: 3}
   _pigeonContainer: {fileID: 2138060103}
   _mainBuyButtonInstaller: {fileID: 1728339115}
+  titleDataHolder: {fileID: 11400000, guid: b5dad9bbcc9f1474f8f12cdd5819ab78, type: 2}
 --- !u!1 &534669902
 GameObject:
   m_ObjectHideFlags: 0
