@@ -50,7 +50,12 @@ namespace PigeonCorp.Persistence.Gateway
             return TitleDataGateway.Get<MainBuyButtonTitleData>();
         }
         
-        #endregion
+        public PigeonTitleData GetPigeonConfig()
+        {
+            return TitleDataGateway.Get<PigeonTitleData>();
 
+        }
+        
+        #endregion
     }
 }

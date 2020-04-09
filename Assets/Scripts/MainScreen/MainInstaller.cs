@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using PigeonCorp.Commands;
 using PigeonCorp.MainBuyButton;
 using PigeonCorp.UserState;
@@ -9,12 +10,13 @@ namespace PigeonCorp.MainScreen
 {
     public class MainInstaller : MonoBehaviour
     {
-        [SerializeField] private PigeonView _pigeonPrefab;
-        [SerializeField] private Transform _pigeonContainer;
+        [SerializeField] private TitleDataHolder titleDataHolder;
         [Space]
         [SerializeField] private MainBuyButtonInstaller _mainBuyButtonInstaller;
         [Space]
-        [SerializeField] private TitleDataHolder titleDataHolder;
+        [SerializeField] private PigeonView _pigeonPrefab;
+        [SerializeField] private Transform _pigeonContainer;
+        [SerializeField] private List<Transform> _pigeonRoutePoints;
 
         private void Start()
         {
@@ -28,10 +30,16 @@ namespace PigeonCorp.MainScreen
             
             // TITLE DATA RETRIEVING
             var mainBuyButtonConfig = Gateway.Instance.GetMainBuyButtonConfig();
+            var pigeonConfig = Gateway.Instance.GetPigeonConfig();
             
             // GAME INIT
             
-            var pigeonFactory = new PigeonFactory(_pigeonPrefab, _pigeonContainer);
+            var pigeonFactory = new PigeonFactory(
+                _pigeonPrefab,
+                _pigeonContainer,
+                _pigeonRoutePoints,
+                pigeonConfig
+            );
 
             var userStateModel = new UserStateModel(userStateData);
             

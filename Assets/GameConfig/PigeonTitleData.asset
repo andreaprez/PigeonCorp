@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb22de62fb82432e84c0d7e9fe003a8f, type: 3}
-  m_Name: TitleData
+  m_Script: {fileID: 11500000, guid: c38433c932c7436892512df1e48af56a, type: 3}
+  m_Name: PigeonTitleData
   m_EditorClassIdentifier: 
-  MainBuyButton: {fileID: 11400000, guid: 99558f3b29111b0428268ac5afbb7478, type: 2}
-  Pigeon: {fileID: 11400000, guid: c2f06c74686cf3e4ca06012815aedeaa, type: 2}
+  MovementSpeed: 14
+  RotationSpeed: 16
+  RecalculationTime: 1
