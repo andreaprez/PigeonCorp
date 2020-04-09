@@ -10,6 +10,8 @@ namespace PigeonCorp.MainScreen
         private float _recalculationTime;
         private float _movSpeed;
         private float _rotSpeed;
+        private float _movementNoise;
+        private float _targetReachedOffset;
         private float _elapsedTime;
         private int _targetPointIndex;
         private Transform _targetPoint;
@@ -21,6 +23,8 @@ namespace PigeonCorp.MainScreen
             _recalculationTime = config.RecalculationTime;
             _movSpeed = config.MovementSpeed;
             _rotSpeed = config.RotationSpeed;
+            _movementNoise = config.MovementNoise;
+            _targetReachedOffset = config.TargetReachedOffset;
 
             _elapsedTime = _recalculationTime;
             _targetPointIndex = 0;
@@ -51,18 +55,18 @@ namespace PigeonCorp.MainScreen
         private Vector3 CalculateDirection()
         {
             var targetForward = (_targetPoint.position - transform.position).normalized;
-            var noiseX = Random.Range(-0.5f, 0.5f);
-            var noiseZ = Random.Range(-0.5f, 0.5f);
+            var noiseX = Random.Range(-_movementNoise, _movementNoise);
+            var noiseZ = Random.Range(-_movementNoise, _movementNoise);
             var noiseVector = new Vector3(noiseX, 0f, noiseZ);
 
-            var forward = targetForward * 10f + noiseVector;
+            var forward = targetForward * 14f + noiseVector;
             return forward.normalized;
         }
         
         private void CheckRoutePointReached()
         {
             var distanceToTarget = _targetPoint.position - transform.position;
-            if (Vector3.SqrMagnitude(distanceToTarget) < 0.6f)
+            if (Vector3.SqrMagnitude(distanceToTarget) < _targetReachedOffset)
             {
                 _targetPointIndex += 1;
                 if (_targetPointIndex < _routePoints.Count)
