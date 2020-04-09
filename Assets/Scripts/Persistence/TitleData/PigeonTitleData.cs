@@ -10,5 +10,8 @@ namespace PigeonCorp.Persistence.TitleData
         public float RecalculationTime;
         public float MovementNoise;
         public float TargetReachedOffset;
+
+        public float Cost;
+        public float EvolutionCostMultiplier;
     }
 }

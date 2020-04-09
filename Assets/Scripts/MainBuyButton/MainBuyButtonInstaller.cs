@@ -7,7 +7,7 @@ namespace PigeonCorp.MainBuyButton
     {
         [SerializeField] private MainBuyButtonView _view;
         
-        public void Install(MainBuyButtonModel model, ICommand<int> buyPigeonCommand)
+        public void Install(MainBuyButtonModel model, ICommand buyPigeonCommand)
         {
             var mediator = new MainBuyButtonMediator(_view, model, buyPigeonCommand);
         }

@@ -9,12 +9,14 @@ namespace PigeonCorp.MainBuyButton
         public MainBuyButtonMediator(
             MainBuyButtonView view,
             MainBuyButtonModel model,
-            ICommand<int> buyPigeonCommand
+            ICommand buyPigeonCommand
         )
         {
+            // TODO: Set button no interactable if not enough currency
+            
             view.GetButtonAsObservable().Subscribe(onClick =>
             {
-                buyPigeonCommand.Handle(model.PigeonsPerClick);
+                buyPigeonCommand.Handle();
             }).AddTo(MainDispatcher.Disposables);
         }
     }

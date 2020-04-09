@@ -7,7 +7,7 @@ namespace PigeonCorp.Persistence.UserData
     public class UserStateUserData
     {
         public readonly int CurrentPigeons;
-        public readonly int Currency;
+        public readonly float Currency;
 
 
         public UserStateUserData()
@@ -18,8 +18,8 @@ namespace PigeonCorp.Persistence.UserData
         
         public UserStateUserData(UserStateModel userStateModel)
         {
-            CurrentPigeons = userStateModel.CurrentPigeons;
-            Currency = userStateModel.Currency;
+            CurrentPigeons = userStateModel.CurrentPigeons.Value;
+            Currency = userStateModel.Currency.Value;
         }
     }
 }

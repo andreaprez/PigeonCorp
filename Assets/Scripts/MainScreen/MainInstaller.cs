@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using PigeonCorp.Commands;
 using PigeonCorp.MainBuyButton;
+using PigeonCorp.MainTopBar;
 using PigeonCorp.UserState;
 using PigeonCorp.Persistence.Gateway;
 using PigeonCorp.Persistence.TitleData;
@@ -13,6 +14,7 @@ namespace PigeonCorp.MainScreen
         [SerializeField] private TitleDataHolder titleDataHolder;
         [Space]
         [SerializeField] private MainBuyButtonInstaller _mainBuyButtonInstaller;
+        [SerializeField] private MainTopBarInstaller _mainTopBarInstaller;
         [Space]
         [SerializeField] private PigeonView _pigeonPrefab;
         [SerializeField] private Transform _pigeonContainer;
@@ -45,8 +47,17 @@ namespace PigeonCorp.MainScreen
             
             var mainBuyButtonModel = new MainBuyButtonModel(mainBuyButtonConfig);
             // TODO: Get multiplier from BonusModel
-            var buyPigeonCommand = new BuyPigeonCommand(1, userStateModel, pigeonFactory);
+            var buyPigeonCommand = new BuyPigeonCommand(
+                mainBuyButtonModel,
+                userStateModel,
+                pigeonFactory,
+                pigeonConfig,
+                1
+            );
             _mainBuyButtonInstaller.Install(mainBuyButtonModel, buyPigeonCommand);
+
+            var mainTopBarModel = new MainTopBarModel(userStateModel);
+            _mainTopBarInstaller.Install(mainTopBarModel, userStateModel);
         }
     }
 }
