@@ -6,5 +6,6 @@ namespace PigeonCorp.Persistence.TitleData
     public class TitleDataHolder : ScriptableObject
     {
         public MainBuyButtonTitleData MainBuyButton;
+        public PigeonTitleData Pigeon;
     }
 }
