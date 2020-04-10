@@ -1,4 +1,4 @@
-using PigeonCorp.Persistence.TitleData;
+using PigeonCorp.Bonus;
 
 namespace PigeonCorp.MainBuyButton
 {
@@ -6,9 +6,9 @@ namespace PigeonCorp.MainBuyButton
     {
         public readonly int PigeonsPerClick;
 
-        public MainBuyButtonModel(MainBuyButtonTitleData config)
+        public MainBuyButtonModel(BonusModel bonusModel)
         {
-            PigeonsPerClick = config.PigeonsPerClick;
+            PigeonsPerClick = bonusModel.BuyButtonRate;
         }
     }
 }

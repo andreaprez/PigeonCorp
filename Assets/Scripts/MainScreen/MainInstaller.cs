@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using PigeonCorp.Bonus;
 using PigeonCorp.Commands;
 using PigeonCorp.MainBuyButton;
 using PigeonCorp.MainTopBar;
@@ -31,7 +32,6 @@ namespace PigeonCorp.MainScreen
             var userStateData = Gateway.Instance.GetUserStateData();
             
             // TITLE DATA RETRIEVING
-            var mainBuyButtonConfig = Gateway.Instance.GetMainBuyButtonConfig();
             var pigeonConfig = Gateway.Instance.GetPigeonConfig();
             
             // GAME INIT
@@ -45,16 +45,21 @@ namespace PigeonCorp.MainScreen
 
             var userStateModel = new UserStateModel(userStateData);
             
-            var mainBuyButtonModel = new MainBuyButtonModel(mainBuyButtonConfig);
-            // TODO: Get multiplier from BonusModel
+            // TODO: Init BonusModel with all to 1
+            var bonusModel = new BonusModel();
+            var mainBuyButtonModel = new MainBuyButtonModel(bonusModel);
             var buyPigeonCommand = new BuyPigeonCommand(
                 mainBuyButtonModel,
                 userStateModel,
                 pigeonFactory,
-                pigeonConfig,
-                1
+                pigeonConfig
             );
-            _mainBuyButtonInstaller.Install(mainBuyButtonModel, buyPigeonCommand);
+            _mainBuyButtonInstaller.Install(
+                mainBuyButtonModel,
+                buyPigeonCommand,
+                userStateModel,
+                pigeonConfig
+            );
 
             var mainTopBarModel = new MainTopBarModel(userStateModel);
             _mainTopBarInstaller.Install(mainTopBarModel, userStateModel);

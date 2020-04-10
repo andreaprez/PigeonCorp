@@ -1,3 +1,4 @@
+using PigeonCorp.Dispatcher;
 using PigeonCorp.UserState;
 using UniRx;
 
@@ -17,11 +18,19 @@ namespace PigeonCorp.MainTopBar
             _model = model;
             _view = view;
 
-            userStateModel.Currency.AsObservable().Subscribe(_model.SetCurrency);
-            userStateModel.CurrentPigeons.AsObservable().Subscribe(_model.SetPigeonsCount);
+            userStateModel.Currency.AsObservable()
+                .Subscribe(_model.SetCurrency)
+                .AddTo(MainDispatcher.Disposables);
+            userStateModel.CurrentPigeons.AsObservable()
+                .Subscribe(_model.SetPigeonsCount)
+                .AddTo(MainDispatcher.Disposables);
             
-            _model.Currency.AsObservable().Subscribe(_view.UpdateCurrencyText);
-            _model.PigeonsCount.AsObservable().Subscribe(_view.UpdatePigeonsCountText);
+            _model.Currency.AsObservable()
+                .Subscribe(_view.UpdateCurrencyText)
+                .AddTo(MainDispatcher.Disposables);
+            _model.PigeonsCount.AsObservable()
+                .Subscribe(_view.UpdatePigeonsCountText)
+                .AddTo(MainDispatcher.Disposables);
         }
     }
 }
