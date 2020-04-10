@@ -82,7 +82,6 @@ namespace PigeonCorp.MainScreen
 
         private void Hide()
         {
-            // TODO: Don't destroy, use a pool
             Destroy(gameObject);
         }
         

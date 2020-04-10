@@ -1,4 +1,6 @@
 using PigeonCorp.Commands;
+using PigeonCorp.Persistence.TitleData;
+using PigeonCorp.UserState;
 using UnityEngine;
 
 namespace PigeonCorp.MainBuyButton
@@ -7,9 +9,20 @@ namespace PigeonCorp.MainBuyButton
     {
         [SerializeField] private MainBuyButtonView _view;
         
-        public void Install(MainBuyButtonModel model, ICommand<int> buyPigeonCommand)
+        public void Install(
+            MainBuyButtonModel model,
+            ICommand buyPigeonCommand,
+            UserStateModel userStateModel,
+            PigeonTitleData pigeonConfig
+        )
         {
-            var mediator = new MainBuyButtonMediator(_view, model, buyPigeonCommand);
+            var mediator = new MainBuyButtonMediator(
+                _view,
+                model,
+                buyPigeonCommand,
+                userStateModel,
+                pigeonConfig
+            );
         }
     }
 }

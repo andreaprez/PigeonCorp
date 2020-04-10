@@ -17,3 +17,5 @@ MonoBehaviour:
   RecalculationTime: 0.5
   MovementNoise: 1
   TargetReachedOffset: 0.8
+  Cost: 10
+  EvolutionCostMultiplier: 1.5

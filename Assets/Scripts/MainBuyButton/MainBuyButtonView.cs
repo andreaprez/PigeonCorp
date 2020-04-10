@@ -13,5 +13,10 @@ namespace PigeonCorp.MainBuyButton
         {
             return _button.OnClickAsObservable();
         }
+
+        public void SetButtonInteractable(bool interactable)
+        {
+            _button.interactable = interactable;
+        }
     }
 }
