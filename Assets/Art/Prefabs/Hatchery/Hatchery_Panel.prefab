@@ -15,7 +15,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3255086994521937324
 RectTransform:
   m_ObjectHideFlags: 0
@@ -241,6 +241,7 @@ GameObject:
   - component: {fileID: 1421255891703276390}
   - component: {fileID: 1421255891703276384}
   - component: {fileID: 1421255891703276391}
+  - component: {fileID: 1817975067454456091}
   m_Layer: 5
   m_Name: Hatchery_Panel
   m_TagString: Untagged
@@ -306,6 +307,25 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
+--- !u!114 &1817975067454456091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1421255891703276389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bafebdbdb07462ca1902297fee4708a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _emptyView: {fileID: 406753971854274168}
+  _builtView: {fileID: 2305428161337882885}
+  _buildButton: {fileID: 3586275691177028340}
+  _upgradeButton: {fileID: 3516286803874115168}
+  _hatcheryName: {fileID: 2795129273485905355}
+  _hatcheryIcon: {fileID: 3572139465228892571}
+  _capacityBar: {fileID: 3915619104279579698}
 --- !u!1 &2305428161337882885
 GameObject:
   m_ObjectHideFlags: 0
@@ -316,7 +336,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3234063510206386229}
   m_Layer: 5
-  m_Name: Hatchery_OccupiedView
+  m_Name: Hatchery_BuiltView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -888,7 +908,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 1
-  m_FillAmount: 0.942
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
