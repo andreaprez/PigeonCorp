@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Hatchery;
 using PigeonCorp.Bonus;
 using PigeonCorp.Commands;
 using PigeonCorp.MainBuyButton;
@@ -16,6 +17,7 @@ namespace PigeonCorp.MainScreen
         [Space]
         [SerializeField] private MainBuyButtonInstaller _mainBuyButtonInstaller;
         [SerializeField] private MainTopBarInstaller _mainTopBarInstaller;
+        [SerializeField] private HatcheriesInstaller _hatcheriesInstaller;
         [Space]
         [SerializeField] private PigeonView _pigeonPrefab;
         [SerializeField] private Transform _pigeonContainer;
@@ -63,6 +65,9 @@ namespace PigeonCorp.MainScreen
 
             var mainTopBarModel = new MainTopBarModel(userStateModel);
             _mainTopBarInstaller.Install(mainTopBarModel, userStateModel);
+            
+            var hatcheriesModel = new HatcheriesModel(userStateModel);
+            _hatcheriesInstaller.Install(hatcheriesModel, userStateModel);
         }
     }
 }

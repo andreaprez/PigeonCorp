@@ -13,7 +13,7 @@ namespace PigeonCorp.Persistence.UserData
         public UserStateUserData()
         {
             CurrentPigeons = 0;
-            Currency = 60;
+            Currency = 1000;
         }
         
         public UserStateUserData(UserStateModel userStateModel)
