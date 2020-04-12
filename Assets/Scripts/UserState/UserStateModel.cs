@@ -7,13 +7,14 @@ namespace PigeonCorp.UserState
 {
     public class UserStateModel
     {
-        public readonly ReactiveProperty<int> CurrentPigeons;
         public readonly ReactiveProperty<float> Currency;
+        public readonly ReactiveProperty<int> CurrentPigeons;
+
 
         public UserStateModel(UserStateUserData userData)
         {
-            CurrentPigeons = new ReactiveProperty<int>(userData.CurrentPigeons);
             Currency = new ReactiveProperty<float>(userData.Currency);
+            CurrentPigeons = new ReactiveProperty<int>(userData.CurrentPigeons);
         }
         
         public void AddPigeons(int pigeonsToAdd)
@@ -27,7 +28,7 @@ namespace PigeonCorp.UserState
             Currency.Value -= price;
             Gateway.Instance.UpdateUserStateData(Serialize());
         }
-        
+
         private UserStateUserData Serialize()
         {
             return new UserStateUserData(this);

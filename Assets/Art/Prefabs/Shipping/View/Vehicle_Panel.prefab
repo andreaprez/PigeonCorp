@@ -878,7 +878,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5809102538570476063}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.1, y: 0.38}
   m_AnchorMax: {x: 0.7, y: 0.44}
@@ -1036,7 +1036,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5809102538570476063}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.1, y: 0.32}
   m_AnchorMax: {x: 0.7, y: 0.38}
@@ -1100,7 +1100,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5809102538570476063
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1113,9 +1113,9 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8676356002524221230}
+  - {fileID: 7243503346692720986}
   - {fileID: 8058978317173513582}
   - {fileID: 5563695736587330226}
-  - {fileID: 7243503346692720986}
   - {fileID: 3233088282968792758}
   - {fileID: 2299667151633708538}
   - {fileID: 2095153487661192302}
@@ -1157,7 +1157,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5809102538570476063}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.1, y: 0.5}
   m_AnchorMax: {x: 0.7, y: 0.8}
@@ -1290,6 +1290,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3cc2924c03c4c868057c39f15e5ef73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _emptyView: {fileID: 8780529223504614482}
+  _obtainedView: {fileID: 7170054864356918063}
+  _purchaseButton: {fileID: 5600968198914445534}
+  _upgradeButton: {fileID: 5527038710529971274}
+  _vehicleName: {fileID: 6536388924638230497}
+  _vehicleIcon: {fileID: 5615260520415790001}
+  _shippingRateBar: {fileID: 5343717289217160728}
+  _shippingRateText: {fileID: 7114471492982978761}
+  _purchaseCostText: {fileID: 3781257405626566330}
+  _upgradeCostText: {fileID: 8468659885763921840}
+  _vehicleContainer: {fileID: 0}
 --- !u!1 &8226278825729485888
 GameObject:
   m_ObjectHideFlags: 0
@@ -1425,7 +1436,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5860243300988940166
 RectTransform:
   m_ObjectHideFlags: 0

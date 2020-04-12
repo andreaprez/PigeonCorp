@@ -1,12 +1,10 @@
 using System;
 using PigeonCorp.Persistence.TitleData;
-using PigeonCorp.Persistence.UserData;
 using UniRx;
 using UnityEngine;
 
 namespace PigeonCorp.Hatchery
 {
-    [Serializable]
     public class HatcheryModel
     {
         public readonly ReactiveProperty<bool> Built;
@@ -16,6 +14,7 @@ namespace PigeonCorp.Hatchery
         public readonly ReactiveProperty<float> NextCost;
         public readonly ReactiveProperty<int> MaxCapacity;
         public readonly ReactiveProperty<int> UsedCapacity;
+        public readonly ReactiveProperty<int> EggLayingRate;
         
         private readonly HatcheriesTitleData _config;
 
@@ -31,6 +30,7 @@ namespace PigeonCorp.Hatchery
             NextCost = new ReactiveProperty<float>();
             MaxCapacity = new ReactiveProperty<int>();
             UsedCapacity = new ReactiveProperty<int>();
+            EggLayingRate = new ReactiveProperty<int>();
             
             if (Built.Value)
             {
@@ -66,6 +66,7 @@ namespace PigeonCorp.Hatchery
             Name.Value = _config.HatcheriesConfiguration[Level.Value - 1].Name;
             Icon.Value = _config.HatcheriesConfiguration[Level.Value - 1].Icon;
             MaxCapacity.Value = _config.HatcheriesConfiguration[Level.Value - 1].MaxCapacity;
+            EggLayingRate.Value = _config.HatcheriesConfiguration[Level.Value - 1].EggLayingRate;
             if (Level.Value < _config.HatcheriesConfiguration.Count)
             {
                 NextCost.Value = _config.HatcheriesConfiguration[Level.Value].Cost;

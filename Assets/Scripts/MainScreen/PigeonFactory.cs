@@ -6,13 +6,13 @@ namespace PigeonCorp.MainScreen
 {
     public class PigeonFactory
     {
-        private readonly PigeonView _pigeonPrefab;
+        private readonly PigeonBehaviour _pigeonPrefab;
         private readonly Transform _container;
         private readonly List<Transform> _pigeonRoutePoints;
         private readonly PigeonTitleData _config;
 
         public PigeonFactory(
-            PigeonView prefab,
+            PigeonBehaviour prefab,
             Transform container,
             List<Transform> pigeonRoutePoints,
             PigeonTitleData config
@@ -28,7 +28,7 @@ namespace PigeonCorp.MainScreen
         {
             for (int i = 0; i < quantity; i++)
             {
-                PigeonView pigeon = Object.Instantiate(_pigeonPrefab, _container);
+                PigeonBehaviour pigeon = Object.Instantiate(_pigeonPrefab, _container);
                 pigeon.Initialize(_config, _pigeonRoutePoints);
             }
         }

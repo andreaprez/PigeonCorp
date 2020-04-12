@@ -18,6 +18,7 @@ namespace PigeonCorp.Persistence.TitleData
         public Sprite Icon;
         public float Cost;
         public int MaxCapacity;
+        public int EggLayingRate;
     }
 
     [Serializable]

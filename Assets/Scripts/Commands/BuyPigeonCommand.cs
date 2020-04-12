@@ -1,29 +1,24 @@
 using PigeonCorp.MainBuyButton;
-using PigeonCorp.MainScreen;
 using PigeonCorp.Persistence.TitleData;
-using PigeonCorp.UserState;
 
 namespace PigeonCorp.Commands
 {
     public class BuyPigeonCommand : ICommand
     {
         private readonly MainBuyButtonModel _buyButtonModel;
-        private readonly UserStateModel _userStateModel;
-        private readonly PigeonFactory _pigeonFactory;
+        private readonly ICommand _spawnPigeonCommand;
         private readonly PigeonTitleData _pigeonConfig;
         private readonly ICommand<float> _subtractCurrencyCommand;
 
         public BuyPigeonCommand(
             MainBuyButtonModel buyButtonModel,
-            UserStateModel userStateModel,
-            PigeonFactory pigeonFactory,
+            ICommand spawnPigeonCommand,
             PigeonTitleData pigeonConfig,
             ICommand<float> subtractCurrencyCommand
         )
         {
             _buyButtonModel = buyButtonModel;
-            _userStateModel = userStateModel;
-            _pigeonFactory = pigeonFactory;
+            _spawnPigeonCommand = spawnPigeonCommand;
             _pigeonConfig = pigeonConfig;
             _subtractCurrencyCommand = subtractCurrencyCommand;
         }
@@ -31,8 +26,10 @@ namespace PigeonCorp.Commands
         public void Handle()
         {
             var pigeonsToAdd = _buyButtonModel.PigeonsPerClick;
-            _userStateModel.AddPigeons(pigeonsToAdd);
-            _pigeonFactory.Create(pigeonsToAdd);
+            for (int i = 0; i < pigeonsToAdd; i++)
+            {
+                _spawnPigeonCommand.Handle();
+            }
 
             var price = pigeonsToAdd * _pigeonConfig.Cost;
             _subtractCurrencyCommand.Handle(price);

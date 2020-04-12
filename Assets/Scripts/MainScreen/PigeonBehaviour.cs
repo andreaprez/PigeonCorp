@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace PigeonCorp.MainScreen
 {
-    public class PigeonView : MonoBehaviour
+    public class PigeonBehaviour : MonoBehaviour
     { 
         private List<Transform> _routePoints;
         private float _recalculationTime;

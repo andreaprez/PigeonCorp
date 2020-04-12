@@ -8,5 +8,6 @@ namespace PigeonCorp.Persistence.TitleData
         public UserStateTitleData UserState;
         public PigeonTitleData Pigeon;
         public HatcheriesTitleData Hatcheries;
+        public ShippingTitleData Shipping;
     }
 }

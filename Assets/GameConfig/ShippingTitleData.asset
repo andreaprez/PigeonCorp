@@ -9,31 +9,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1dab6f9fb6914f4f93df77e1894d991b, type: 3}
-  m_Name: HatcheriesTitleData
+  m_Script: {fileID: 11500000, guid: e353b8fa815e499f8084a00bc19e0aa9, type: 3}
+  m_Name: ShippingTitleData
   m_EditorClassIdentifier: 
-  HatcheriesConfiguration:
+  ShippingConfiguration:
   - Name: One
     Icon: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
-    Cost: 10
-    MaxCapacity: 20
-    EggLayingRate: 10
+    Cost: 100
+    MaxShippingRate: 1000
   - Name: Two
     Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
-    Cost: 40
-    MaxCapacity: 50
-    EggLayingRate: 20
+    Cost: 250
+    MaxShippingRate: 2000
   - Name: Three
     Icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-    Cost: 90
-    MaxCapacity: 100
-    EggLayingRate: 50
-  InitialHatcheries:
-  - Built: 1
-    Level: 1
-  - Built: 0
+    Cost: 600
+    MaxShippingRate: 5000
+  InitialVehicles:
+  - Purchased: 0
     Level: 0
-  - Built: 0
+  - Purchased: 0
     Level: 0
-  - Built: 0
+  - Purchased: 0
     Level: 0
+  - Purchased: 0
+    Level: 0
+  TimeToSpawnVehicleInSeconds: 120
+  VehicleSpeed: 24
+  TimeToDestroyVehicle: 6

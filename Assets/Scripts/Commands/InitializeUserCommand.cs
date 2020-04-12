@@ -15,6 +15,10 @@ namespace PigeonCorp.Commands
             var hatcheriesData = new HatcheriesUserData(hatcheriesConfig);
             Gateway.Instance.UpdateHatcheriesData(hatcheriesData);
             
+            var shippingConfig = Gateway.Instance.GetShippingConfig();
+            var shippingData = new ShippingUserData(shippingConfig);
+            Gateway.Instance.UpdateShippingData(shippingData);
+            
             
             var userInitData = new UserInitializedUserData(true);
             Gateway.Instance.UpdateUserInitialized(userInitData);

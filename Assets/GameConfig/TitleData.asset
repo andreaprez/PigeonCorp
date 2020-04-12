@@ -15,3 +15,4 @@ MonoBehaviour:
   UserState: {fileID: 11400000, guid: cd97b4db5f7d0914b863e891e8a1c542, type: 2}
   Pigeon: {fileID: 11400000, guid: c2f06c74686cf3e4ca06012815aedeaa, type: 2}
   Hatcheries: {fileID: 11400000, guid: b02b54b21d6be3241834a682b4add839, type: 2}
+  Shipping: {fileID: 11400000, guid: c35ed2270d704cd42a4797b10de51f69, type: 2}
