@@ -7,7 +7,7 @@ namespace PigeonCorp.Persistence.Gateway
 {
     public class BinaryGateway : IUserDataGateway
     {
-        public T Get<T>() where T : class, new()
+        public T Get<T>() where T : class
         {
             var savePath = GetSavePath<T>();
             using (var fileStream = File.Open(savePath, FileMode.Open))
@@ -17,15 +17,13 @@ namespace PigeonCorp.Persistence.Gateway
                 try
                 {
                     data = (T) binaryFormatter.Deserialize(fileStream);
-                    fileStream.Close();
                 }
                 catch (SerializationException e)
                 {
-                    fileStream.Close();
-                    data = new T();
-                    Update(data);
+                    data = null;
                 }
 
+                fileStream.Close();
                 return data;
             }
         }
