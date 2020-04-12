@@ -11,18 +11,21 @@ namespace PigeonCorp.Commands
         private readonly UserStateModel _userStateModel;
         private readonly PigeonFactory _pigeonFactory;
         private readonly PigeonTitleData _pigeonConfig;
+        private readonly ICommand<float> _subtractCurrencyCommand;
 
         public BuyPigeonCommand(
             MainBuyButtonModel buyButtonModel,
             UserStateModel userStateModel,
             PigeonFactory pigeonFactory,
-            PigeonTitleData pigeonConfig
+            PigeonTitleData pigeonConfig,
+            ICommand<float> subtractCurrencyCommand
         )
         {
             _buyButtonModel = buyButtonModel;
             _userStateModel = userStateModel;
             _pigeonFactory = pigeonFactory;
             _pigeonConfig = pigeonConfig;
+            _subtractCurrencyCommand = subtractCurrencyCommand;
         }
         
         public void Handle()
@@ -32,7 +35,7 @@ namespace PigeonCorp.Commands
             _pigeonFactory.Create(pigeonsToAdd);
 
             var price = pigeonsToAdd * _pigeonConfig.Cost;
-            _userStateModel.SubtractCurrency(price);
+            _subtractCurrencyCommand.Handle(price);
         }
     }
 }

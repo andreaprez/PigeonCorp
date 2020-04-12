@@ -1,9 +1,10 @@
-using System;
 using System.Collections.Generic;
+using PigeonCorp.Persistence.TitleData;
+using PigeonCorp.Persistence.UserData;
 using PigeonCorp.UserState;
 using UniRx;
 
-namespace Hatchery
+namespace PigeonCorp.Hatchery
 {
     public class HatcheriesModel
     {
@@ -11,13 +12,18 @@ namespace Hatchery
         public readonly ReactiveProperty<int> MaxCapacity;
         public readonly ReactiveProperty<int> UsedCapacity;
 
-        public HatcheriesModel(UserStateModel userStateModel)
+        private readonly HatcheriesTitleData _config;
+
+        public HatcheriesModel(
+            HatcheriesTitleData config,
+            HatcheriesUserData userData,
+            UserStateModel userStateModel
+        )
         {
+            _config = config;
+            
             Hatcheries = new List<HatcheryModel>();
-            for (int i = 0; i < 4; i++)
-            {
-                Hatcheries.Add(new HatcheryModel());
-            }
+            InitHatcheries(userData.Hatcheries);
             
             MaxCapacity = new ReactiveProperty<int>(CalculateMaxCapacity());
             UsedCapacity = new ReactiveProperty<int> (userStateModel.CurrentPigeons.Value);
@@ -27,6 +33,20 @@ namespace Hatchery
         {
             UsedCapacity.Value = current;
         }
+
+        public void UpdateMaxCapacity()
+        {
+            MaxCapacity.Value = CalculateMaxCapacity();
+        }
+
+        private void InitHatcheries(List<HatcheryState> hatcheriesData)
+        {
+            for (int i = 0; i < hatcheriesData.Count; i++)
+            {
+                var hatchery = new HatcheryModel(_config, hatcheriesData[i]);
+                Hatcheries.Add(hatchery);
+            }
+        }
         
         private int CalculateMaxCapacity()
         {
@@ -34,13 +54,19 @@ namespace Hatchery
             
             foreach (var hatchery in Hatcheries)
             {
-                if (hatchery.Built)
+                if (hatchery.Built.Value)
                 {
-                    maxCapacity += hatchery.MaxCapacity;
+                    maxCapacity += hatchery.MaxCapacity.Value;
                 }
             }
 
             return maxCapacity;
+        }
+        
+        // TODO: Update user data when hatcheries change
+        public HatcheriesUserData Serialize()
+        {
+            return new HatcheriesUserData(this);
         }
     }
 }

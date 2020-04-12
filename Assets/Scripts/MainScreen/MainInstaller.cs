@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using Hatchery;
 using PigeonCorp.Bonus;
 using PigeonCorp.Commands;
+using PigeonCorp.Hatchery;
 using PigeonCorp.MainBuyButton;
 using PigeonCorp.MainTopBar;
 using PigeonCorp.UserState;
@@ -30,11 +30,21 @@ namespace PigeonCorp.MainScreen
             var titleDataGateway = new ScriptableObjectGateway(titleDataHolder);
             Gateway.Instance.Initialize(titleDataGateway, userDataGateway);
             
-            // USER DATA RETRIEVING
-            var userStateData = Gateway.Instance.GetUserStateData();
+            // USER INITIALIZATION
+            var isInitialized = Gateway.Instance.GetUserInitialized();
+            if (isInitialized == null)
+            {
+                var initUserCommand = new InitializeUserCommand();
+                initUserCommand.Handle();
+            }
             
             // TITLE DATA RETRIEVING
             var pigeonConfig = Gateway.Instance.GetPigeonConfig();
+            var hatcheriesConfig = Gateway.Instance.GetHatcheriesConfig();
+
+            // USER DATA RETRIEVING
+            var userStateData = Gateway.Instance.GetUserStateData();
+            var hatcheriesData = Gateway.Instance.GetHatcheriesData();
             
             // GAME INIT
             
@@ -47,14 +57,18 @@ namespace PigeonCorp.MainScreen
 
             var userStateModel = new UserStateModel(userStateData);
             
+            var subtractCurrencyCommand = new SubtractCurrencyCommand(userStateModel);
+            
             // TODO: Init BonusModel with all to 1
             var bonusModel = new BonusModel();
+            
             var mainBuyButtonModel = new MainBuyButtonModel(bonusModel);
             var buyPigeonCommand = new BuyPigeonCommand(
                 mainBuyButtonModel,
                 userStateModel,
                 pigeonFactory,
-                pigeonConfig
+                pigeonConfig,
+                subtractCurrencyCommand
             );
             _mainBuyButtonInstaller.Install(
                 mainBuyButtonModel,
@@ -66,8 +80,13 @@ namespace PigeonCorp.MainScreen
             var mainTopBarModel = new MainTopBarModel(userStateModel);
             _mainTopBarInstaller.Install(mainTopBarModel, userStateModel);
             
-            var hatcheriesModel = new HatcheriesModel(userStateModel);
-            _hatcheriesInstaller.Install(hatcheriesModel, userStateModel);
+            var hatcheriesModel = new HatcheriesModel(hatcheriesConfig, hatcheriesData, userStateModel);
+            _hatcheriesInstaller.Install(
+                hatcheriesModel,
+                hatcheriesConfig,
+                userStateModel,
+                subtractCurrencyCommand
+            );
         }
     }
 }

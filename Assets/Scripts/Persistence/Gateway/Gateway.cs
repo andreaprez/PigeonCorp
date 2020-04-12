@@ -30,16 +30,36 @@ namespace PigeonCorp.Persistence.Gateway
 
         #region UserData
         
-        public void UpdateUserStateData(UserStateUserData data)
+        public UserInitializedUserData GetUserInitialized()
+        {
+            return UserDataGateway.Get<UserInitializedUserData>();
+        }
+        
+        public void UpdateUserInitialized(UserInitializedUserData data)
         {
             UserDataGateway.Update(data);
         }
-
+        
         public UserStateUserData GetUserStateData()
         {
             return UserDataGateway.Get<UserStateUserData>();
         }
         
+        public void UpdateUserStateData(UserStateUserData data)
+        {
+            UserDataGateway.Update(data);
+        }
+        
+        public HatcheriesUserData GetHatcheriesData()
+        {
+            return UserDataGateway.Get<HatcheriesUserData>();
+        }
+        
+        public void UpdateHatcheriesData(HatcheriesUserData data)
+        {
+            UserDataGateway.Update(data);
+        }
+
         #endregion
 
         
@@ -48,7 +68,16 @@ namespace PigeonCorp.Persistence.Gateway
         public PigeonTitleData GetPigeonConfig()
         {
             return TitleDataGateway.Get<PigeonTitleData>();
+        }
 
+        public UserStateTitleData GetUserStateConfig()
+        {
+            return TitleDataGateway.Get<UserStateTitleData>();
+        }
+        
+        public HatcheriesTitleData GetHatcheriesConfig()
+        {
+            return TitleDataGateway.Get<HatcheriesTitleData>();
         }
         
         #endregion

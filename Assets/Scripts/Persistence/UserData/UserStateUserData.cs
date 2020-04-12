@@ -1,4 +1,5 @@
 using System;
+using PigeonCorp.Persistence.TitleData;
 using PigeonCorp.UserState;
 
 namespace PigeonCorp.Persistence.UserData
@@ -10,16 +11,16 @@ namespace PigeonCorp.Persistence.UserData
         public readonly float Currency;
 
 
-        public UserStateUserData()
+        public UserStateUserData(UserStateTitleData config)
         {
-            CurrentPigeons = 0;
-            Currency = 1000;
+            CurrentPigeons = config.InitialPigeons;
+            Currency = config.InitialCurrency;
         }
         
-        public UserStateUserData(UserStateModel userStateModel)
+        public UserStateUserData(UserStateModel model)
         {
-            CurrentPigeons = userStateModel.CurrentPigeons.Value;
-            Currency = userStateModel.Currency.Value;
+            CurrentPigeons = model.CurrentPigeons.Value;
+            Currency = model.Currency.Value;
         }
     }
 }
