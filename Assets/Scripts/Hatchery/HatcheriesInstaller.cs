@@ -33,7 +33,8 @@ namespace PigeonCorp.Hatchery
                 config,
                 userStateModel,
                 subtractCurrencyCommand,
-                spawnHatcheryCommand
+                spawnHatcheryCommand,
+                _hatcheryContainers
             );
         }
     }
