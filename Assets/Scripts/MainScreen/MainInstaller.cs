@@ -39,19 +39,20 @@ namespace PigeonCorp.MainScreen
             var pigeonConfig = Gateway.Instance.GetPigeonConfig();
             var hatcheriesConfig = Gateway.Instance.GetHatcheriesConfig();
             var shippingConfig = Gateway.Instance.GetShippingConfig();
+            var bonusConfig = Gateway.Instance.GetBonusConfig();
 
             // USER DATA RETRIEVING
             var userStateData = Gateway.Instance.GetUserStateData();
             var hatcheriesData = Gateway.Instance.GetHatcheriesData();
             var shippingData = Gateway.Instance.GetShippingData();
+            var bonusData = Gateway.Instance.GetBonusData();
             
             // GAME INIT
             var userStateModel = new UserStateModel(userStateData);
             
             var subtractCurrencyCommand = new SubtractCurrencyCommand(userStateModel);
             
-            // TODO: Init BonusModel with all to 1
-            var bonusModel = new BonusModel();
+            var bonusModel = new BonusModel(bonusData, bonusConfig);
             
             var mainBuyButtonModel = new MainBuyButtonModel(bonusModel);
             _mainBuyButtonInstaller.Install(
