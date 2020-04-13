@@ -9,5 +9,6 @@ namespace PigeonCorp.Persistence.TitleData
         public PigeonTitleData Pigeon;
         public HatcheriesTitleData Hatcheries;
         public ShippingTitleData Shipping;
+        public BonusTitleData Bonus;
     }
 }
