@@ -20,6 +20,7 @@ namespace PigeonCorp.MainScreen
         [SerializeField] private HatcheriesInstaller _hatcheriesInstaller;
         [SerializeField] private ShippingInstaller _shippingInstaller;
 
+
         private void Start()
         {
             // GATEWAY INITIALIZATION
@@ -53,14 +54,6 @@ namespace PigeonCorp.MainScreen
             var subtractCurrencyCommand = new SubtractCurrencyCommand(userStateModel);
             
             var bonusModel = new BonusModel(bonusData, bonusConfig);
-            
-            var mainBuyButtonModel = new MainBuyButtonModel(bonusModel);
-            _mainBuyButtonInstaller.Install(
-                mainBuyButtonModel,
-                userStateModel,
-                pigeonConfig,
-                subtractCurrencyCommand
-            );
 
             var mainTopBarModel = new MainTopBarModel(userStateModel);
             _mainTopBarInstaller.Install(mainTopBarModel, userStateModel);
@@ -71,6 +64,15 @@ namespace PigeonCorp.MainScreen
                 hatcheriesConfig,
                 userStateModel,
                 subtractCurrencyCommand
+            );
+            
+            var mainBuyButtonModel = new MainBuyButtonModel(bonusModel);
+            _mainBuyButtonInstaller.Install(
+                mainBuyButtonModel,
+                userStateModel,
+                pigeonConfig,
+                subtractCurrencyCommand,
+                hatcheriesModel
             );
             
             var shippingModel = new ShippingModel(shippingConfig, shippingData, hatcheriesModel);

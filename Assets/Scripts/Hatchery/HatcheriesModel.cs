@@ -3,6 +3,7 @@ using PigeonCorp.Persistence.TitleData;
 using PigeonCorp.Persistence.UserData;
 using PigeonCorp.UserState;
 using UniRx;
+using UnityEngine;
 
 namespace PigeonCorp.Hatchery
 {
@@ -12,8 +13,9 @@ namespace PigeonCorp.Hatchery
         public readonly ReactiveProperty<int> MaxCapacity;
         public readonly ReactiveProperty<int> UsedCapacity;
         public readonly ReactiveProperty<int> TotalProduction;
-
+        
         private readonly HatcheriesTitleData _config;
+        private List<Transform> _hatcheryEntrances;
 
         public HatcheriesModel(
             HatcheriesTitleData config,
@@ -32,6 +34,11 @@ namespace PigeonCorp.Hatchery
             TotalProduction = new ReactiveProperty<int>(CalculateTotalProduction());
         }
 
+        public void SetHatcheryEntrances(List<Transform> entrances)
+        {
+            _hatcheryEntrances = entrances;
+        }
+        
         public void UpdateUsedCapacity(int currentPigeons)
         {
             UsedCapacity.Value = currentPigeons;
@@ -45,6 +52,22 @@ namespace PigeonCorp.Hatchery
         public void UpdateTotalProduction()
         {
             TotalProduction.Value = CalculateTotalProduction();
+        }
+        
+        public Transform GetRandomBuiltHatchery()
+        {
+            var randomId = Random.Range(0, Hatcheries.Count);
+            while (!Hatcheries[randomId].Built.Value)
+            {
+                randomId = Random.Range(0, Hatcheries.Count);
+            }
+
+            return _hatcheryEntrances[randomId];
+        }
+       
+        public HatcheriesUserData Serialize()
+        {
+            return new HatcheriesUserData(this);
         }
 
         private void InitHatcheries(List<HatcheryState> hatcheriesData)
@@ -87,11 +110,6 @@ namespace PigeonCorp.Hatchery
             }
 
             return production;
-        }
-        
-        public HatcheriesUserData Serialize()
-        {
-            return new HatcheriesUserData(this);
         }
     }
 }

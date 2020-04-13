@@ -25,7 +25,8 @@ namespace PigeonCorp.Hatchery
             HatcheriesTitleData config,
             UserStateModel userStateModel,
             ICommand<float> subtractCurrencyCommand,
-            ICommand<int, int> spawnHatcheryCommand
+            ICommand<int, int> spawnHatcheryCommand,
+            List<Transform> hatcheryEntrances
         )
         {
             _model = model;
@@ -35,6 +36,8 @@ namespace PigeonCorp.Hatchery
             _subtractCurrencyCommand = subtractCurrencyCommand;
             _spawnHatcheryCommand = spawnHatcheryCommand;
 
+            model.SetHatcheryEntrances(hatcheryEntrances);
+            
             view.GetOpenButtonAsObservable().Subscribe(open =>
             {
                 view.Open();
