@@ -1,37 +1,32 @@
-using PigeonCorp.MainBuyButton;
 using PigeonCorp.Persistence.TitleData;
 
 namespace PigeonCorp.Commands
 {
-    public class BuyPigeonCommand : ICommand
+    public class BuyPigeonCommand : ICommand<int>
     {
-        private readonly MainBuyButtonModel _buyButtonModel;
         private readonly ICommand _spawnPigeonCommand;
         private readonly PigeonTitleData _pigeonConfig;
         private readonly ICommand<float> _subtractCurrencyCommand;
 
         public BuyPigeonCommand(
-            MainBuyButtonModel buyButtonModel,
             ICommand spawnPigeonCommand,
             PigeonTitleData pigeonConfig,
             ICommand<float> subtractCurrencyCommand
         )
         {
-            _buyButtonModel = buyButtonModel;
             _spawnPigeonCommand = spawnPigeonCommand;
             _pigeonConfig = pigeonConfig;
             _subtractCurrencyCommand = subtractCurrencyCommand;
         }
         
-        public void Handle()
+        public void Handle(int quantity)
         {
-            var pigeonsToAdd = _buyButtonModel.PigeonsPerClick;
-            for (int i = 0; i < pigeonsToAdd; i++)
+            for (int i = 0; i < quantity; i++)
             {
                 _spawnPigeonCommand.Handle();
             }
 
-            var price = pigeonsToAdd * _pigeonConfig.Cost;
+            var price = quantity * _pigeonConfig.Cost;
             _subtractCurrencyCommand.Handle(price);
         }
     }

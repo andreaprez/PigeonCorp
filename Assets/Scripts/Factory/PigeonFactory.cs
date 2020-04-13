@@ -1,10 +1,11 @@
 using System.Collections.Generic;
+using PigeonCorp.MainScreen;
 using PigeonCorp.Persistence.TitleData;
 using UnityEngine;
 
-namespace PigeonCorp.MainScreen
+namespace PigeonCorp.Factory
 {
-    public class PigeonFactory
+    public class PigeonFactory : IFactory<int>
     {
         private readonly PigeonBehaviour _pigeonPrefab;
         private readonly Transform _container;

@@ -11,7 +11,7 @@ namespace PigeonCorp.MainBuyButton
         public MainBuyButtonMediator(
             MainBuyButtonView view,
             MainBuyButtonModel model,
-            ICommand buyPigeonCommand,
+            ICommand<int> buyPigeonCommand,
             UserStateModel userStateModel,
             PigeonTitleData pigeonConfig
         )
@@ -31,7 +31,7 @@ namespace PigeonCorp.MainBuyButton
             
             view.GetButtonAsObservable().Subscribe(onClick =>
             {
-                buyPigeonCommand.Handle();
+                buyPigeonCommand.Handle(model.PigeonsPerClick);
             }).AddTo(MainDispatcher.Disposables);
         }
     }

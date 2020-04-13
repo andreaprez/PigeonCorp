@@ -17,7 +17,7 @@ namespace PigeonCorp.Hatchery
         private readonly HatcheriesTitleData _config;
         private readonly UserStateModel _userStateModel;
         private readonly ICommand<float> _subtractCurrencyCommand;
-        private readonly List<GameObject> _hatcheryPrefabs;
+        private readonly ICommand<int, int> _spawnHatcheryCommand;
 
         public HatcheriesMediator(
             HatcheriesModel model,
@@ -25,7 +25,7 @@ namespace PigeonCorp.Hatchery
             HatcheriesTitleData config,
             UserStateModel userStateModel,
             ICommand<float> subtractCurrencyCommand,
-            List<GameObject> hatcheryPrefabs
+            ICommand<int, int> spawnHatcheryCommand
         )
         {
             _model = model;
@@ -33,7 +33,7 @@ namespace PigeonCorp.Hatchery
             _config = config;
             _userStateModel = userStateModel;
             _subtractCurrencyCommand = subtractCurrencyCommand;
-            _hatcheryPrefabs = hatcheryPrefabs;
+            _spawnHatcheryCommand = spawnHatcheryCommand;
 
             view.GetOpenButtonAsObservable().Subscribe(open =>
             {
@@ -105,8 +105,7 @@ namespace PigeonCorp.Hatchery
                         if (level > 0)
                         {
                             var prefabId = _model.Hatcheries[hatcheryId].Level.Value - 1;
-                            var prefab = _hatcheryPrefabs[prefabId];
-                            _view.PlaceHatcheryBuildingInWorld(hatcheryId, prefab);
+                            _spawnHatcheryCommand.Handle(prefabId, hatcheryId);
                         }
 
                         var maxLevel = _config.HatcheriesConfiguration.Count;

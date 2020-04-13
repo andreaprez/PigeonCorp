@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using PigeonCorp.Persistence.TitleData;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
@@ -55,16 +54,6 @@ namespace PigeonCorp.Shipping
         public void SetVehiclePurchased(int vehicleId, bool purchased)
         {
             _vehicleViews[vehicleId].SetPurchased(purchased);
-        }
-
-        public void SetVehiclePrefab(int hatcheryId, VehicleBehaviour prefab)
-        {
-            _vehicleViews[hatcheryId].SetVehiclePrefab(prefab);
-        }
-        
-        public void SpawnVehicleInWorld(int vehicleId, ShippingTitleData config)
-        {
-            _vehicleViews[vehicleId].SpawnVehicleInWorld(config);
         }
 
         public void HideVehicleUpgradeUI(int vehicleId)

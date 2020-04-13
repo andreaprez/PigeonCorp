@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using PigeonCorp.Bonus;
 using PigeonCorp.Commands;
 using PigeonCorp.Hatchery;
@@ -20,10 +19,6 @@ namespace PigeonCorp.MainScreen
         [SerializeField] private MainTopBarInstaller _mainTopBarInstaller;
         [SerializeField] private HatcheriesInstaller _hatcheriesInstaller;
         [SerializeField] private ShippingInstaller _shippingInstaller;
-        [Space]
-        [SerializeField] private PigeonBehaviour _pigeonPrefab;
-        [SerializeField] private Transform _pigeonContainer;
-        [SerializeField] private List<Transform> _pigeonRoutePoints;
 
         private void Start()
         {
@@ -51,34 +46,19 @@ namespace PigeonCorp.MainScreen
             var shippingData = Gateway.Instance.GetShippingData();
             
             // GAME INIT
-            
-            var pigeonFactory = new PigeonFactory(
-                _pigeonPrefab,
-                _pigeonContainer,
-                _pigeonRoutePoints,
-                pigeonConfig
-            );
-
             var userStateModel = new UserStateModel(userStateData);
             
             var subtractCurrencyCommand = new SubtractCurrencyCommand(userStateModel);
-            var spawnPigeonCommand = new SpawnPigeonCommand(userStateModel, pigeonFactory);
             
             // TODO: Init BonusModel with all to 1
             var bonusModel = new BonusModel();
             
             var mainBuyButtonModel = new MainBuyButtonModel(bonusModel);
-            var buyPigeonCommand = new BuyPigeonCommand(
-                mainBuyButtonModel,
-                spawnPigeonCommand,
-                pigeonConfig,
-                subtractCurrencyCommand
-            );
             _mainBuyButtonInstaller.Install(
                 mainBuyButtonModel,
-                buyPigeonCommand,
                 userStateModel,
-                pigeonConfig
+                pigeonConfig,
+                subtractCurrencyCommand
             );
 
             var mainTopBarModel = new MainTopBarModel(userStateModel);

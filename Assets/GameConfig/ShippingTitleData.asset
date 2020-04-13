@@ -34,6 +34,6 @@ MonoBehaviour:
     Level: 0
   - Purchased: 0
     Level: 0
-  TimeToSpawnVehicleInSeconds: 120
+  TimeToSpawnVehicleInSeconds: 80
   VehicleSpeed: 24
   TimeToDestroyVehicle: 6

@@ -20,10 +20,7 @@ namespace PigeonCorp.Shipping
         [SerializeField] private Text _shippingRateText;
         [SerializeField] private Text _purchaseCostText;
         [SerializeField] private Text _upgradeCostText;
-        [Space]
-        [SerializeField] private Transform _vehicleContainer;
         
-        private VehicleBehaviour _currentVehicle;
         
         public IObservable<Unit> GetPurchaseButtonAsObservable()
         {
@@ -39,17 +36,6 @@ namespace PigeonCorp.Shipping
         {
             _emptyView.SetActive(!purchased);
             _obtainedView.SetActive(purchased);
-        }
-
-        public void SetVehiclePrefab(VehicleBehaviour prefab)
-        {
-            _currentVehicle = prefab;
-        }
-        
-        public void SpawnVehicleInWorld(ShippingTitleData config)
-        {
-            var vehicle = Instantiate(_currentVehicle, _vehicleContainer);
-            vehicle.Initialize(config);
         }
 
         public void HideUpgradeUI()

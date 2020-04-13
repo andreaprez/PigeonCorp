@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using PigeonCorp.Commands;
+using PigeonCorp.Factory;
 using PigeonCorp.Hatchery;
 using PigeonCorp.Persistence.TitleData;
 using PigeonCorp.UserState;
@@ -10,7 +11,9 @@ namespace PigeonCorp.Shipping
     public class ShippingInstaller : MonoBehaviour
     {
         [SerializeField] private ShippingView _view;
+        [Space]
         [SerializeField] private List<VehicleBehaviour> _vehiclePrefabs;
+        [SerializeField] private Transform _vehicleContainer;
 
         public void Install(
             ShippingModel model,
@@ -20,6 +23,13 @@ namespace PigeonCorp.Shipping
             ICommand<float> subtractCurrencyCommand
         )
         {
+            var vehicleFactory = new VehicleFactory(
+                _vehiclePrefabs,
+                _vehicleContainer,
+                config
+            );
+            var spawnVehicleCommand = new SpawnVehicleCommand(vehicleFactory);
+
             var mediator = new ShippingMediator(
                 model,
                 _view,
@@ -27,7 +37,7 @@ namespace PigeonCorp.Shipping
                 hatcheriesModel,
                 userStateModel,
                 subtractCurrencyCommand,
-                _vehiclePrefabs
+                spawnVehicleCommand
             );
         }
     }

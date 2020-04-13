@@ -160,6 +160,7 @@ MonoBehaviour:
   - {fileID: 3440691463020815146, guid: 37f79e7451d257745854be0c2f1cf2f3, type: 3}
   - {fileID: 1261114773353114602, guid: 18274e2ec602e704e9c9db802a4a81c1, type: 3}
   - {fileID: 3803406590141371570, guid: 93edb52d0bc12224d9e210811adb7134, type: 3}
+  _vehicleContainer: {fileID: 1027828093}
 --- !u!1 &39264224
 GameObject:
   m_ObjectHideFlags: 0
@@ -732,16 +733,6 @@ MonoBehaviour:
   _mainTopBarInstaller: {fileID: 269370906}
   _hatcheriesInstaller: {fileID: 1930912108}
   _shippingInstaller: {fileID: 29401536}
-  _pigeonPrefab: {fileID: 5893904801407025503, guid: 50f39a572a1594847b233c0b6d797a33,
-    type: 3}
-  _pigeonContainer: {fileID: 1398813453}
-  _pigeonRoutePoints:
-  - {fileID: 523646807}
-  - {fileID: 1827327673}
-  - {fileID: 413591501}
-  - {fileID: 233249789}
-  - {fileID: 39264225}
-  - {fileID: 1212352154}
 --- !u!1 &523646806
 GameObject:
   m_ObjectHideFlags: 0
@@ -1543,6 +1534,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _view: {fileID: 1280785824}
+  _pigeonPrefab: {fileID: 5893904801407025503, guid: 50f39a572a1594847b233c0b6d797a33,
+    type: 3}
+  _pigeonContainer: {fileID: 1398813453}
+  _pigeonRoutePoints:
+  - {fileID: 523646807}
+  - {fileID: 1827327673}
+  - {fileID: 413591501}
+  - {fileID: 233249789}
+  - {fileID: 39264225}
+  - {fileID: 1212352154}
 --- !u!1 &1751785110
 GameObject:
   m_ObjectHideFlags: 0
@@ -1684,6 +1685,11 @@ MonoBehaviour:
   - {fileID: 3140929547840238103, guid: 18397c63fc0a0b94fb0965efde602efb, type: 3}
   - {fileID: 3609013541896327834, guid: 712a808d64034d446b30f65a7aff7dd4, type: 3}
   - {fileID: 915017268197397015, guid: 1507a07badc275c4ba18548d16961fa6, type: 3}
+  _hatcheryContainers:
+  - {fileID: 103670044}
+  - {fileID: 407962262}
+  - {fileID: 1824486479}
+  - {fileID: 752180172}
 --- !u!1 &1967044636
 GameObject:
   m_ObjectHideFlags: 0

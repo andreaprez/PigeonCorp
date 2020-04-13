@@ -12,7 +12,6 @@ namespace PigeonCorp.Shipping
         
         public void Initialize(ShippingTitleData config)
         {
-            // TODO: Create a factory ??
             _speed = config.VehicleSpeed;
             _timeToDestroy = config.TimeToDestroyVehicle;
 

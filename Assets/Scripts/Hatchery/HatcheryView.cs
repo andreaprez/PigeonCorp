@@ -19,10 +19,6 @@ namespace PigeonCorp.Hatchery
         [SerializeField] private Text _capacityText;
         [SerializeField] private Text _buildCostText;
         [SerializeField] private Text _upgradeCostText;
-        [Space]
-        [SerializeField] private Transform _hatcheryContainer;
-        
-        private GameObject _currentBuilding;
         
         public IObservable<Unit> GetBuildButtonAsObservable()
         {
@@ -38,15 +34,6 @@ namespace PigeonCorp.Hatchery
         {
             _emptyView.SetActive(!built);
             _builtView.SetActive(built);
-        }
-
-        public void PlaceBuildingInWorld(GameObject prefab)
-        {
-            if (_currentBuilding != null)
-            {
-                Destroy(_currentBuilding);
-            }
-            _currentBuilding = Instantiate(prefab, _hatcheryContainer);
         }
 
         public void HideUpgradeUI()

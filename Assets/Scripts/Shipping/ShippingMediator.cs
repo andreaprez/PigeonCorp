@@ -20,7 +20,7 @@ namespace PigeonCorp.Shipping
         private readonly HatcheriesModel _hatcheriesModel;
         private readonly UserStateModel _userStateModel;
         private readonly ICommand<float> _subtractCurrencyCommand;
-        private readonly List<VehicleBehaviour> _vehiclePrefabs;
+        private readonly ICommand<int> _spawnVehicleCommand;
 
         public ShippingMediator(
             ShippingModel model,
@@ -29,7 +29,7 @@ namespace PigeonCorp.Shipping
             HatcheriesModel hatcheriesModel,
             UserStateModel userStateModel,
             ICommand<float> subtractCurrencyCommand,
-            List<VehicleBehaviour> vehiclePrefabs
+            ICommand<int> spawnVehicleCommand
         )
         {
             _model = model;
@@ -38,7 +38,7 @@ namespace PigeonCorp.Shipping
             _hatcheriesModel = hatcheriesModel;
             _userStateModel = userStateModel;
             _subtractCurrencyCommand = subtractCurrencyCommand;
-            _vehiclePrefabs = vehiclePrefabs;
+            _spawnVehicleCommand = spawnVehicleCommand;
 
             view.GetOpenButtonAsObservable().Subscribe(open =>
             {
@@ -110,13 +110,6 @@ namespace PigeonCorp.Shipping
 
                 _model.Vehicles[i].Level.AsObservable().Subscribe(level =>
                     {
-                        if (level > 0)
-                        {
-                            var prefabId = _model.Vehicles[vehicleId].Level.Value - 1;
-                            var prefab = _vehiclePrefabs[prefabId];
-                            _view.SetVehiclePrefab(vehicleId, prefab);
-                        }
-
                         var maxLevel = _config.ShippingConfiguration.Count;
                         if (level == maxLevel)
                         {
@@ -197,8 +190,9 @@ namespace PigeonCorp.Shipping
                 {
                     randomId = Random.Range(0, _model.Vehicles.Count);
                 }
-                
-                _view.SpawnVehicleInWorld(randomId, _config);
+
+                var prefabId = _model.Vehicles[randomId].Level.Value - 1;
+                _spawnVehicleCommand.Handle(prefabId);
             }
         }
     }
