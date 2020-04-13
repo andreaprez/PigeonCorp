@@ -7,20 +7,20 @@ namespace PigeonCorp.Persistence.UserData
     [Serializable]
     public class UserStateUserData
     {
-        public readonly int CurrentPigeons;
         public readonly float Currency;
+        public readonly int CurrentPigeons;
 
 
         public UserStateUserData(UserStateTitleData config)
         {
-            CurrentPigeons = config.InitialPigeons;
             Currency = config.InitialCurrency;
+            CurrentPigeons = config.InitialPigeons;
         }
         
         public UserStateUserData(UserStateModel model)
         {
-            CurrentPigeons = model.CurrentPigeons.Value;
             Currency = model.Currency.Value;
+            CurrentPigeons = model.CurrentPigeons.Value;
         }
     }
 }

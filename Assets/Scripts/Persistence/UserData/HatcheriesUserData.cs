@@ -23,9 +23,11 @@ namespace PigeonCorp.Persistence.UserData
             for (int i = 0; i < model.Hatcheries.Count; i++)
             {
                 var hatcheryModel = model.Hatcheries[i];
-                var hatcheryData = new HatcheryState();
-                hatcheryData.Built = hatcheryModel.Built.Value;
-                hatcheryData.Level = hatcheryModel.Level.Value;
+                var hatcheryData = new HatcheryState
+                {
+                    Built = hatcheryModel.Built.Value,
+                    Level = hatcheryModel.Level.Value
+                };
                 Hatcheries.Add(hatcheryData);
             }
         }

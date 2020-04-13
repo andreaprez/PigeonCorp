@@ -17,14 +17,17 @@ MonoBehaviour:
     Icon: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
     Cost: 10
     MaxCapacity: 20
+    EggLayingRate: 10
   - Name: Two
     Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
     Cost: 40
     MaxCapacity: 50
+    EggLayingRate: 20
   - Name: Three
     Icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
     Cost: 90
     MaxCapacity: 100
+    EggLayingRate: 50
   InitialHatcheries:
   - Built: 1
     Level: 1

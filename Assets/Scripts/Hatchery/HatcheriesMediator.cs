@@ -4,6 +4,7 @@ using PigeonCorp.Dispatcher;
 using PigeonCorp.Persistence.Gateway;
 using PigeonCorp.Persistence.TitleData;
 using PigeonCorp.UserState;
+using PigeonCorp.Utils;
 using UniRx;
 using UnityEngine;
 
@@ -16,7 +17,7 @@ namespace PigeonCorp.Hatchery
         private readonly HatcheriesTitleData _config;
         private readonly UserStateModel _userStateModel;
         private readonly ICommand<float> _subtractCurrencyCommand;
-        private readonly List<GameObject> _hatcheryPrefabs;
+        private readonly ICommand<int, int> _spawnHatcheryCommand;
 
         public HatcheriesMediator(
             HatcheriesModel model,
@@ -24,7 +25,7 @@ namespace PigeonCorp.Hatchery
             HatcheriesTitleData config,
             UserStateModel userStateModel,
             ICommand<float> subtractCurrencyCommand,
-            List<GameObject> hatcheryPrefabs
+            ICommand<int, int> spawnHatcheryCommand
         )
         {
             _model = model;
@@ -32,7 +33,7 @@ namespace PigeonCorp.Hatchery
             _config = config;
             _userStateModel = userStateModel;
             _subtractCurrencyCommand = subtractCurrencyCommand;
-            _hatcheryPrefabs = hatcheryPrefabs;
+            _spawnHatcheryCommand = spawnHatcheryCommand;
 
             view.GetOpenButtonAsObservable().Subscribe(open =>
             {
@@ -46,7 +47,7 @@ namespace PigeonCorp.Hatchery
             
             model.UsedCapacity.AsObservable().Subscribe(used =>
             {
-                var capacityPercentage = ComputeCapacityPercentage(
+                var capacityPercentage = MathUtils.CalculatePercentage(
                     used,
                     _model.MaxCapacity.Value
                 );
@@ -56,7 +57,7 @@ namespace PigeonCorp.Hatchery
             model.MaxCapacity.AsObservable().Subscribe(max =>
             {
                 view.UpdateMaxCapacityText(max);
-                var capacityPercentage = ComputeCapacityPercentage(
+                var capacityPercentage = MathUtils.CalculatePercentage(
                     _model.UsedCapacity.Value,
                     max
                 );
@@ -91,22 +92,20 @@ namespace PigeonCorp.Hatchery
                     }).AddTo(MainDispatcher.Disposables);
                 
                 _view.GetHatcheryView(hatcheryId).GetUpgradeButtonAsObservable()
-                    .Subscribe(build =>
+                    .Subscribe(upgrade =>
                     {
                         var cost = _model.Hatcheries[hatcheryId].NextCost.Value;
                         _model.Hatcheries[hatcheryId].Upgrade();
                         _subtractCurrencyCommand.Handle(cost);
                         Gateway.Instance.UpdateHatcheriesData(_model.Serialize());
                     }).AddTo(MainDispatcher.Disposables);
-                
 
                 _model.Hatcheries[i].Level.AsObservable().Subscribe(level =>
                     {
                         if (level > 0)
                         {
                             var prefabId = _model.Hatcheries[hatcheryId].Level.Value - 1;
-                            var prefab = _hatcheryPrefabs[prefabId];
-                            _view.PlaceHatcheryBuildingInWorld(hatcheryId, prefab);
+                            _spawnHatcheryCommand.Handle(prefabId, hatcheryId);
                         }
 
                         var maxLevel = _config.HatcheriesConfiguration.Count;
@@ -133,13 +132,15 @@ namespace PigeonCorp.Hatchery
                 
                 _model.Hatcheries[i].UsedCapacity.AsObservable().Subscribe(usedCap =>
                     {
-                        var percentage = ComputeCapacityPercentage(
+                        var percentage = MathUtils.CalculatePercentage(
                             usedCap,
                             _model.Hatcheries[hatcheryId].MaxCapacity.Value
                         );
                         _view.UpdateHatcheryCapacityPercentage(hatcheryId, percentage);
+                        
+                        _model.UpdateTotalProduction();
                     }).AddTo(MainDispatcher.Disposables);
-                
+
                 _model.Hatcheries[i].MaxCapacity.AsObservable().Subscribe(maxCap =>
                     {
                         _model.UpdateMaxCapacity();
@@ -149,6 +150,11 @@ namespace PigeonCorp.Hatchery
                             SetUsedCapacityOfSingleHatchery(id);
                         }
                     }).AddTo(MainDispatcher.Disposables);
+
+                _model.Hatcheries[i].EggLayingRate.AsObservable().Subscribe(layingRate =>
+                {
+                    _model.UpdateTotalProduction();
+                }).AddTo(MainDispatcher.Disposables);
                 
                 _model.UsedCapacity.AsObservable().Subscribe(used =>
                     {
@@ -164,24 +170,10 @@ namespace PigeonCorp.Hatchery
                     .AddTo(MainDispatcher.Disposables);
             }
         }
-        
-        private float ComputeCapacityPercentage(float quantity, float total)
-        {
-            var percentage = 0f;
-            if (quantity > total)
-            {
-                percentage = 1f;
-            }
-            else if (quantity > 0 && total > 0)
-            {
-                percentage = quantity / total;
-            }
-            return percentage;
-        }
 
         private void SetUsedCapacityOfSingleHatchery(int hatcheryId)
         {
-            var percentageOfTotalCapacity = ComputeCapacityPercentage(
+            var percentageOfTotalCapacity = MathUtils.CalculatePercentage(
                 _model.Hatcheries[hatcheryId].MaxCapacity.Value,
                 _model.MaxCapacity.Value
             );

@@ -56,11 +56,6 @@ namespace PigeonCorp.Hatchery
             _hatcheryViews[hatcheryId].SetBuilt(built);
         }
 
-        public void PlaceHatcheryBuildingInWorld(int hatcheryId, GameObject prefab)
-        {
-            _hatcheryViews[hatcheryId].PlaceBuildingInWorld(prefab);
-        }
-
         public void HideHatcheryUpgradeUI(int hatcheryId)
         {
             _hatcheryViews[hatcheryId].HideUpgradeUI();

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using PigeonCorp.Bonus;
 using PigeonCorp.Commands;
 using PigeonCorp.Hatchery;
@@ -7,6 +6,7 @@ using PigeonCorp.MainTopBar;
 using PigeonCorp.UserState;
 using PigeonCorp.Persistence.Gateway;
 using PigeonCorp.Persistence.TitleData;
+using PigeonCorp.Shipping;
 using UnityEngine;
 
 namespace PigeonCorp.MainScreen
@@ -18,10 +18,7 @@ namespace PigeonCorp.MainScreen
         [SerializeField] private MainBuyButtonInstaller _mainBuyButtonInstaller;
         [SerializeField] private MainTopBarInstaller _mainTopBarInstaller;
         [SerializeField] private HatcheriesInstaller _hatcheriesInstaller;
-        [Space]
-        [SerializeField] private PigeonView _pigeonPrefab;
-        [SerializeField] private Transform _pigeonContainer;
-        [SerializeField] private List<Transform> _pigeonRoutePoints;
+        [SerializeField] private ShippingInstaller _shippingInstaller;
 
         private void Start()
         {
@@ -41,20 +38,14 @@ namespace PigeonCorp.MainScreen
             // TITLE DATA RETRIEVING
             var pigeonConfig = Gateway.Instance.GetPigeonConfig();
             var hatcheriesConfig = Gateway.Instance.GetHatcheriesConfig();
+            var shippingConfig = Gateway.Instance.GetShippingConfig();
 
             // USER DATA RETRIEVING
             var userStateData = Gateway.Instance.GetUserStateData();
             var hatcheriesData = Gateway.Instance.GetHatcheriesData();
+            var shippingData = Gateway.Instance.GetShippingData();
             
             // GAME INIT
-            
-            var pigeonFactory = new PigeonFactory(
-                _pigeonPrefab,
-                _pigeonContainer,
-                _pigeonRoutePoints,
-                pigeonConfig
-            );
-
             var userStateModel = new UserStateModel(userStateData);
             
             var subtractCurrencyCommand = new SubtractCurrencyCommand(userStateModel);
@@ -63,18 +54,11 @@ namespace PigeonCorp.MainScreen
             var bonusModel = new BonusModel();
             
             var mainBuyButtonModel = new MainBuyButtonModel(bonusModel);
-            var buyPigeonCommand = new BuyPigeonCommand(
-                mainBuyButtonModel,
-                userStateModel,
-                pigeonFactory,
-                pigeonConfig,
-                subtractCurrencyCommand
-            );
             _mainBuyButtonInstaller.Install(
                 mainBuyButtonModel,
-                buyPigeonCommand,
                 userStateModel,
-                pigeonConfig
+                pigeonConfig,
+                subtractCurrencyCommand
             );
 
             var mainTopBarModel = new MainTopBarModel(userStateModel);
@@ -84,6 +68,15 @@ namespace PigeonCorp.MainScreen
             _hatcheriesInstaller.Install(
                 hatcheriesModel,
                 hatcheriesConfig,
+                userStateModel,
+                subtractCurrencyCommand
+            );
+            
+            var shippingModel = new ShippingModel(shippingConfig, shippingData, hatcheriesModel);
+            _shippingInstaller.Install(
+                shippingModel,
+                shippingConfig,
+                hatcheriesModel,
                 userStateModel,
                 subtractCurrencyCommand
             );

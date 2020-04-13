@@ -11,6 +11,7 @@ namespace PigeonCorp.Hatchery
         public readonly List<HatcheryModel> Hatcheries;
         public readonly ReactiveProperty<int> MaxCapacity;
         public readonly ReactiveProperty<int> UsedCapacity;
+        public readonly ReactiveProperty<int> TotalProduction;
 
         private readonly HatcheriesTitleData _config;
 
@@ -27,16 +28,23 @@ namespace PigeonCorp.Hatchery
             
             MaxCapacity = new ReactiveProperty<int>(CalculateMaxCapacity());
             UsedCapacity = new ReactiveProperty<int> (userStateModel.CurrentPigeons.Value);
+            
+            TotalProduction = new ReactiveProperty<int>(CalculateTotalProduction());
         }
 
-        public void UpdateUsedCapacity(int current)
+        public void UpdateUsedCapacity(int currentPigeons)
         {
-            UsedCapacity.Value = current;
+            UsedCapacity.Value = currentPigeons;
         }
 
         public void UpdateMaxCapacity()
         {
             MaxCapacity.Value = CalculateMaxCapacity();
+        }
+        
+        public void UpdateTotalProduction()
+        {
+            TotalProduction.Value = CalculateTotalProduction();
         }
 
         private void InitHatcheries(List<HatcheryState> hatcheriesData)
@@ -62,8 +70,25 @@ namespace PigeonCorp.Hatchery
 
             return maxCapacity;
         }
+
+        private int CalculateTotalProduction()
+        {
+            var production = 0;
+            
+            foreach (var hatchery in Hatcheries)
+            {
+                if (hatchery.Built.Value)
+                {
+                    var hatcheryPigeons = hatchery.UsedCapacity.Value;
+                    var hatcheryLayingRate = hatchery.EggLayingRate.Value;
+                    var hatcheryProduction = hatcheryPigeons * hatcheryLayingRate;
+                    production += hatcheryProduction;
+                }
+            }
+
+            return production;
+        }
         
-        // TODO: Update user data when hatcheries change
         public HatcheriesUserData Serialize()
         {
             return new HatcheriesUserData(this);
