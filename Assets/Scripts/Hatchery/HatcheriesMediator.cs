@@ -8,7 +8,7 @@ using PigeonCorp.Utils;
 using UniRx;
 using UnityEngine;
 
-namespace PigeonCorp.Hatchery
+namespace PigeonCorp.Hatcheries
 {
     public class HatcheriesMediator
     {
@@ -59,6 +59,7 @@ namespace PigeonCorp.Hatchery
             
             model.MaxCapacity.AsObservable().Subscribe(max =>
             {
+                model.UpdateUsedCapacity();
                 view.UpdateMaxCapacityText(max);
                 var capacityPercentage = MathUtils.CalculatePercentage(
                     _model.UsedCapacity.Value,
@@ -67,9 +68,11 @@ namespace PigeonCorp.Hatchery
                 view.UpdateMaxCapacityBar(capacityPercentage);
             }).AddTo(MainDispatcher.Disposables);
             
-            userStateModel.CurrentPigeons.AsObservable()
-                .Subscribe(model.UpdateUsedCapacity)
-                .AddTo(MainDispatcher.Disposables);
+            userStateModel.CurrentPigeons.AsObservable().Subscribe(pigeons =>
+            {
+                model.UpdateUsedCapacity();
+            })
+            .AddTo(MainDispatcher.Disposables);
 
             InitializeSubViews();
         }

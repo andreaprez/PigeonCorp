@@ -19,8 +19,9 @@ namespace PigeonCorp.Commands
             var shippingData = new ShippingUserData(shippingConfig);
             Gateway.Instance.UpdateShippingData(shippingData);
             
-            var bonusData = new BonusUserData();
-            Gateway.Instance.UpdateBonusData(bonusData);
+            var researchConfig = Gateway.Instance.GetResearchConfig();
+            var researchData = new ResearchUserData(researchConfig);
+            Gateway.Instance.UpdateResearchData(researchData);
             
             var userInitData = new UserInitializedUserData(true);
             Gateway.Instance.UpdateUserInitialized(userInitData);

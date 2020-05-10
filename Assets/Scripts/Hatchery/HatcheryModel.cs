@@ -3,7 +3,7 @@ using PigeonCorp.Persistence.TitleData;
 using UniRx;
 using UnityEngine;
 
-namespace PigeonCorp.Hatchery
+namespace PigeonCorp.Hatcheries
 {
     public class HatcheryModel
     {

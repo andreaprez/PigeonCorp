@@ -1,14 +1,12 @@
-using PigeonCorp.Bonus;
-
 namespace PigeonCorp.MainBuyButton
 {
     public class MainBuyButtonModel
     {
-        public readonly int PigeonsPerClick;
+        public int PigeonsPerClick;
 
-        public MainBuyButtonModel(BonusModel bonusModel)
+        public MainBuyButtonModel()
         {
-            PigeonsPerClick = bonusModel.BuyButtonRate;
+            PigeonsPerClick = 1;
         }
     }
 }

@@ -28,6 +28,12 @@ namespace PigeonCorp.UserState
             Currency.Value -= price;
             Gateway.Instance.UpdateUserStateData(Serialize());
         }
+        
+        public void AddCurrency(float quantity)
+        {
+            Currency.Value += quantity;
+            Gateway.Instance.UpdateUserStateData(Serialize());
+        }
 
         private UserStateUserData Serialize()
         {

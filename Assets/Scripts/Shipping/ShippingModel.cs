@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using PigeonCorp.Hatchery;
+using PigeonCorp.Hatcheries;
 using PigeonCorp.Persistence.TitleData;
 using PigeonCorp.Persistence.UserData;
 using UniRx;
@@ -28,12 +28,12 @@ namespace PigeonCorp.Shipping
             InitVehicles(userData.Vehicles);
             
             MaxShippingRate = new ReactiveProperty<int>(CalculateMaxShippingRate());
-            UsedShippingRate = new ReactiveProperty<int> (_hatcheriesModel.TotalProduction.Value);
+            UsedShippingRate = new ReactiveProperty<int> (CalculateUsedShippingRate());
         }
 
-        public void UpdateUsedShippingRate(int production)
+        public void UpdateUsedShippingRate()
         {
-            UsedShippingRate.Value = production;
+            UsedShippingRate.Value = CalculateUsedShippingRate();
         }
 
         public void UpdateMaxShippingRate()
@@ -63,6 +63,17 @@ namespace PigeonCorp.Shipping
             }
 
             return maxShippingRate;
+        }
+
+        private int CalculateUsedShippingRate()
+        {
+            var totalProduction = _hatcheriesModel.TotalProduction.Value;
+            
+            if (totalProduction < MaxShippingRate.Value)
+            {
+                return _hatcheriesModel.TotalProduction.Value;
+            }
+            return MaxShippingRate.Value;
         }
 
         public ShippingUserData Serialize()

@@ -51,9 +51,9 @@ namespace PigeonCorp.Persistence.Gateway
             return TitleDataGateway.Get<ShippingTitleData>();
         }
         
-        public BonusTitleData GetBonusConfig()
+        public ResearchTitleData GetResearchConfig()
         {
-            return TitleDataGateway.Get<BonusTitleData>();
+            return TitleDataGateway.Get<ResearchTitleData>();
         }
         
         #endregion
@@ -101,12 +101,12 @@ namespace PigeonCorp.Persistence.Gateway
             UserDataGateway.Update(data);
         }
         
-        public BonusUserData GetBonusData()
+        public ResearchUserData GetResearchData()
         {
-            return UserDataGateway.Get<BonusUserData>();
+            return UserDataGateway.Get<ResearchUserData>();
         }
         
-        public void UpdateBonusData(BonusUserData data)
+        public void UpdateResearchData(ResearchUserData data)
         {
             UserDataGateway.Update(data);
         }

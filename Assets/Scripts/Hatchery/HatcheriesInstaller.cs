@@ -5,7 +5,7 @@ using PigeonCorp.Persistence.TitleData;
 using PigeonCorp.UserState;
 using UnityEngine;
 
-namespace PigeonCorp.Hatchery
+namespace PigeonCorp.Hatcheries
 {
     public class HatcheriesInstaller : MonoBehaviour
     {

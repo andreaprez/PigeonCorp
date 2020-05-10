@@ -1,6 +1,6 @@
-using PigeonCorp.Bonus;
+using PigeonCorp.Research;
 using PigeonCorp.Commands;
-using PigeonCorp.Hatchery;
+using PigeonCorp.Hatcheries;
 using PigeonCorp.MainBuyButton;
 using PigeonCorp.MainTopBar;
 using PigeonCorp.UserState;
@@ -19,6 +19,7 @@ namespace PigeonCorp.MainScreen
         [SerializeField] private MainTopBarInstaller _mainTopBarInstaller;
         [SerializeField] private HatcheriesInstaller _hatcheriesInstaller;
         [SerializeField] private ShippingInstaller _shippingInstaller;
+        [SerializeField] private ResearchInstaller _researchInstaller;
 
 
         private void Start()
@@ -40,21 +41,20 @@ namespace PigeonCorp.MainScreen
             var pigeonConfig = Gateway.Instance.GetPigeonConfig();
             var hatcheriesConfig = Gateway.Instance.GetHatcheriesConfig();
             var shippingConfig = Gateway.Instance.GetShippingConfig();
-            var bonusConfig = Gateway.Instance.GetBonusConfig();
+            var researchConfig = Gateway.Instance.GetResearchConfig();
 
             // USER DATA RETRIEVING
             var userStateData = Gateway.Instance.GetUserStateData();
             var hatcheriesData = Gateway.Instance.GetHatcheriesData();
             var shippingData = Gateway.Instance.GetShippingData();
-            var bonusData = Gateway.Instance.GetBonusData();
+            var researchData = Gateway.Instance.GetResearchData();
             
             // GAME INIT
             var userStateModel = new UserStateModel(userStateData);
             
             var subtractCurrencyCommand = new SubtractCurrencyCommand(userStateModel);
+            var addCurrencyCommand = new AddCurrencyCommand(userStateModel);
             
-            var bonusModel = new BonusModel(bonusData, bonusConfig);
-
             var mainTopBarModel = new MainTopBarModel(userStateModel);
             _mainTopBarInstaller.Install(mainTopBarModel, userStateModel);
             
@@ -65,23 +65,33 @@ namespace PigeonCorp.MainScreen
                 userStateModel,
                 subtractCurrencyCommand
             );
-            
-            var mainBuyButtonModel = new MainBuyButtonModel(bonusModel);
-            _mainBuyButtonInstaller.Install(
-                mainBuyButtonModel,
-                userStateModel,
-                pigeonConfig,
-                subtractCurrencyCommand,
-                hatcheriesModel
-            );
-            
+
             var shippingModel = new ShippingModel(shippingConfig, shippingData, hatcheriesModel);
+            var grantShippingRevenueCommand = new GrantShippingRevenueCommand(addCurrencyCommand, shippingModel);
             _shippingInstaller.Install(
                 shippingModel,
                 shippingConfig,
                 hatcheriesModel,
                 userStateModel,
+                subtractCurrencyCommand,
+                grantShippingRevenueCommand
+            );
+            
+            var researchModel = new ResearchModel(researchConfig, researchData);
+            _researchInstaller.Install(
+                researchModel,
+                researchConfig,
                 subtractCurrencyCommand
+            );
+            
+            var mainBuyButtonModel = new MainBuyButtonModel();
+            _mainBuyButtonInstaller.Install(
+                mainBuyButtonModel,
+                userStateModel,
+                pigeonConfig,
+                subtractCurrencyCommand,
+                hatcheriesModel,
+                researchModel
             );
         }
     }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using PigeonCorp.Commands;
 using PigeonCorp.Dispatcher;
-using PigeonCorp.Hatchery;
+using PigeonCorp.Hatcheries;
 using PigeonCorp.Persistence.Gateway;
 using PigeonCorp.Persistence.TitleData;
 using PigeonCorp.UserState;
@@ -21,6 +21,7 @@ namespace PigeonCorp.Shipping
         private readonly UserStateModel _userStateModel;
         private readonly ICommand<float> _subtractCurrencyCommand;
         private readonly ICommand<int> _spawnVehicleCommand;
+        private readonly ICommand _grantShippingRevenueCommand;
 
         public ShippingMediator(
             ShippingModel model,
@@ -29,7 +30,8 @@ namespace PigeonCorp.Shipping
             HatcheriesModel hatcheriesModel,
             UserStateModel userStateModel,
             ICommand<float> subtractCurrencyCommand,
-            ICommand<int> spawnVehicleCommand
+            ICommand<int> spawnVehicleCommand,
+            ICommand grantShippingRevenueCommand
         )
         {
             _model = model;
@@ -39,6 +41,7 @@ namespace PigeonCorp.Shipping
             _userStateModel = userStateModel;
             _subtractCurrencyCommand = subtractCurrencyCommand;
             _spawnVehicleCommand = spawnVehicleCommand;
+            _grantShippingRevenueCommand = grantShippingRevenueCommand;
 
             view.GetOpenButtonAsObservable().Subscribe(open =>
             {
@@ -61,6 +64,7 @@ namespace PigeonCorp.Shipping
             
             model.MaxShippingRate.AsObservable().Subscribe(max =>
             {
+                model.UpdateUsedShippingRate();
                 view.UpdateMaxShippingRateText(max);
                 var shippingRatePercentage = MathUtils.CalculatePercentage(
                     _model.UsedShippingRate.Value,
@@ -71,10 +75,11 @@ namespace PigeonCorp.Shipping
 
             _hatcheriesModel.TotalProduction.AsObservable().Subscribe(production =>
             {
-                _model.UpdateUsedShippingRate(production);
+                _model.UpdateUsedShippingRate();
             }).AddTo(MainDispatcher.Disposables);
 
             MainThreadDispatcher.StartCoroutine(VehicleSpawner());
+            MainThreadDispatcher.StartCoroutine(GrantShippingRevenue());
 
             InitializeSubViews();
         }
@@ -196,6 +201,16 @@ namespace PigeonCorp.Shipping
                     var prefabId = _model.Vehicles[randomId].Level.Value - 1;
                     _spawnVehicleCommand.Handle(prefabId);
                 }
+            }
+        }
+        
+        private IEnumerator GrantShippingRevenue()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(60);
+                
+                _grantShippingRevenueCommand.Handle();
             }
         }
     }

@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using PigeonCorp.Commands;
 using PigeonCorp.Factory;
-using PigeonCorp.Hatchery;
+using PigeonCorp.Hatcheries;
 using PigeonCorp.MainScreen;
 using PigeonCorp.Persistence.TitleData;
+using PigeonCorp.Research;
 using PigeonCorp.UserState;
 using UnityEngine;
 
@@ -21,7 +22,8 @@ namespace PigeonCorp.MainBuyButton
             UserStateModel userStateModel,
             PigeonTitleData pigeonConfig,
             ICommand<float> subtractCurrencyCommand,
-            HatcheriesModel hatcheriesModel
+            HatcheriesModel hatcheriesModel,
+            ResearchModel researchModel
         )
         {
             var pigeonFactory = new PigeonFactory(
@@ -41,7 +43,8 @@ namespace PigeonCorp.MainBuyButton
                 model,
                 buyPigeonCommand,
                 userStateModel,
-                pigeonConfig
+                pigeonConfig,
+                researchModel
             );
         }
     }
