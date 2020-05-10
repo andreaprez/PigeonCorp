@@ -1,5 +1,6 @@
 using System;
 using PigeonCorp.Persistence.TitleData;
+using PigeonCorp.Utils;
 using UniRx;
 using UnityEngine;
 
@@ -14,7 +15,7 @@ namespace PigeonCorp.Hatcheries
         public readonly ReactiveProperty<float> NextCost;
         public readonly ReactiveProperty<int> MaxCapacity;
         public readonly ReactiveProperty<int> UsedCapacity;
-        public readonly ReactiveProperty<int> EggLayingRate;
+        public readonly ReactiveProperty<float> EggLayingRate;
         
         private readonly HatcheriesTitleData _config;
 
@@ -27,10 +28,10 @@ namespace PigeonCorp.Hatcheries
 
             Name = new ReactiveProperty<string>();
             Icon = new ReactiveProperty<Sprite>();
-            NextCost = new ReactiveProperty<float>();
-            MaxCapacity = new ReactiveProperty<int>();
-            UsedCapacity = new ReactiveProperty<int>();
-            EggLayingRate = new ReactiveProperty<int>();
+            NextCost = new ReactiveProperty<float>(0);
+            MaxCapacity = new ReactiveProperty<int>(0);
+            UsedCapacity = new ReactiveProperty<int>(0);
+            EggLayingRate = new ReactiveProperty<float>(0);
             
             if (Built.Value)
             {
@@ -59,6 +60,28 @@ namespace PigeonCorp.Hatcheries
         public void SetUsedCapacity(int quantity)
         {
             UsedCapacity.Value = quantity;
+        }
+
+        public void ApplyMultiplierToEggLayingRate(float multiplier)
+        {
+            if (Built.Value)
+            { 
+                var baseValue = _config.HatcheriesConfiguration[Level.Value - 1].EggLayingRate;
+                EggLayingRate.Value = baseValue * multiplier;
+            }
+        }
+        
+        public void ApplyIncrementToMaxCapacity(float increment)
+        {
+            if (Built.Value)
+            {
+                var baseValue = _config.HatcheriesConfiguration[Level.Value - 1].MaxCapacity;
+                var incrementValue = MathUtils.CalculateQuantityFromPercentage(
+                    increment,
+                    MaxCapacity.Value
+                );
+                MaxCapacity.Value = baseValue + (int)incrementValue;
+            }
         }
         
         private void SetProperties()

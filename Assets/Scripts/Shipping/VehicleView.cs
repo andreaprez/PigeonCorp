@@ -61,7 +61,7 @@ namespace PigeonCorp.Shipping
             _upgradeCostText.text = cost.ToString();
         }
 
-        public void UpdateMaxShippingRate(int rate)
+        public void UpdateMaxShippingRate(float rate)
         {
             _shippingRateText.text = rate.ToString();
         }

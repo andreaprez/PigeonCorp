@@ -58,12 +58,20 @@ namespace PigeonCorp.MainScreen
             var mainTopBarModel = new MainTopBarModel(userStateModel);
             _mainTopBarInstaller.Install(mainTopBarModel, userStateModel);
             
+            var researchModel = new ResearchModel(researchConfig, researchData);
+            _researchInstaller.Install(
+                researchModel,
+                researchConfig,
+                subtractCurrencyCommand
+            );
+            
             var hatcheriesModel = new HatcheriesModel(hatcheriesConfig, hatcheriesData, userStateModel);
             _hatcheriesInstaller.Install(
                 hatcheriesModel,
                 hatcheriesConfig,
                 userStateModel,
-                subtractCurrencyCommand
+                subtractCurrencyCommand,
+                researchModel
             );
 
             var shippingModel = new ShippingModel(shippingConfig, shippingData, hatcheriesModel);
@@ -75,13 +83,6 @@ namespace PigeonCorp.MainScreen
                 userStateModel,
                 subtractCurrencyCommand,
                 grantShippingRevenueCommand
-            );
-            
-            var researchModel = new ResearchModel(researchConfig, researchData);
-            _researchInstaller.Install(
-                researchModel,
-                researchConfig,
-                subtractCurrencyCommand
             );
             
             var mainBuyButtonModel = new MainBuyButtonModel();

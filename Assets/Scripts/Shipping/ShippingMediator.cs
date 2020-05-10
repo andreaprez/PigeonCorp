@@ -55,7 +55,7 @@ namespace PigeonCorp.Shipping
             
             model.UsedShippingRate.AsObservable().Subscribe(used =>
             {
-                var shippingRatePercentage = MathUtils.CalculatePercentage(
+                var shippingRatePercentage = MathUtils.CalculatePercentageDecimalFromQuantity(
                     used,
                     _model.MaxShippingRate.Value
                 );
@@ -66,7 +66,7 @@ namespace PigeonCorp.Shipping
             {
                 model.UpdateUsedShippingRate();
                 view.UpdateMaxShippingRateText(max);
-                var shippingRatePercentage = MathUtils.CalculatePercentage(
+                var shippingRatePercentage = MathUtils.CalculatePercentageDecimalFromQuantity(
                     _model.UsedShippingRate.Value,
                     max
                 );
@@ -139,7 +139,7 @@ namespace PigeonCorp.Shipping
                 
                 _model.Vehicles[i].UsedShippingRate.AsObservable().Subscribe(usedRate =>
                     {
-                        var percentage = MathUtils.CalculatePercentage(
+                        var percentage = MathUtils.CalculatePercentageDecimalFromQuantity(
                             usedRate,
                             _model.Vehicles[vehicleId].MaxShippingRate.Value
                         );
@@ -173,7 +173,7 @@ namespace PigeonCorp.Shipping
 
         private void SetUsedShippingRateOfSingleVehicle(int vehicleId)
         {
-            var percentageOfTotalShippingRate = MathUtils.CalculatePercentage(
+            var percentageOfTotalShippingRate = MathUtils.CalculatePercentageDecimalFromQuantity(
                 _model.Vehicles[vehicleId].MaxShippingRate.Value,
                 _model.MaxShippingRate.Value
             );

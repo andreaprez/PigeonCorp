@@ -1,9 +1,12 @@
+using System;
 using System.Collections.Generic;
 using PigeonCorp.Persistence.TitleData;
 using PigeonCorp.Persistence.UserData;
 using PigeonCorp.UserState;
+using PigeonCorp.Utils;
 using UniRx;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace PigeonCorp.Hatcheries
 {
@@ -12,7 +15,7 @@ namespace PigeonCorp.Hatcheries
         public readonly List<HatcheryModel> Hatcheries;
         public readonly ReactiveProperty<int> MaxCapacity;
         public readonly ReactiveProperty<int> UsedCapacity;
-        public readonly ReactiveProperty<int> TotalProduction;
+        public readonly ReactiveProperty<float> TotalProduction;
         
         private readonly HatcheriesTitleData _config;
         private readonly UserStateModel _userStateModel;
@@ -33,7 +36,7 @@ namespace PigeonCorp.Hatcheries
             MaxCapacity = new ReactiveProperty<int>(CalculateMaxCapacity());
             UsedCapacity = new ReactiveProperty<int> (CalculateUsedCapacity());
             
-            TotalProduction = new ReactiveProperty<int>(CalculateTotalProduction());
+            TotalProduction = new ReactiveProperty<float>(CalculateTotalProduction());
         }
 
         public void SetHatcheryEntrances(List<Transform> entrances)
@@ -107,9 +110,9 @@ namespace PigeonCorp.Hatcheries
             return MaxCapacity.Value;
         }
 
-        private int CalculateTotalProduction()
+        private float CalculateTotalProduction()
         {
-            var production = 0;
+            var production = 0f;
             
             foreach (var hatchery in Hatcheries)
             {

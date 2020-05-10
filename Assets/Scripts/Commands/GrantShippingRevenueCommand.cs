@@ -21,7 +21,7 @@ namespace PigeonCorp.Commands
 
         public void Handle()
         {
-//            var revenue = _evolutionModel.EggValue * _shippingModel.UsedShippingRate.Value;
+            // var revenue = _evolutionModel.EggValue * _shippingModel.UsedShippingRate.Value;
             var revenue = 1 * _shippingModel.UsedShippingRate.Value;
             _addCurrencyCommand.Handle(revenue);
         }

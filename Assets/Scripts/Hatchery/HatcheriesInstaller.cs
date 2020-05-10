@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using PigeonCorp.Commands;
 using PigeonCorp.Factory;
 using PigeonCorp.Persistence.TitleData;
+using PigeonCorp.Research;
 using PigeonCorp.UserState;
 using UnityEngine;
 
@@ -18,7 +19,8 @@ namespace PigeonCorp.Hatcheries
             HatcheriesModel model,
             HatcheriesTitleData config,
             UserStateModel userStateModel,
-            ICommand<float> subtractCurrencyCommand
+            ICommand<float> subtractCurrencyCommand,
+            ResearchModel researchModel
         )
         {
             var hatcheryFactory = new HatcheryFactory(
@@ -34,7 +36,8 @@ namespace PigeonCorp.Hatcheries
                 userStateModel,
                 subtractCurrencyCommand,
                 spawnHatcheryCommand,
-                _hatcheryContainers
+                _hatcheryContainers,
+                researchModel
             );
         }
     }
