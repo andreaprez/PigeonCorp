@@ -184,15 +184,18 @@ namespace PigeonCorp.Shipping
             {
                 yield return new WaitForSeconds(_config.TimeToSpawnVehicleInSeconds);
 
-                var randomId = Random.Range(0, _model.Vehicles.Count);
-                
-                while (!_model.Vehicles[randomId].Purchased.Value)
+                if (_model.MaxShippingRate.Value > 0)
                 {
-                    randomId = Random.Range(0, _model.Vehicles.Count);
-                }
+                    var randomId = Random.Range(0, _model.Vehicles.Count);
 
-                var prefabId = _model.Vehicles[randomId].Level.Value - 1;
-                _spawnVehicleCommand.Handle(prefabId);
+                    while (!_model.Vehicles[randomId].Purchased.Value)
+                    {
+                        randomId = Random.Range(0, _model.Vehicles.Count);
+                    }
+
+                    var prefabId = _model.Vehicles[randomId].Level.Value - 1;
+                    _spawnVehicleCommand.Handle(prefabId);
+                }
             }
         }
     }
