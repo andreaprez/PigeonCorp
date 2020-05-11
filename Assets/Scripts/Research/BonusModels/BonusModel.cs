@@ -14,6 +14,8 @@ namespace PigeonCorp.Research
         public readonly ReactiveProperty<float> NextValue;
         public readonly ReactiveProperty<float> NextCost;
 
+        protected IApplicableBonus _applicableBonusEntity;
+        
         private readonly BonusConfig _config;
         
         public BonusModel(BonusConfig config, BonusState stateData)

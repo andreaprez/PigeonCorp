@@ -2,7 +2,7 @@ namespace PigeonCorp.Research
 {
     public enum BonusType
     {
-        BUY_BUTTON_RATE,
+        BUY_BUTTON_RATE_MULTIPLIER,
         EGG_VALUE_MULTIPLIER,
         EGG_LAYING_RATE_MULTIPLIER,
         HATCHERY_CAPACITY_INCREMENT,

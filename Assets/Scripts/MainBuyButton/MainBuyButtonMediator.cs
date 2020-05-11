@@ -45,7 +45,7 @@ namespace PigeonCorp.MainBuyButton
 
         private void SubscribeToBonusValues(ResearchModel researchModel)
         {
-            var buttonRateBonus = researchModel.GetBonusByType(BonusType.BUY_BUTTON_RATE);
+            var buttonRateBonus = researchModel.GetBonusByType(BonusType.BUY_BUTTON_RATE_MULTIPLIER);
             buttonRateBonus.CurrentValue.Subscribe(buttonRate =>
             {
                 _model.PigeonsPerClick = (int) buttonRate;

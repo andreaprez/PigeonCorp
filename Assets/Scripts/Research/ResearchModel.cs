@@ -52,32 +52,32 @@ namespace PigeonCorp.Research
                 BonusModel bonus;
                 switch (bonusConfig.Type)
                 {
-                    case BonusType.BUY_BUTTON_RATE:
-                        bonus = new BuyButtonRateBonus(bonusConfig, bonusState);
+                    case BonusType.BUY_BUTTON_RATE_MULTIPLIER:
+                        bonus = new MultiplierBonus(bonusConfig, bonusState);
                         break;
                     case BonusType.EGG_VALUE_MULTIPLIER:
-                        bonus = new EggValueMultiplierBonus(bonusConfig, bonusState);
+                        bonus = new MultiplierBonus(bonusConfig, bonusState);
                         break;
                     case BonusType.EGG_LAYING_RATE_MULTIPLIER:
-                        bonus = new EggLayingRateMultiplierBonus(bonusConfig, bonusState);
+                        bonus = new MultiplierBonus(bonusConfig, bonusState);
                         break;
                     case BonusType.HATCHERY_CAPACITY_INCREMENT:
-                        bonus = new HatcheryCapacityIncrementBonus(bonusConfig, bonusState);
+                        bonus = new IncrementBonus(bonusConfig, bonusState);
                         break;
                     case BonusType.VEHICLE_SHIPPING_RATE_INCREMENT:
-                        bonus = new VehicleShippingRateIncrementBonus(bonusConfig, bonusState);
+                        bonus = new IncrementBonus(bonusConfig, bonusState);
                         break;
                     case BonusType.RESEARCH_DISCOUNT:
-                        bonus = new ResearchDiscountBonus(bonusConfig, bonusState);
+                        bonus = new DiscountBonus(bonusConfig, bonusState);
                         break;
                     case BonusType.HATCHERY_DISCOUNT:
-                        bonus = new HatcheryDiscountBonus(bonusConfig, bonusState);
+                        bonus = new DiscountBonus(bonusConfig, bonusState);
                         break;
                     case BonusType.VEHICLE_DISCOUNT:
-                        bonus = new VehicleDiscountBonus(bonusConfig, bonusState);
+                        bonus = new DiscountBonus(bonusConfig, bonusState);
                         break;
                     case BonusType.PIGEON_DISCOUNT:
-                        bonus = new PigeonDiscountBonus(bonusConfig, bonusState);
+                        bonus = new DiscountBonus(bonusConfig, bonusState);
                         break;
                     default:
                         throw new Exception("No bonus found of type: " + bonusConfig.Type);
