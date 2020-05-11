@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace PigeonCorp.Research
 {
-    public class BonusModel
+    public abstract class BonusModel
     {
         public readonly BonusType Type;
         public readonly ReactiveProperty<int> Tier;
@@ -32,6 +32,14 @@ namespace PigeonCorp.Research
             SetProperties();
         }
 
+        public void Research()
+        {
+            Tier.Value += 1;
+            SetProperties();
+        }
+
+        protected virtual void ApplyBonus() { }
+            
         private void SetProperties()
         {
             CurrentValue.Value = _config.Tiers[Tier.Value].Value;
@@ -41,12 +49,6 @@ namespace PigeonCorp.Research
                 NextValue.Value = _config.Tiers[Tier.Value + 1].Value;
                 NextCost.Value = _config.Tiers[Tier.Value + 1].Cost;
             }
-        }
-        
-        public void Research()
-        {
-            Tier.Value += 1;
-            SetProperties();
         }
     }
 }

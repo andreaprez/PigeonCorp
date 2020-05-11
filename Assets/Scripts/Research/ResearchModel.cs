@@ -48,7 +48,40 @@ namespace PigeonCorp.Research
             {
                 var bonusConfig = _config.BonusTypesConfiguration[i];
                 var bonusState = FindBonusStateByType(bonusConfig.Type);
-                var bonus = new BonusModel(bonusConfig, bonusState);
+
+                BonusModel bonus;
+                switch (bonusConfig.Type)
+                {
+                    case BonusType.BUY_BUTTON_RATE:
+                        bonus = new BuyButtonRateBonus(bonusConfig, bonusState);
+                        break;
+                    case BonusType.EGG_VALUE_MULTIPLIER:
+                        bonus = new EggValueMultiplierBonus(bonusConfig, bonusState);
+                        break;
+                    case BonusType.EGG_LAYING_RATE_MULTIPLIER:
+                        bonus = new EggLayingRateMultiplierBonus(bonusConfig, bonusState);
+                        break;
+                    case BonusType.HATCHERY_CAPACITY_INCREMENT:
+                        bonus = new HatcheryCapacityIncrementBonus(bonusConfig, bonusState);
+                        break;
+                    case BonusType.VEHICLE_SHIPPING_RATE_INCREMENT:
+                        bonus = new VehicleShippingRateIncrementBonus(bonusConfig, bonusState);
+                        break;
+                    case BonusType.RESEARCH_DISCOUNT:
+                        bonus = new ResearchDiscountBonus(bonusConfig, bonusState);
+                        break;
+                    case BonusType.HATCHERY_DISCOUNT:
+                        bonus = new HatcheryDiscountBonus(bonusConfig, bonusState);
+                        break;
+                    case BonusType.VEHICLE_DISCOUNT:
+                        bonus = new VehicleDiscountBonus(bonusConfig, bonusState);
+                        break;
+                    case BonusType.PIGEON_DISCOUNT:
+                        bonus = new PigeonDiscountBonus(bonusConfig, bonusState);
+                        break;
+                    default:
+                        throw new Exception("No bonus found of type: " + bonusConfig.Type);
+                }
                 Bonuses.Add(bonus);
             }
         }
