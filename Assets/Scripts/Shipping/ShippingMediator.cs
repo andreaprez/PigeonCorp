@@ -7,6 +7,7 @@ using PigeonCorp.Persistence.Gateway;
 using PigeonCorp.Persistence.TitleData;
 using PigeonCorp.UserState;
 using PigeonCorp.Utils;
+using PigeonCorp.ValueModifiers;
 using UniRx;
 using UnityEngine;
 
@@ -22,6 +23,7 @@ namespace PigeonCorp.Shipping
         private readonly ICommand<float> _subtractCurrencyCommand;
         private readonly ICommand<int> _spawnVehicleCommand;
         private readonly ICommand _grantShippingRevenueCommand;
+        private readonly ShippingValueModifiers _valueModifiers;
 
         public ShippingMediator(
             ShippingModel model,
@@ -31,7 +33,8 @@ namespace PigeonCorp.Shipping
             UserStateModel userStateModel,
             ICommand<float> subtractCurrencyCommand,
             ICommand<int> spawnVehicleCommand,
-            ICommand grantShippingRevenueCommand
+            ICommand grantShippingRevenueCommand,
+            UC_GetShippingValueModifiers getShippingValueModifiersUC
         )
         {
             _model = model;
@@ -42,6 +45,8 @@ namespace PigeonCorp.Shipping
             _subtractCurrencyCommand = subtractCurrencyCommand;
             _spawnVehicleCommand = spawnVehicleCommand;
             _grantShippingRevenueCommand = grantShippingRevenueCommand;
+
+            _valueModifiers = (ShippingValueModifiers)getShippingValueModifiersUC.Execute();
 
             view.GetOpenButtonAsObservable().Subscribe(open =>
             {
@@ -78,10 +83,12 @@ namespace PigeonCorp.Shipping
                 _model.UpdateUsedShippingRate();
             }).AddTo(MainDispatcher.Disposables);
 
+            InitializeSubViews();
+
+            SubscribeToValueModifiers();
+           
             MainThreadDispatcher.StartCoroutine(VehicleSpawner());
             MainThreadDispatcher.StartCoroutine(GrantShippingRevenue());
-
-            InitializeSubViews();
         }
 
         private void InitializeSubViews()
@@ -99,8 +106,11 @@ namespace PigeonCorp.Shipping
                     .Subscribe(purchase =>
                     {
                         var cost = _model.Vehicles[vehicleId].NextCost.Value;
-                        _model.Vehicles[vehicleId].Purchase();
                         _subtractCurrencyCommand.Execute(cost);
+                        
+                        _model.Vehicles[vehicleId].Purchase();
+                        ApplyValueModifiers(vehicleId);
+
                         Gateway.Instance.UpdateShippingData(_model.Serialize());
                     }).AddTo(MainDispatcher.Disposables);
                 
@@ -108,8 +118,11 @@ namespace PigeonCorp.Shipping
                     .Subscribe(upgrade =>
                     {
                         var cost = _model.Vehicles[vehicleId].NextCost.Value;
-                        _model.Vehicles[vehicleId].Upgrade();
                         _subtractCurrencyCommand.Execute(cost);
+                        
+                        _model.Vehicles[vehicleId].Upgrade();
+                        ApplyValueModifiers(vehicleId);
+
                         Gateway.Instance.UpdateShippingData(_model.Serialize());
                     }).AddTo(MainDispatcher.Disposables);
 
@@ -181,6 +194,58 @@ namespace PigeonCorp.Shipping
                 percentageOfTotalShippingRate * _model.UsedShippingRate.Value;
 
             _model.Vehicles[vehicleId].SetUsedShippingRate((int)usedQuantityFromPercentage);
+        }
+        
+        private void SubscribeToValueModifiers()
+        {
+            for (int i = 0; i < _model.Vehicles.Count; i++)
+            {
+                var vehicleId = i;
+                
+                _valueModifiers.VehicleShippingRateIncrement.Subscribe(increment =>
+                {
+                    ApplyIncrementToVehicleShippingRate(vehicleId, increment);
+                }).AddTo(MainDispatcher.Disposables);
+
+                _valueModifiers.VehicleCostDiscount.Subscribe(discount =>
+                {
+                    ApplyDiscountToVehicle(vehicleId, discount);
+                }).AddTo(MainDispatcher.Disposables);
+            }
+        }
+        
+        private void ApplyValueModifiers(int vehicleId)
+        {
+            ApplyIncrementToVehicleShippingRate(vehicleId, _valueModifiers.VehicleShippingRateIncrement.Value);
+            ApplyDiscountToVehicle(vehicleId, _valueModifiers.VehicleCostDiscount.Value);
+        }
+
+        private void ApplyIncrementToVehicleShippingRate(int vehicleId, float increment)
+        {
+            var vehicle = _model.Vehicles[vehicleId];
+            if (vehicle.Purchased.Value)
+            { 
+                var baseValue = _config.ShippingConfiguration[vehicle.Level.Value - 1].MaxShippingRate;
+                var incrementValue = MathUtils.CalculateQuantityFromPercentage(
+                    increment,
+                    baseValue
+                );
+                vehicle.MaxShippingRate.Value = baseValue + (int)incrementValue;
+            }
+        }
+        
+        private void ApplyDiscountToVehicle(int vehicleId, float discount)
+        {
+            var vehicle = _model.Vehicles[vehicleId];
+            if (vehicle.Level.Value < _config.ShippingConfiguration.Count)
+            { 
+                var baseValue = _config.ShippingConfiguration[vehicle.Level.Value].Cost;
+                var discountValue = MathUtils.CalculateQuantityFromPercentage(
+                    discount,
+                    baseValue
+                );
+                vehicle.NextCost.Value = baseValue - discountValue;
+            }
         }
 
         private IEnumerator VehicleSpawner()

@@ -100,7 +100,8 @@ namespace PigeonCorp.MainScreen
                 hatcheriesModel,
                 userStateModel,
                 subtractCurrencyCommand,
-                grantShippingRevenueCommand
+                grantShippingRevenueCommand,
+                getShippingModifiersUC
             );
             
             var mainBuyButtonModel = new MainBuyButtonModel();

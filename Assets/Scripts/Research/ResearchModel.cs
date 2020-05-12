@@ -80,7 +80,7 @@ namespace PigeonCorp.Research
                         bonus = new IncrementBonus(bonusConfig, bonusState, _hatcheriesApplicable);
                         break;
                     case BonusType.VEHICLE_SHIPPING_RATE_INCREMENT:
-                        //bonus = new IncrementBonus(bonusConfig, bonusState, _shippingApplicable);
+                        bonus = new IncrementBonus(bonusConfig, bonusState, _shippingApplicable);
                         break;
                     case BonusType.RESEARCH_DISCOUNT:
                         //bonus = new DiscountBonus(bonusConfig, bonusState, _researchApplicable);
@@ -89,7 +89,7 @@ namespace PigeonCorp.Research
                         bonus = new DiscountBonus(bonusConfig, bonusState, _hatcheriesApplicable);
                         break;
                     case BonusType.VEHICLE_DISCOUNT:
-                        //bonus = new DiscountBonus(bonusConfig, bonusState, _shippingApplicable);
+                        bonus = new DiscountBonus(bonusConfig, bonusState, _shippingApplicable);
                         break;
                     case BonusType.PIGEON_DISCOUNT:
                         //bonus = new DiscountBonus(bonusConfig, bonusState, ???);

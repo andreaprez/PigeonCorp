@@ -83,7 +83,7 @@ namespace PigeonCorp.Hatcheries
 
             InitializeSubViews();
 
-            SubscribeToBonusValues();
+            SubscribeToValueModifiers();
         }
 
         private void InitializeSubViews()
@@ -190,14 +190,7 @@ namespace PigeonCorp.Hatcheries
                 }).AddTo(MainDispatcher.Disposables);
             }
         }
-
-        private void ApplyValueModifiers(int hatcheryId)
-        {
-            ApplyMultiplierToEggLayingRate(hatcheryId, _valueModifiers.EggLayingRateMultiplier.Value);
-            ApplyIncrementToMaxCapacity(hatcheryId, _valueModifiers.HatcheryCapacityIncrement.Value);
-            ApplyDiscountToHatchery(hatcheryId, _valueModifiers.HatcheryCostDiscount.Value);
-        }
-
+        
         private void SetUsedCapacityOfSingleHatchery(int hatcheryId)
         {
             var percentageOfTotalCapacity = MathUtils.CalculatePercentageDecimalFromQuantity(
@@ -209,8 +202,8 @@ namespace PigeonCorp.Hatcheries
 
             _model.Hatcheries[hatcheryId].SetUsedCapacity((int)usedQuantityFromPercentage);
         }
-        
-        private void SubscribeToBonusValues()
+
+        private void SubscribeToValueModifiers()
         {
             for (int i = 0; i < _model.Hatcheries.Count; i++)
             {
@@ -232,6 +225,13 @@ namespace PigeonCorp.Hatcheries
                 }).AddTo(MainDispatcher.Disposables);
             }
         }
+        
+        private void ApplyValueModifiers(int hatcheryId)
+        {
+            ApplyMultiplierToEggLayingRate(hatcheryId, _valueModifiers.EggLayingRateMultiplier.Value);
+            ApplyIncrementToMaxCapacity(hatcheryId, _valueModifiers.HatcheryCapacityIncrement.Value);
+            ApplyDiscountToHatchery(hatcheryId, _valueModifiers.HatcheryCostDiscount.Value);
+        }
 
         private void ApplyMultiplierToEggLayingRate(int hatcheryId, float multiplier)
         {
@@ -251,7 +251,7 @@ namespace PigeonCorp.Hatcheries
                 var baseValue = _config.HatcheriesConfiguration[hatchery.Level.Value - 1].MaxCapacity;
                 var incrementValue = MathUtils.CalculateQuantityFromPercentage(
                     increment,
-                    hatchery.MaxCapacity.Value
+                    baseValue
                 );
                 hatchery.MaxCapacity.Value = baseValue + (int)incrementValue;
             }
@@ -265,7 +265,7 @@ namespace PigeonCorp.Hatcheries
                 var baseValue = _config.HatcheriesConfiguration[hatchery.Level.Value].Cost;
                 var discountValue = MathUtils.CalculateQuantityFromPercentage(
                     discount,
-                    hatchery.NextCost.Value
+                    baseValue
                 );
                 hatchery.NextCost.Value = baseValue - discountValue;
             }

@@ -4,6 +4,7 @@ using PigeonCorp.Factory;
 using PigeonCorp.Hatcheries;
 using PigeonCorp.Persistence.TitleData;
 using PigeonCorp.UserState;
+using PigeonCorp.ValueModifiers;
 using UnityEngine;
 
 namespace PigeonCorp.Shipping
@@ -21,7 +22,8 @@ namespace PigeonCorp.Shipping
             HatcheriesModel hatcheriesModel,
             UserStateModel userStateModel,
             ICommand<float> subtractCurrencyCommand,
-            ICommand grantShippingRevenueCommand
+            ICommand grantShippingRevenueCommand,
+            UC_GetShippingValueModifiers getShippingValueModifiersUC
         )
         {
             var vehicleFactory = new VehicleFactory(
@@ -39,7 +41,8 @@ namespace PigeonCorp.Shipping
                 userStateModel,
                 subtractCurrencyCommand,
                 spawnVehicleCommand,
-                grantShippingRevenueCommand
+                grantShippingRevenueCommand,
+                getShippingValueModifiersUC
             );
         }
     }
