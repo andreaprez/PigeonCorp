@@ -19,15 +19,15 @@ namespace PigeonCorp.Commands
             _subtractCurrencyCommand = subtractCurrencyCommand;
         }
         
-        public void Handle(int quantity)
+        public void Execute(int quantity)
         {
             for (int i = 0; i < quantity; i++)
             {
-                _spawnPigeonCommand.Handle();
+                _spawnPigeonCommand.Execute();
             }
 
             var price = quantity * _pigeonConfig.Cost;
-            _subtractCurrencyCommand.Handle(price);
+            _subtractCurrencyCommand.Execute(price);
         }
     }
 }

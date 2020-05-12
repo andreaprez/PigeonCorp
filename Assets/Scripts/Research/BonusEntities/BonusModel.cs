@@ -18,9 +18,10 @@ namespace PigeonCorp.Research
         
         private readonly BonusConfig _config;
         
-        public BonusModel(BonusConfig config, BonusState stateData)
+        public BonusModel(BonusConfig config, BonusState stateData, IApplicableBonus applicableBonus)
         {
             _config = config;
+            _applicableBonusEntity = applicableBonus;
 
             Type = config.Type;
             Name = new ReactiveProperty<string>(config.Name);
@@ -40,7 +41,7 @@ namespace PigeonCorp.Research
             SetProperties();
         }
 
-        protected virtual void ApplyBonus() { }
+        public virtual void ApplyBonus() { }
             
         private void SetProperties()
         {

@@ -14,7 +14,7 @@ namespace PigeonCorp.Commands
             _pigeonFactory = pigeonFactory;
         }
         
-        public void Handle()
+        public void Execute()
         {
             _userStateModel.AddPigeons(1);
             _pigeonFactory.Create(1);

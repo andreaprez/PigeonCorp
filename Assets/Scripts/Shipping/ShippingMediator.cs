@@ -100,7 +100,7 @@ namespace PigeonCorp.Shipping
                     {
                         var cost = _model.Vehicles[vehicleId].NextCost.Value;
                         _model.Vehicles[vehicleId].Purchase();
-                        _subtractCurrencyCommand.Handle(cost);
+                        _subtractCurrencyCommand.Execute(cost);
                         Gateway.Instance.UpdateShippingData(_model.Serialize());
                     }).AddTo(MainDispatcher.Disposables);
                 
@@ -109,7 +109,7 @@ namespace PigeonCorp.Shipping
                     {
                         var cost = _model.Vehicles[vehicleId].NextCost.Value;
                         _model.Vehicles[vehicleId].Upgrade();
-                        _subtractCurrencyCommand.Handle(cost);
+                        _subtractCurrencyCommand.Execute(cost);
                         Gateway.Instance.UpdateShippingData(_model.Serialize());
                     }).AddTo(MainDispatcher.Disposables);
 
@@ -199,7 +199,7 @@ namespace PigeonCorp.Shipping
                     }
 
                     var prefabId = _model.Vehicles[randomId].Level.Value - 1;
-                    _spawnVehicleCommand.Handle(prefabId);
+                    _spawnVehicleCommand.Execute(prefabId);
                 }
             }
         }
@@ -210,7 +210,7 @@ namespace PigeonCorp.Shipping
             {
                 yield return new WaitForSeconds(60);
                 
-                _grantShippingRevenueCommand.Handle();
+                _grantShippingRevenueCommand.Execute();
             }
         }
     }

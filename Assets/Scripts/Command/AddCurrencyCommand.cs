@@ -11,7 +11,7 @@ namespace PigeonCorp.Commands
             _userStateModel = userStateModel;
         }
         
-        public void Handle(float currency)
+        public void Execute(float currency)
         {
             _userStateModel.AddCurrency(currency);
         }

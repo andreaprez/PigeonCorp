@@ -3,6 +3,7 @@ using PigeonCorp.Commands;
 using PigeonCorp.Persistence.TitleData;
 using PigeonCorp.Research;
 using PigeonCorp.UserState;
+using PigeonCorp.ValueModifiers;
 using UniRx;
 
 namespace PigeonCorp.MainBuyButton
@@ -10,6 +11,7 @@ namespace PigeonCorp.MainBuyButton
     public class MainBuyButtonMediator
     {
         private readonly MainBuyButtonModel _model;
+        private readonly BuyButtonValueModifiers _valueModifiers;
 
         public MainBuyButtonMediator(
             MainBuyButtonView view,
@@ -17,7 +19,7 @@ namespace PigeonCorp.MainBuyButton
             ICommand<int> buyPigeonCommand,
             UserStateModel userStateModel,
             PigeonTitleData pigeonConfig,
-            ResearchModel researchModel
+            UC_GetMainBuyButtonValueModifiers getMainBuyButtonModifiersUc
         )
         {
             _model = model;
@@ -37,18 +39,18 @@ namespace PigeonCorp.MainBuyButton
             
             view.GetButtonAsObservable().Subscribe(onClick =>
             {
-                buyPigeonCommand.Handle(model.PigeonsPerClick);
+                buyPigeonCommand.Execute(model.PigeonsPerClick);
             }).AddTo(MainDispatcher.Disposables);
 
-            SubscribeToBonusValues(researchModel);
+            _valueModifiers = (BuyButtonValueModifiers)getMainBuyButtonModifiersUc.Execute();
+            SubscribeToValueModifiers();
         }
 
-        private void SubscribeToBonusValues(ResearchModel researchModel)
+        private void SubscribeToValueModifiers()
         {
-            var buttonRateBonus = researchModel.GetBonusByType(BonusType.BUY_BUTTON_RATE_MULTIPLIER);
-            buttonRateBonus.CurrentValue.Subscribe(buttonRate =>
+            _valueModifiers.PigeonsPerClickMultiplier.Subscribe(multiplier =>
             {
-                _model.PigeonsPerClick = (int) buttonRate;
+                _model.PigeonsPerClick = (int)multiplier;
             }).AddTo(MainDispatcher.Disposables);
         }
     }

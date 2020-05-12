@@ -33,7 +33,7 @@ namespace PigeonCorp.Research
             {
                 var cost = _model.NextCost.Value;
                 _model.Research();
-                _subtractCurrencyCommand.Handle(cost);
+                _subtractCurrencyCommand.Execute(cost);
                 Gateway.Instance.UpdateResearchData(_researchModel.Serialize());
             }).AddTo(MainDispatcher.Disposables);
 
@@ -64,6 +64,7 @@ namespace PigeonCorp.Research
             
             _model.CurrentValue.AsObservable().Subscribe(currentValue =>
             {
+                _model.ApplyBonus();
                 _view.UpdateCurrentValue(currentValue);
             }).AddTo(MainDispatcher.Disposables);
             

@@ -4,11 +4,15 @@ namespace PigeonCorp.Research
 {
     public class IncrementBonus : BonusModel
     {
-        public IncrementBonus(BonusConfig config, BonusState stateData) : base(config, stateData)
+        public IncrementBonus(
+            BonusConfig config,
+            BonusState stateData,
+            IApplicableBonus applicableBonus
+        ) : base(config, stateData, applicableBonus)
         {
         }
         
-        protected override void ApplyBonus()
+        public override void ApplyBonus()
         {
             _applicableBonusEntity.ApplyIncrement(CurrentValue.Value);
         }

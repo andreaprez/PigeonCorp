@@ -11,7 +11,7 @@ namespace PigeonCorp.Commands
             _hatcheryFactory = hatcheryFactory;
             
         }
-        public void Handle(int hatcheryId, int positionId)
+        public void Execute(int hatcheryId, int positionId)
         {
             _hatcheryFactory.Create(hatcheryId, positionId);
         }

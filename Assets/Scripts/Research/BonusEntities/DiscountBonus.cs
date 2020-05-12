@@ -4,11 +4,15 @@ namespace PigeonCorp.Research
 {
     public class DiscountBonus : BonusModel
     {
-        public DiscountBonus(BonusConfig config, BonusState stateData) : base(config, stateData)
+        public DiscountBonus(
+            BonusConfig config,
+            BonusState stateData,
+            IApplicableBonus applicableBonus
+        ) : base(config, stateData, applicableBonus)
         {
         }
         
-        protected override void ApplyBonus()
+        public override void ApplyBonus()
         {
             _applicableBonusEntity.ApplyDiscount(CurrentValue.Value);
         }

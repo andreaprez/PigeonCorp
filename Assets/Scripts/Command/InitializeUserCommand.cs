@@ -5,7 +5,7 @@ namespace PigeonCorp.Commands
 {
     public class InitializeUserCommand : ICommand
     {
-        public void Handle()
+        public void Execute()
         {
             var userStateConfig = Gateway.Instance.GetUserStateConfig();
             var userStateData = new UserStateUserData(userStateConfig);

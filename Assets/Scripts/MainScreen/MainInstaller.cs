@@ -7,6 +7,7 @@ using PigeonCorp.UserState;
 using PigeonCorp.Persistence.Gateway;
 using PigeonCorp.Persistence.TitleData;
 using PigeonCorp.Shipping;
+using PigeonCorp.ValueModifiers;
 using UnityEngine;
 
 namespace PigeonCorp.MainScreen
@@ -34,7 +35,7 @@ namespace PigeonCorp.MainScreen
             if (isInitialized == null)
             {
                 var initUserCommand = new InitializeUserCommand();
-                initUserCommand.Handle();
+                initUserCommand.Execute();
             }
             
             // TITLE DATA RETRIEVING
@@ -54,15 +55,22 @@ namespace PigeonCorp.MainScreen
             
             var subtractCurrencyCommand = new SubtractCurrencyCommand(userStateModel);
             var addCurrencyCommand = new AddCurrencyCommand(userStateModel);
+
+            var initValueModifiersRepositoryUC = new UC_InitValueModifiersRepository();
+            var valueModifiersRepository = initValueModifiersRepositoryUC.Execute();
+            
+            var getMainBuyButtonModifiersUC = new UC_GetMainBuyButtonValueModifiers(valueModifiersRepository);
+            
             
             var mainTopBarModel = new MainTopBarModel(userStateModel);
             _mainTopBarInstaller.Install(mainTopBarModel, userStateModel);
             
-            var researchModel = new ResearchModel(researchConfig, researchData);
+            var researchModel = new ResearchModel(researchConfig, researchData, getMainBuyButtonModifiersUC.Execute());
             _researchInstaller.Install(
                 researchModel,
                 researchConfig,
-                subtractCurrencyCommand
+                subtractCurrencyCommand,
+                getMainBuyButtonModifiersUC
             );
             
             var hatcheriesModel = new HatcheriesModel(hatcheriesConfig, hatcheriesData, userStateModel);
@@ -92,7 +100,8 @@ namespace PigeonCorp.MainScreen
                 pigeonConfig,
                 subtractCurrencyCommand,
                 hatcheriesModel,
-                researchModel
+                researchModel,
+                getMainBuyButtonModifiersUC
             );
         }
     }

@@ -104,7 +104,7 @@ namespace PigeonCorp.Hatcheries
                     {
                         var cost = _model.Hatcheries[hatcheryId].NextCost.Value;
                         _model.Hatcheries[hatcheryId].Build();
-                        _subtractCurrencyCommand.Handle(cost);
+                        _subtractCurrencyCommand.Execute(cost);
                         _model.Hatcheries[hatcheryId].ApplyMultiplierToEggLayingRate(eggLayingRateMultiplier);
                         _model.Hatcheries[hatcheryId].ApplyIncrementToMaxCapacity(hatcheryCapacityIncrement);
                         Gateway.Instance.UpdateHatcheriesData(_model.Serialize());
@@ -115,7 +115,7 @@ namespace PigeonCorp.Hatcheries
                     {
                         var cost = _model.Hatcheries[hatcheryId].NextCost.Value;
                         _model.Hatcheries[hatcheryId].Upgrade();
-                        _subtractCurrencyCommand.Handle(cost);
+                        _subtractCurrencyCommand.Execute(cost);
                         _model.Hatcheries[hatcheryId].ApplyMultiplierToEggLayingRate(eggLayingRateMultiplier);
                         _model.Hatcheries[hatcheryId].ApplyIncrementToMaxCapacity(hatcheryCapacityIncrement);
                         Gateway.Instance.UpdateHatcheriesData(_model.Serialize());
@@ -126,7 +126,7 @@ namespace PigeonCorp.Hatcheries
                     if (level > 0)
                     {
                         var prefabId = _model.Hatcheries[hatcheryId].Level.Value - 1;
-                        _spawnHatcheryCommand.Handle(prefabId, hatcheryId);
+                        _spawnHatcheryCommand.Execute(prefabId, hatcheryId);
                     }
 
                     var maxLevel = _config.HatcheriesConfiguration.Count;

@@ -6,6 +6,7 @@ using PigeonCorp.MainScreen;
 using PigeonCorp.Persistence.TitleData;
 using PigeonCorp.Research;
 using PigeonCorp.UserState;
+using PigeonCorp.ValueModifiers;
 using UnityEngine;
 
 namespace PigeonCorp.MainBuyButton
@@ -23,7 +24,8 @@ namespace PigeonCorp.MainBuyButton
             PigeonTitleData pigeonConfig,
             ICommand<float> subtractCurrencyCommand,
             HatcheriesModel hatcheriesModel,
-            ResearchModel researchModel
+            ResearchModel researchModel,
+            UC_GetMainBuyButtonValueModifiers getMainBuyButtonModifiersUC
         )
         {
             var pigeonFactory = new PigeonFactory(
@@ -44,7 +46,7 @@ namespace PigeonCorp.MainBuyButton
                 buyPigeonCommand,
                 userStateModel,
                 pigeonConfig,
-                researchModel
+                getMainBuyButtonModifiersUC
             );
         }
     }

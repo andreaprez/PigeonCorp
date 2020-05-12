@@ -19,11 +19,11 @@ namespace PigeonCorp.Commands
             _shippingModel = shippingModel;
         }
 
-        public void Handle()
+        public void Execute()
         {
             // var revenue = _evolutionModel.EggValue * _shippingModel.UsedShippingRate.Value;
             var revenue = 1 * _shippingModel.UsedShippingRate.Value;
-            _addCurrencyCommand.Handle(revenue);
+            _addCurrencyCommand.Execute(revenue);
         }
     }
 }

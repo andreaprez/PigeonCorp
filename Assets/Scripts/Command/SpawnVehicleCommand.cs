@@ -11,7 +11,7 @@ namespace PigeonCorp.Commands
             _vehicleFactory = vehicleFactory;
             
         }
-        public void Handle(int vehicleId)
+        public void Execute(int vehicleId)
         {
             _vehicleFactory.Create(vehicleId);
         }

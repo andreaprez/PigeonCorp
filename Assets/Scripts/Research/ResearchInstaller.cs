@@ -1,5 +1,6 @@
 using PigeonCorp.Commands;
 using PigeonCorp.Persistence.TitleData;
+using PigeonCorp.ValueModifiers;
 using UnityEngine;
 
 namespace PigeonCorp.Research
@@ -8,13 +9,14 @@ namespace PigeonCorp.Research
     {
         [SerializeField] private ResearchView _view;
 
-        public void Install(
-            ResearchModel model,
+        public void Install(ResearchModel model,
             ResearchTitleData config,
-            ICommand<float> subtractCurrencyCommand
+            ICommand<float> subtractCurrencyCommand,
+            UC_GetMainBuyButtonValueModifiers getMainBuyButtonModifiersUc
         )
         {
-
+            // TODO: Use UC to init Model
+            
             var mediator = new ResearchMediator(
                 model,
                 _view,

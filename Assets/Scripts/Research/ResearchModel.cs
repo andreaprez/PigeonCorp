@@ -11,15 +11,19 @@ namespace PigeonCorp.Research
         
         private readonly ResearchTitleData _config;
         private readonly ResearchUserData _userData;
-        
+        private readonly IApplicableBonus _buttonRateApplicable;
+
         public ResearchModel(
             ResearchTitleData config,
-            ResearchUserData userData
+            ResearchUserData userData,
+            IApplicableBonus buttonRateApplicable
         )
         {
             _config = config;
             _userData = userData;
             
+            _buttonRateApplicable = buttonRateApplicable;
+
             Bonuses = new List<BonusModel>();
             InitBonuses();
         }
@@ -53,31 +57,31 @@ namespace PigeonCorp.Research
                 switch (bonusConfig.Type)
                 {
                     case BonusType.BUY_BUTTON_RATE_MULTIPLIER:
-                        bonus = new MultiplierBonus(bonusConfig, bonusState);
+                        bonus = new MultiplierBonus(bonusConfig, bonusState, _buttonRateApplicable);
                         break;
                     case BonusType.EGG_VALUE_MULTIPLIER:
-                        bonus = new MultiplierBonus(bonusConfig, bonusState);
+                        bonus = new MultiplierBonus(bonusConfig, bonusState, _buttonRateApplicable);
                         break;
                     case BonusType.EGG_LAYING_RATE_MULTIPLIER:
-                        bonus = new MultiplierBonus(bonusConfig, bonusState);
+                        bonus = new MultiplierBonus(bonusConfig, bonusState, _buttonRateApplicable);
                         break;
                     case BonusType.HATCHERY_CAPACITY_INCREMENT:
-                        bonus = new IncrementBonus(bonusConfig, bonusState);
+                        bonus = new IncrementBonus(bonusConfig, bonusState, _buttonRateApplicable);
                         break;
                     case BonusType.VEHICLE_SHIPPING_RATE_INCREMENT:
-                        bonus = new IncrementBonus(bonusConfig, bonusState);
+                        bonus = new IncrementBonus(bonusConfig, bonusState, _buttonRateApplicable);
                         break;
                     case BonusType.RESEARCH_DISCOUNT:
-                        bonus = new DiscountBonus(bonusConfig, bonusState);
+                        bonus = new DiscountBonus(bonusConfig, bonusState, _buttonRateApplicable);
                         break;
                     case BonusType.HATCHERY_DISCOUNT:
-                        bonus = new DiscountBonus(bonusConfig, bonusState);
+                        bonus = new DiscountBonus(bonusConfig, bonusState, _buttonRateApplicable);
                         break;
                     case BonusType.VEHICLE_DISCOUNT:
-                        bonus = new DiscountBonus(bonusConfig, bonusState);
+                        bonus = new DiscountBonus(bonusConfig, bonusState, _buttonRateApplicable);
                         break;
                     case BonusType.PIGEON_DISCOUNT:
-                        bonus = new DiscountBonus(bonusConfig, bonusState);
+                        bonus = new DiscountBonus(bonusConfig, bonusState, _buttonRateApplicable);
                         break;
                     default:
                         throw new Exception("No bonus found of type: " + bonusConfig.Type);
