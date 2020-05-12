@@ -60,12 +60,22 @@ namespace PigeonCorp.MainScreen
             var valueModifiersRepository = initValueModifiersRepositoryUC.Execute();
             
             var getMainBuyButtonModifiersUC = new UC_GetMainBuyButtonValueModifiers(valueModifiersRepository);
+            var getHatcheriesModifiersUC = new UC_GetHatcheriesValueModifiers(valueModifiersRepository);
+            var getShippingModifiersUC = new UC_GetShippingValueModifiers(valueModifiersRepository);
+            var getResearchModifiersUC = new UC_GetResearchValueModifiers(valueModifiersRepository);
             
             
             var mainTopBarModel = new MainTopBarModel(userStateModel);
             _mainTopBarInstaller.Install(mainTopBarModel, userStateModel);
             
-            var researchModel = new ResearchModel(researchConfig, researchData, getMainBuyButtonModifiersUC.Execute());
+            var researchModel = new ResearchModel(
+                researchConfig,
+                researchData,
+                getMainBuyButtonModifiersUC.Execute(),
+                getHatcheriesModifiersUC.Execute(),
+                getShippingModifiersUC.Execute(),
+                getResearchModifiersUC.Execute()
+            );
             _researchInstaller.Install(
                 researchModel,
                 researchConfig,
@@ -79,7 +89,7 @@ namespace PigeonCorp.MainScreen
                 hatcheriesConfig,
                 userStateModel,
                 subtractCurrencyCommand,
-                researchModel
+                getHatcheriesModifiersUC
             );
 
             var shippingModel = new ShippingModel(shippingConfig, shippingData, hatcheriesModel);

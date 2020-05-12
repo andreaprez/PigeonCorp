@@ -6,6 +6,7 @@ using PigeonCorp.Persistence.TitleData;
 using PigeonCorp.Research;
 using PigeonCorp.UserState;
 using PigeonCorp.Utils;
+using PigeonCorp.ValueModifiers;
 using UniRx;
 using UnityEngine;
 
@@ -19,7 +20,8 @@ namespace PigeonCorp.Hatcheries
         private readonly UserStateModel _userStateModel;
         private readonly ICommand<float> _subtractCurrencyCommand;
         private readonly ICommand<int, int> _spawnHatcheryCommand;
-        private readonly ResearchModel _researchModel;
+        private readonly HatcheriesValueModifiers _valueModifiers;
+
 
         public HatcheriesMediator(
             HatcheriesModel model,
@@ -29,7 +31,7 @@ namespace PigeonCorp.Hatcheries
             ICommand<float> subtractCurrencyCommand,
             ICommand<int, int> spawnHatcheryCommand,
             List<Transform> hatcheryEntrances,
-            ResearchModel researchModel
+            UC_GetHatcheriesValueModifiers getHatcheriesValueModifiersUc
         )
         {
             _model = model;
@@ -38,7 +40,8 @@ namespace PigeonCorp.Hatcheries
             _userStateModel = userStateModel;
             _subtractCurrencyCommand = subtractCurrencyCommand;
             _spawnHatcheryCommand = spawnHatcheryCommand;
-            _researchModel = researchModel;
+            
+            _valueModifiers = (HatcheriesValueModifiers)getHatcheriesValueModifiersUc.Execute();
 
             model.SetHatcheryEntrances(hatcheryEntrances);
             
@@ -89,11 +92,6 @@ namespace PigeonCorp.Hatcheries
             {
                 var hatcheryId = i;
                 
-                var eggLayingRateBonus = _researchModel.GetBonusByType(BonusType.EGG_LAYING_RATE_MULTIPLIER);
-                var eggLayingRateMultiplier = eggLayingRateBonus.CurrentValue.Value;
-                var hatcheryCapacityBonus = _researchModel.GetBonusByType(BonusType.HATCHERY_CAPACITY_INCREMENT);
-                var hatcheryCapacityIncrement = hatcheryCapacityBonus.CurrentValue.Value;
-
                 _model.Hatcheries[i].Built.AsObservable().Subscribe(built =>
                 {
                     _view.SetHatcheryBuilt(hatcheryId, built);
@@ -105,8 +103,8 @@ namespace PigeonCorp.Hatcheries
                         var cost = _model.Hatcheries[hatcheryId].NextCost.Value;
                         _model.Hatcheries[hatcheryId].Build();
                         _subtractCurrencyCommand.Execute(cost);
-                        _model.Hatcheries[hatcheryId].ApplyMultiplierToEggLayingRate(eggLayingRateMultiplier);
-                        _model.Hatcheries[hatcheryId].ApplyIncrementToMaxCapacity(hatcheryCapacityIncrement);
+                        ApplyMultiplierToEggLayingRate(hatcheryId, _valueModifiers.EggLayingRateMultiplier.Value);
+                        ApplyIncrementToMaxCapacity(hatcheryId, _valueModifiers.HatcheryCapacityIncrement.Value);
                         Gateway.Instance.UpdateHatcheriesData(_model.Serialize());
                     }).AddTo(MainDispatcher.Disposables);
                 
@@ -116,8 +114,8 @@ namespace PigeonCorp.Hatcheries
                         var cost = _model.Hatcheries[hatcheryId].NextCost.Value;
                         _model.Hatcheries[hatcheryId].Upgrade();
                         _subtractCurrencyCommand.Execute(cost);
-                        _model.Hatcheries[hatcheryId].ApplyMultiplierToEggLayingRate(eggLayingRateMultiplier);
-                        _model.Hatcheries[hatcheryId].ApplyIncrementToMaxCapacity(hatcheryCapacityIncrement);
+                        ApplyMultiplierToEggLayingRate(hatcheryId, _valueModifiers.EggLayingRateMultiplier.Value);
+                        ApplyIncrementToMaxCapacity(hatcheryId, _valueModifiers.HatcheryCapacityIncrement.Value);
                         Gateway.Instance.UpdateHatcheriesData(_model.Serialize());
                     }).AddTo(MainDispatcher.Disposables);
 
@@ -209,17 +207,39 @@ namespace PigeonCorp.Hatcheries
             {
                 var hatcheryId = i;
                 
-                var eggLayingRateMultiplier = _researchModel.GetBonusByType(BonusType.EGG_LAYING_RATE_MULTIPLIER);
-                eggLayingRateMultiplier.CurrentValue.Subscribe(multiplier =>
+                _valueModifiers.EggLayingRateMultiplier.Subscribe(multiplier =>
                 {
-                    _model.Hatcheries[hatcheryId].ApplyMultiplierToEggLayingRate(multiplier);
+                    ApplyMultiplierToEggLayingRate(hatcheryId, multiplier);
                 }).AddTo(MainDispatcher.Disposables);
 
-                var hatcheryCapacityIncrement = _researchModel.GetBonusByType(BonusType.HATCHERY_CAPACITY_INCREMENT);
-                hatcheryCapacityIncrement.CurrentValue.Subscribe(increment =>
+                _valueModifiers.HatcheryCapacityIncrement.Subscribe(increment =>
                 {
-                    _model.Hatcheries[hatcheryId].ApplyIncrementToMaxCapacity(increment);
+                    ApplyIncrementToMaxCapacity(hatcheryId, increment);
                 }).AddTo(MainDispatcher.Disposables);
+            }
+        }
+
+        private void ApplyMultiplierToEggLayingRate(int hatcheryId, float multiplier)
+        {
+            var hatchery = _model.Hatcheries[hatcheryId];
+            if (hatchery.Built.Value)
+            { 
+                var baseValue = _config.HatcheriesConfiguration[hatchery.Level.Value - 1].EggLayingRate;
+                hatchery.EggLayingRate.Value = baseValue * multiplier;
+            }
+        }
+        
+        private void ApplyIncrementToMaxCapacity(int hatcheryId, float increment)
+        {
+            var hatchery = _model.Hatcheries[hatcheryId];
+            if (hatchery.Built.Value)
+            { 
+                var baseValue = _config.HatcheriesConfiguration[hatchery.Level.Value - 1].MaxCapacity;
+                var incrementValue = MathUtils.CalculateQuantityFromPercentage(
+                    increment,
+                    hatchery.MaxCapacity.Value
+                );
+                hatchery.MaxCapacity.Value = baseValue + (int)incrementValue;
             }
         }
     }

@@ -1,17 +1,17 @@
 namespace PigeonCorp.ValueModifiers
 {
-    public class UC_GetMainBuyButtonValueModifiers
+    public class UC_GetHatcheriesValueModifiers
     {
         private readonly ValueModifiersRepository _repository;
 
-        public UC_GetMainBuyButtonValueModifiers(ValueModifiersRepository repository)
+        public UC_GetHatcheriesValueModifiers(ValueModifiersRepository repository)
         {
             _repository = repository;
         }
         
         public BaseValueModifiers Execute()
         {
-            return _repository.Get<MainBuyButtonValueModifiers>();
+            return _repository.Get<HatcheriesValueModifiers>();
         }
     }
 }

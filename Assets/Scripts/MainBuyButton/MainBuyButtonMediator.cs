@@ -11,7 +11,7 @@ namespace PigeonCorp.MainBuyButton
     public class MainBuyButtonMediator
     {
         private readonly MainBuyButtonModel _model;
-        private readonly BuyButtonValueModifiers _valueModifiers;
+        private readonly MainBuyButtonValueModifiers _valueModifiers;
 
         public MainBuyButtonMediator(
             MainBuyButtonView view,
@@ -19,7 +19,7 @@ namespace PigeonCorp.MainBuyButton
             ICommand<int> buyPigeonCommand,
             UserStateModel userStateModel,
             PigeonTitleData pigeonConfig,
-            UC_GetMainBuyButtonValueModifiers getMainBuyButtonModifiersUc
+            UC_GetMainBuyButtonValueModifiers getMainBuyButtonModifiersUC
         )
         {
             _model = model;
@@ -42,7 +42,7 @@ namespace PigeonCorp.MainBuyButton
                 buyPigeonCommand.Execute(model.PigeonsPerClick);
             }).AddTo(MainDispatcher.Disposables);
 
-            _valueModifiers = (BuyButtonValueModifiers)getMainBuyButtonModifiersUc.Execute();
+            _valueModifiers = (MainBuyButtonValueModifiers)getMainBuyButtonModifiersUC.Execute();
             SubscribeToValueModifiers();
         }
 

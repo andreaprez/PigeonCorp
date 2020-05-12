@@ -3,11 +3,11 @@ using UniRx;
 
 namespace PigeonCorp.ValueModifiers
 {
-    public class BuyButtonValueModifiers : BaseValueModifiers
+    public class MainBuyButtonValueModifiers : BaseValueModifiers
     {
         public readonly ReactiveProperty<float> PigeonsPerClickMultiplier;
 
-        public BuyButtonValueModifiers()
+        public MainBuyButtonValueModifiers()
         {
             PigeonsPerClickMultiplier = new ReactiveProperty<float>(1);
         }

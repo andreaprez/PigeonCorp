@@ -15,8 +15,17 @@ namespace PigeonCorp.ValueModifiers
 
         private void FillRepository()
         {
-            var mainBuyButton = new BuyButtonValueModifiers();
+            var mainBuyButton = new MainBuyButtonValueModifiers();
             _repository.Add(mainBuyButton);
+            
+            var hatcheries = new HatcheriesValueModifiers();
+            _repository.Add(hatcheries);
+            
+            var shipping = new ShippingValueModifiers();
+            _repository.Add(shipping);
+            
+            var research = new ResearchValueModifiers();
+            _repository.Add(research);
         }
     }
 }

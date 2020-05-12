@@ -62,28 +62,6 @@ namespace PigeonCorp.Hatcheries
             UsedCapacity.Value = quantity;
         }
 
-        public void ApplyMultiplierToEggLayingRate(float multiplier)
-        {
-            if (Built.Value)
-            { 
-                var baseValue = _config.HatcheriesConfiguration[Level.Value - 1].EggLayingRate;
-                EggLayingRate.Value = baseValue * multiplier;
-            }
-        }
-        
-        public void ApplyIncrementToMaxCapacity(float increment)
-        {
-            if (Built.Value)
-            {
-                var baseValue = _config.HatcheriesConfiguration[Level.Value - 1].MaxCapacity;
-                var incrementValue = MathUtils.CalculateQuantityFromPercentage(
-                    increment,
-                    MaxCapacity.Value
-                );
-                MaxCapacity.Value = baseValue + (int)incrementValue;
-            }
-        }
-        
         private void SetProperties()
         {
             Name.Value = _config.HatcheriesConfiguration[Level.Value - 1].Name;

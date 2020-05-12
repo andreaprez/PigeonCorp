@@ -4,6 +4,7 @@ using PigeonCorp.Factory;
 using PigeonCorp.Persistence.TitleData;
 using PigeonCorp.Research;
 using PigeonCorp.UserState;
+using PigeonCorp.ValueModifiers;
 using UnityEngine;
 
 namespace PigeonCorp.Hatcheries
@@ -20,7 +21,7 @@ namespace PigeonCorp.Hatcheries
             HatcheriesTitleData config,
             UserStateModel userStateModel,
             ICommand<float> subtractCurrencyCommand,
-            ResearchModel researchModel
+            UC_GetHatcheriesValueModifiers getHatcheriesValueModifiersUC
         )
         {
             var hatcheryFactory = new HatcheryFactory(
@@ -37,7 +38,7 @@ namespace PigeonCorp.Hatcheries
                 subtractCurrencyCommand,
                 spawnHatcheryCommand,
                 _hatcheryContainers,
-                researchModel
+                getHatcheriesValueModifiersUC
             );
         }
     }
