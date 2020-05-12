@@ -86,7 +86,7 @@ namespace PigeonCorp.Research
                         //bonus = new DiscountBonus(bonusConfig, bonusState, _researchApplicable);
                         break;
                     case BonusType.HATCHERY_DISCOUNT:
-                        //bonus = new DiscountBonus(bonusConfig, bonusState, _hatcheriesApplicable);
+                        bonus = new DiscountBonus(bonusConfig, bonusState, _hatcheriesApplicable);
                         break;
                     case BonusType.VEHICLE_DISCOUNT:
                         //bonus = new DiscountBonus(bonusConfig, bonusState, _shippingApplicable);
