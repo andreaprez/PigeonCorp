@@ -92,7 +92,7 @@ namespace PigeonCorp.Research
                         bonus = new DiscountBonus(bonusConfig, bonusState, _shippingApplicable);
                         break;
                     case BonusType.PIGEON_DISCOUNT:
-                        //bonus = new DiscountBonus(bonusConfig, bonusState, ???);
+                        bonus = new DiscountBonus(bonusConfig, bonusState, _buyButtonApplicable);
                         break;
                     default:
                         throw new Exception("No bonus found of type: " + bonusConfig.Type);

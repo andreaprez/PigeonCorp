@@ -105,14 +105,13 @@ namespace PigeonCorp.MainScreen
                 getShippingModifiersUC
             );
             
-            var mainBuyButtonModel = new MainBuyButtonModel();
+            var mainBuyButtonModel = new MainBuyButtonModel(pigeonConfig);
             _mainBuyButtonInstaller.Install(
                 mainBuyButtonModel,
                 userStateModel,
                 pigeonConfig,
                 subtractCurrencyCommand,
                 hatcheriesModel,
-                researchModel,
                 getMainBuyButtonModifiersUC
             );
         }

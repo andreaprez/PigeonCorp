@@ -24,7 +24,6 @@ namespace PigeonCorp.MainBuyButton
             PigeonTitleData pigeonConfig,
             ICommand<float> subtractCurrencyCommand,
             HatcheriesModel hatcheriesModel,
-            ResearchModel researchModel,
             UC_GetMainBuyButtonValueModifiers getMainBuyButtonModifiersUC
         )
         {
@@ -34,16 +33,12 @@ namespace PigeonCorp.MainBuyButton
                 hatcheriesModel
             );
             var spawnPigeonCommand = new SpawnPigeonCommand(userStateModel, pigeonFactory);
-            var buyPigeonCommand = new BuyPigeonCommand(
-                spawnPigeonCommand,
-                pigeonConfig,
-                subtractCurrencyCommand
-            );
-            
+
             var mediator = new MainBuyButtonMediator(
                 _view,
                 model,
-                buyPigeonCommand,
+                spawnPigeonCommand,
+                subtractCurrencyCommand,
                 userStateModel,
                 pigeonConfig,
                 getMainBuyButtonModifiersUC
