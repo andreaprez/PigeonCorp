@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using PigeonCorp.Hatchery;
+using PigeonCorp.Hatcheries;
 using PigeonCorp.Persistence.TitleData;
 using PigeonCorp.Persistence.UserData;
 using UniRx;
@@ -9,8 +9,8 @@ namespace PigeonCorp.Shipping
     public class ShippingModel
     {
         public readonly List<VehicleModel> Vehicles;
-        public readonly ReactiveProperty<int> MaxShippingRate;
-        public readonly ReactiveProperty<int> UsedShippingRate;
+        public readonly ReactiveProperty<float> MaxShippingRate;
+        public readonly ReactiveProperty<float> UsedShippingRate;
 
         private readonly ShippingTitleData _config;
         private readonly HatcheriesModel _hatcheriesModel;
@@ -27,18 +27,18 @@ namespace PigeonCorp.Shipping
             Vehicles = new List<VehicleModel>();
             InitVehicles(userData.Vehicles);
             
-            MaxShippingRate = new ReactiveProperty<int>(CalculateMaxShippingRate());
-            UsedShippingRate = new ReactiveProperty<int> (_hatcheriesModel.TotalProduction.Value);
+            MaxShippingRate = new ReactiveProperty<float>(CalculateMaxShippingRate());
+            UsedShippingRate = new ReactiveProperty<float> (CalculateUsedShippingRate());
         }
-
-        public void UpdateUsedShippingRate(int production)
-        {
-            UsedShippingRate.Value = production;
-        }
-
+        
         public void UpdateMaxShippingRate()
         {
             MaxShippingRate.Value = CalculateMaxShippingRate();
+        }
+
+        public void UpdateUsedShippingRate()
+        {
+            UsedShippingRate.Value = CalculateUsedShippingRate();
         }
 
         private void InitVehicles(List<VehicleState> vehiclesData)
@@ -50,9 +50,9 @@ namespace PigeonCorp.Shipping
             }
         }
         
-        private int CalculateMaxShippingRate()
+        private float CalculateMaxShippingRate()
         {
-            var maxShippingRate = 0;
+            var maxShippingRate = 0f;
             
             foreach (var vehicle in Vehicles)
             {
@@ -63,6 +63,17 @@ namespace PigeonCorp.Shipping
             }
 
             return maxShippingRate;
+        }
+
+        private float CalculateUsedShippingRate()
+        {
+            var totalProduction = _hatcheriesModel.TotalProduction.Value;
+            
+            if (totalProduction < MaxShippingRate.Value)
+            {
+                return _hatcheriesModel.TotalProduction.Value;
+            }
+            return MaxShippingRate.Value;
         }
 
         public ShippingUserData Serialize()

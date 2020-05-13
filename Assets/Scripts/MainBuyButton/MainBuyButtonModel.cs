@@ -1,14 +1,16 @@
-using PigeonCorp.Bonus;
+using PigeonCorp.Persistence.TitleData;
 
 namespace PigeonCorp.MainBuyButton
 {
     public class MainBuyButtonModel
     {
-        public readonly int PigeonsPerClick;
+        public int PigeonsPerClick;
+        public float PigeonCost;
 
-        public MainBuyButtonModel(BonusModel bonusModel)
+        public MainBuyButtonModel(PigeonTitleData pigeonConfig)
         {
-            PigeonsPerClick = bonusModel.BuyButtonRate;
+            PigeonsPerClick = 1;
+            PigeonCost = pigeonConfig.Cost;
         }
     }
 }

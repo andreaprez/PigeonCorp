@@ -2,10 +2,12 @@ using System.Collections.Generic;
 using PigeonCorp.Commands;
 using PigeonCorp.Factory;
 using PigeonCorp.Persistence.TitleData;
+using PigeonCorp.Research;
 using PigeonCorp.UserState;
+using PigeonCorp.ValueModifiers;
 using UnityEngine;
 
-namespace PigeonCorp.Hatchery
+namespace PigeonCorp.Hatcheries
 {
     public class HatcheriesInstaller : MonoBehaviour
     {
@@ -18,7 +20,8 @@ namespace PigeonCorp.Hatchery
             HatcheriesModel model,
             HatcheriesTitleData config,
             UserStateModel userStateModel,
-            ICommand<float> subtractCurrencyCommand
+            ICommand<float> subtractCurrencyCommand,
+            UC_GetHatcheriesValueModifiers getHatcheriesValueModifiersUC
         )
         {
             var hatcheryFactory = new HatcheryFactory(
@@ -34,7 +37,8 @@ namespace PigeonCorp.Hatchery
                 userStateModel,
                 subtractCurrencyCommand,
                 spawnHatcheryCommand,
-                _hatcheryContainers
+                _hatcheryContainers,
+                getHatcheriesValueModifiersUC
             );
         }
     }

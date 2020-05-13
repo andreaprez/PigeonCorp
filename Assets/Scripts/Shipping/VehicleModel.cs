@@ -11,8 +11,8 @@ namespace PigeonCorp.Shipping
         public readonly ReactiveProperty<string> Name;
         public readonly ReactiveProperty<Sprite> Icon;
         public readonly ReactiveProperty<float> NextCost;
-        public readonly ReactiveProperty<int> MaxShippingRate;
-        public readonly ReactiveProperty<int> UsedShippingRate;
+        public readonly ReactiveProperty<float> MaxShippingRate;
+        public readonly ReactiveProperty<float> UsedShippingRate;
         
         private readonly ShippingTitleData _config;
 
@@ -25,9 +25,9 @@ namespace PigeonCorp.Shipping
 
             Name = new ReactiveProperty<string>();
             Icon = new ReactiveProperty<Sprite>();
-            NextCost = new ReactiveProperty<float>();
-            MaxShippingRate = new ReactiveProperty<int>();
-            UsedShippingRate = new ReactiveProperty<int>();
+            NextCost = new ReactiveProperty<float>(0);
+            MaxShippingRate = new ReactiveProperty<float>(0);
+            UsedShippingRate = new ReactiveProperty<float>(0);
             
             if (Purchased.Value)
             {

@@ -1,20 +1,24 @@
+using System;
 using System.Collections.Generic;
 using PigeonCorp.Persistence.TitleData;
 using PigeonCorp.Persistence.UserData;
 using PigeonCorp.UserState;
+using PigeonCorp.Utils;
 using UniRx;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
-namespace PigeonCorp.Hatchery
+namespace PigeonCorp.Hatcheries
 {
     public class HatcheriesModel
     {
         public readonly List<HatcheryModel> Hatcheries;
         public readonly ReactiveProperty<int> MaxCapacity;
         public readonly ReactiveProperty<int> UsedCapacity;
-        public readonly ReactiveProperty<int> TotalProduction;
+        public readonly ReactiveProperty<float> TotalProduction;
         
         private readonly HatcheriesTitleData _config;
+        private readonly UserStateModel _userStateModel;
         private List<Transform> _hatcheryEntrances;
 
         public HatcheriesModel(
@@ -24,14 +28,15 @@ namespace PigeonCorp.Hatchery
         )
         {
             _config = config;
-            
+            _userStateModel = userStateModel;
+
             Hatcheries = new List<HatcheryModel>();
             InitHatcheries(userData.Hatcheries);
             
             MaxCapacity = new ReactiveProperty<int>(CalculateMaxCapacity());
-            UsedCapacity = new ReactiveProperty<int> (userStateModel.CurrentPigeons.Value);
+            UsedCapacity = new ReactiveProperty<int> (CalculateUsedCapacity());
             
-            TotalProduction = new ReactiveProperty<int>(CalculateTotalProduction());
+            TotalProduction = new ReactiveProperty<float>(CalculateTotalProduction());
         }
 
         public void SetHatcheryEntrances(List<Transform> entrances)
@@ -39,9 +44,9 @@ namespace PigeonCorp.Hatchery
             _hatcheryEntrances = entrances;
         }
         
-        public void UpdateUsedCapacity(int currentPigeons)
+        public void UpdateUsedCapacity()
         {
-            UsedCapacity.Value = currentPigeons;
+            UsedCapacity.Value = CalculateUsedCapacity();
         }
 
         public void UpdateMaxCapacity()
@@ -94,9 +99,20 @@ namespace PigeonCorp.Hatchery
             return maxCapacity;
         }
 
-        private int CalculateTotalProduction()
+        private int CalculateUsedCapacity()
         {
-            var production = 0;
+            var currentPigeons = _userStateModel.CurrentPigeons.Value;
+            
+            if (currentPigeons < MaxCapacity.Value)
+            {
+                return _userStateModel.CurrentPigeons.Value;
+            }
+            return MaxCapacity.Value;
+        }
+
+        private float CalculateTotalProduction()
+        {
+            var production = 0f;
             
             foreach (var hatchery in Hatcheries)
             {

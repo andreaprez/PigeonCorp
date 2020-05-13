@@ -1,21 +1,35 @@
 using PigeonCorp.Dispatcher;
 using PigeonCorp.Commands;
 using PigeonCorp.Persistence.TitleData;
+using PigeonCorp.Research;
 using PigeonCorp.UserState;
+using PigeonCorp.Utils;
+using PigeonCorp.ValueModifiers;
 using UniRx;
 
 namespace PigeonCorp.MainBuyButton
 {
     public class MainBuyButtonMediator
     {
+        private readonly MainBuyButtonModel _model;
+        private readonly PigeonTitleData _pigeonConfig;
+        private readonly MainBuyButtonValueModifiers _valueModifiers;
+
         public MainBuyButtonMediator(
             MainBuyButtonView view,
             MainBuyButtonModel model,
-            ICommand<int> buyPigeonCommand,
+            ICommand spawnPigeonCommand,
+            ICommand<float> subtractCurrencyCommand,
             UserStateModel userStateModel,
-            PigeonTitleData pigeonConfig
+            PigeonTitleData pigeonConfig,
+            UC_GetMainBuyButtonValueModifiers getMainBuyButtonModifiersUC
         )
         {
+            _model = model;
+            _pigeonConfig = pigeonConfig;
+
+            _valueModifiers = (MainBuyButtonValueModifiers)getMainBuyButtonModifiersUC.Execute();
+            
             userStateModel.Currency.AsObservable().Subscribe(currency =>
             {
                 var nextClickCost = model.PigeonsPerClick * pigeonConfig.Cost;
@@ -31,8 +45,44 @@ namespace PigeonCorp.MainBuyButton
             
             view.GetButtonAsObservable().Subscribe(onClick =>
             {
-                buyPigeonCommand.Handle(model.PigeonsPerClick);
+                var cost = _model.PigeonCost * _model.PigeonsPerClick;
+                subtractCurrencyCommand.Execute(cost);
+
+                for (int i = 0; i < _model.PigeonsPerClick; i++)
+                {
+                    spawnPigeonCommand.Execute();
+                }
             }).AddTo(MainDispatcher.Disposables);
+
+            SubscribeToValueModifiers();
+        }
+
+        private void SubscribeToValueModifiers()
+        {
+            _valueModifiers.PigeonsPerClickMultiplier.Subscribe(multiplier =>
+            {
+                ApplyMultiplierToBuyRate(multiplier);
+            }).AddTo(MainDispatcher.Disposables);
+            
+            _valueModifiers.PigeonCostDiscount.Subscribe(discount =>
+            {
+                ApplyDiscountToPigeon(discount);
+            }).AddTo(MainDispatcher.Disposables);
+        }
+
+        private void ApplyMultiplierToBuyRate(float multiplier)
+        {
+            _model.PigeonsPerClick = (int)multiplier;
+        }
+
+        private void ApplyDiscountToPigeon(float discount)
+        {
+            var baseValue = _pigeonConfig.Cost;
+            var discountValue = MathUtils.CalculateQuantityFromPercentage(
+                discount,
+                baseValue
+            );
+            _model.PigeonCost = baseValue - discountValue;
         }
     }
 }

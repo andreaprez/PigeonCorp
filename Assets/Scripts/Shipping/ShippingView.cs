@@ -76,7 +76,7 @@ namespace PigeonCorp.Shipping
             _vehicleViews[vehicleId].SetCost(cost);
         }
         
-        public void UpdateVehicleMaxShippingRate(int vehicleId, int rate)
+        public void UpdateVehicleMaxShippingRate(int vehicleId, float rate)
         {
             _vehicleViews[vehicleId].UpdateMaxShippingRate(rate);
         }

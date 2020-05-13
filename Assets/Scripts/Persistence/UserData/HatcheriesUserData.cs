@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using PigeonCorp.Hatchery;
+using PigeonCorp.Hatcheries;
 using PigeonCorp.Persistence.TitleData;
 
 namespace PigeonCorp.Persistence.UserData

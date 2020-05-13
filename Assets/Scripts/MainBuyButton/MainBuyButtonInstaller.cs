@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using PigeonCorp.Commands;
 using PigeonCorp.Factory;
-using PigeonCorp.Hatchery;
+using PigeonCorp.Hatcheries;
 using PigeonCorp.MainScreen;
 using PigeonCorp.Persistence.TitleData;
+using PigeonCorp.Research;
 using PigeonCorp.UserState;
+using PigeonCorp.ValueModifiers;
 using UnityEngine;
 
 namespace PigeonCorp.MainBuyButton
@@ -21,7 +23,8 @@ namespace PigeonCorp.MainBuyButton
             UserStateModel userStateModel,
             PigeonTitleData pigeonConfig,
             ICommand<float> subtractCurrencyCommand,
-            HatcheriesModel hatcheriesModel
+            HatcheriesModel hatcheriesModel,
+            UC_GetMainBuyButtonValueModifiers getMainBuyButtonModifiersUC
         )
         {
             var pigeonFactory = new PigeonFactory(
@@ -30,18 +33,15 @@ namespace PigeonCorp.MainBuyButton
                 hatcheriesModel
             );
             var spawnPigeonCommand = new SpawnPigeonCommand(userStateModel, pigeonFactory);
-            var buyPigeonCommand = new BuyPigeonCommand(
-                spawnPigeonCommand,
-                pigeonConfig,
-                subtractCurrencyCommand
-            );
-            
+
             var mediator = new MainBuyButtonMediator(
                 _view,
                 model,
-                buyPigeonCommand,
+                spawnPigeonCommand,
+                subtractCurrencyCommand,
                 userStateModel,
-                pigeonConfig
+                pigeonConfig,
+                getMainBuyButtonModifiersUC
             );
         }
     }
