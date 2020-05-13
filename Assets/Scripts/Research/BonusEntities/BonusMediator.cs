@@ -3,6 +3,8 @@ using PigeonCorp.Commands;
 using PigeonCorp.Dispatcher;
 using PigeonCorp.Persistence.Gateway;
 using PigeonCorp.Persistence.TitleData;
+using PigeonCorp.Utils;
+using PigeonCorp.ValueModifiers;
 using UniRx;
 
 namespace PigeonCorp.Research
@@ -14,13 +16,15 @@ namespace PigeonCorp.Research
         private readonly BonusView _view;
         private readonly ResearchTitleData _config;
         private readonly ICommand<float> _subtractCurrencyCommand;
-        
+        private readonly ResearchValueModifiers _valueModifiers;
+
         public BonusMediator(
             ResearchModel researchModel,
             BonusModel model,
             BonusView view,
             ResearchTitleData config,
-            ICommand<float> subtractCurrencyCommand
+            ICommand<float> subtractCurrencyCommand,
+            ResearchValueModifiers valueModifiers
         )
         {
             _researchModel = researchModel;
@@ -28,12 +32,16 @@ namespace PigeonCorp.Research
             _view = view;
             _config = config;
             _subtractCurrencyCommand = subtractCurrencyCommand;
-            
+            _valueModifiers = valueModifiers;
+
             _view.GetResearchButtonAsObservable().Subscribe(research =>
             {
                 var cost = _model.NextCost.Value;
-                _model.Research();
                 _subtractCurrencyCommand.Execute(cost);
+                
+                _model.Research();
+                ApplyValueModifiers();
+                
                 Gateway.Instance.UpdateResearchData(_researchModel.Serialize());
             }).AddTo(MainDispatcher.Disposables);
 
@@ -72,6 +80,8 @@ namespace PigeonCorp.Research
             {
                 _view.UpdateNextValue(nextValue);
             }).AddTo(MainDispatcher.Disposables);
+
+            SubscribeToValueModifiers();
         }
 
         private BonusConfig FindBonusConfigByType()
@@ -85,6 +95,34 @@ namespace PigeonCorp.Research
             }
 
             throw new Exception("No config found for bonus type: " + _model.Type);
+        }
+        
+        private void SubscribeToValueModifiers()
+        {
+            _valueModifiers.ResearchCostDiscount.Subscribe(discount =>
+            {
+                ApplyDiscountToBonus(discount);
+            }).AddTo(MainDispatcher.Disposables);
+        }
+        
+        private void ApplyValueModifiers()
+        {
+            ApplyDiscountToBonus(_valueModifiers.ResearchCostDiscount.Value);
+        }
+
+        private void ApplyDiscountToBonus(float discount)
+        {
+            var bonusConfig = FindBonusConfigByType();
+            var maxTier = bonusConfig.Tiers.Count - 1;
+            if (_model.Tier.Value < maxTier)
+            {
+                var baseValue = bonusConfig.Tiers[_model.Tier.Value + 1].Cost;
+                var discountValue = MathUtils.CalculateQuantityFromPercentage(
+                    discount,
+                    baseValue
+                );
+                _model.NextCost.Value = baseValue - discountValue;
+            }
         }
     }
 }

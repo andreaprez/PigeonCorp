@@ -9,19 +9,22 @@ namespace PigeonCorp.Research
     {
         [SerializeField] private ResearchView _view;
 
-        public void Install(ResearchModel model,
+        public void Install(
+            ResearchModel model,
             ResearchTitleData config,
             ICommand<float> subtractCurrencyCommand,
-            UC_GetMainBuyButtonValueModifiers getMainBuyButtonModifiersUc
+            UC_GetResearchValueModifiers getResearchValueModifiersUC,
+            UC_GetMainBuyButtonValueModifiers getMainBuyButtonModifiersUC
         )
         {
-            // TODO: Use UC to init Model
+            // TODO: Use UCs to init Model
             
             var mediator = new ResearchMediator(
                 model,
                 _view,
                 config,
-                subtractCurrencyCommand
+                subtractCurrencyCommand,
+                getResearchValueModifiersUC
             );
         }
     }

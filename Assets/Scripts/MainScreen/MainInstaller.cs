@@ -80,6 +80,7 @@ namespace PigeonCorp.MainScreen
                 researchModel,
                 researchConfig,
                 subtractCurrencyCommand,
+                getResearchModifiersUC,
                 getMainBuyButtonModifiersUC
             );
             
