@@ -37,40 +37,5 @@ namespace PigeonCorp.Research
         {
             return _bonusViews[id];
         }
-
-        public void HideBonusResearchUI(int bonusId)
-        {
-            _bonusViews[bonusId].HideResearchUI();
-        }
-        
-        public void SetBonusName(int bonusId, string name)
-        {
-            _bonusViews[bonusId].SetName(name);
-        }
-
-        public void SetBonusIcon(int bonusId, Sprite icon)
-        {
-            _bonusViews[bonusId].SetIcon(icon);
-        }
-        
-        public void SetBonusCost(int bonusId, float cost)
-        {
-            _bonusViews[bonusId].SetCost(cost);
-        }
-        
-        public void UpdateBonusCurrentValue(int bonusId, float value)
-        {
-            _bonusViews[bonusId].UpdateCurrentValue(value);
-        }
-        
-        public void UpdateBonusNextValue(int bonusId, float value)
-        {
-            _bonusViews[bonusId].UpdateNextValue(value);
-        }
-
-        public void SetButtonInteractable(int bonusId, bool interactable)
-        {
-            _bonusViews[bonusId].SetButtonInteractable(interactable);
-        }
     }
 }

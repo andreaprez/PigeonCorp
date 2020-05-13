@@ -15,11 +15,19 @@ namespace PigeonCorp.Persistence.TitleData
     public class BonusConfig
     {
         public BonusType Type;
+        public ValueUnitType UnitType;
         public string Name;
         public Sprite Icon;
         public List<BonusTier> Tiers;
     }
     
+    [Serializable]
+    public class ValueUnitType
+    {
+        public string Unit;
+        public UnitPosition Position;
+    }
+
     [Serializable]
     public class BonusTier
     {

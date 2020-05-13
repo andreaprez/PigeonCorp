@@ -7,6 +7,7 @@ namespace PigeonCorp.Research
     public abstract class BonusModel
     {
         public readonly BonusType Type;
+        public readonly ValueUnitType UnitType;
         public readonly ReactiveProperty<int> Tier;
         public readonly ReactiveProperty<string> Name;
         public readonly ReactiveProperty<Sprite> Icon;
@@ -24,6 +25,7 @@ namespace PigeonCorp.Research
             _applicableBonusEntity = applicableBonus;
 
             Type = config.Type;
+            UnitType = config.UnitType;
             Name = new ReactiveProperty<string>(config.Name);
             Icon = new ReactiveProperty<Sprite>(config.Icon);
             Tier = new ReactiveProperty<int>(stateData.CurrentTier);

@@ -407,9 +407,10 @@ MonoBehaviour:
   _researchButton: {fileID: 1285701386690664069}
   _bonusName: {fileID: 563422663675983150}
   _bonusIcon: {fileID: 1191535546875036030}
+  _researchCostText: {fileID: 2946198276398597503}
   _currentValueText: {fileID: 1964870592751468391}
   _nextValueText: {fileID: 4602653349612943878}
-  _researchCostText: {fileID: 2946198276398597503}
+  _nextValueArrow: {fileID: 763226063234117565}
 --- !u!1 &4843659951659320183
 GameObject:
   m_ObjectHideFlags: 0

@@ -43,20 +43,7 @@ namespace PigeonCorp.Research
         {
             return new ResearchUserData(this);
         }
-        
-        public BonusModel GetBonusByType(BonusType type)
-        {
-            foreach (var bonus in Bonuses)
-            {
-                if (bonus.Type == type)
-                {
-                    return bonus;
-                }
-            }
 
-            throw new Exception("No bonus found of type: " + type);
-        }
-        
         private void InitBonuses()
         {
             for (int i = 0; i < _config.BonusTypesConfiguration.Count; i++)

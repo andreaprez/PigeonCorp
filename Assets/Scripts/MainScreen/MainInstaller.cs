@@ -81,7 +81,8 @@ namespace PigeonCorp.MainScreen
                 researchConfig,
                 subtractCurrencyCommand,
                 getResearchModifiersUC,
-                getMainBuyButtonModifiersUC
+                getMainBuyButtonModifiersUC,
+                userStateModel
             );
             
             var hatcheriesModel = new HatcheriesModel(hatcheriesConfig, hatcheriesData, userStateModel);

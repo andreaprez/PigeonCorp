@@ -11,9 +11,10 @@ namespace PigeonCorp.Research
         [Space]
         [SerializeField] private Text _bonusName;
         [SerializeField] private Image _bonusIcon;
+        [SerializeField] private Text _researchCostText;
         [SerializeField] private Text _currentValueText;
         [SerializeField] private Text _nextValueText;
-        [SerializeField] private Text _researchCostText;
+        [SerializeField] private Image _nextValueArrow;
         
         public IObservable<Unit> GetResearchButtonAsObservable()
         {
@@ -25,6 +26,7 @@ namespace PigeonCorp.Research
             _researchButton.gameObject.SetActive(false);
             _researchCostText.transform.parent.gameObject.SetActive(false);
             _nextValueText.gameObject.SetActive(false);
+            _nextValueArrow.gameObject.SetActive(false);
         }
         
         public void SetName(string name)
@@ -42,14 +44,14 @@ namespace PigeonCorp.Research
             _researchCostText.text = cost.ToString();
         }
         
-        public void UpdateCurrentValue(float capacity)
+        public void UpdateCurrentValue(string value)
         {
-            _currentValueText.text = capacity.ToString();
+            _currentValueText.text = value;
         }
         
-        public void UpdateNextValue(float capacity)
+        public void UpdateNextValue(string value)
         {
-            _nextValueText.text = capacity.ToString();
+            _nextValueText.text = value;
         }
 
         public void SetButtonInteractable(bool interactable)

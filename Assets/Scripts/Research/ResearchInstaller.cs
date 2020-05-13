@@ -1,5 +1,6 @@
 using PigeonCorp.Commands;
 using PigeonCorp.Persistence.TitleData;
+using PigeonCorp.UserState;
 using PigeonCorp.ValueModifiers;
 using UnityEngine;
 
@@ -14,7 +15,8 @@ namespace PigeonCorp.Research
             ResearchTitleData config,
             ICommand<float> subtractCurrencyCommand,
             UC_GetResearchValueModifiers getResearchValueModifiersUC,
-            UC_GetMainBuyButtonValueModifiers getMainBuyButtonModifiersUC
+            UC_GetMainBuyButtonValueModifiers getMainBuyButtonModifiersUC,
+            UserStateModel userStateModel
         )
         {
             // TODO: Use UCs to init Model
@@ -24,7 +26,8 @@ namespace PigeonCorp.Research
                 _view,
                 config,
                 subtractCurrencyCommand,
-                getResearchValueModifiersUC
+                getResearchValueModifiersUC,
+                userStateModel
             );
         }
     }

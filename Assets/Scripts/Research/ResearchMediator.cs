@@ -3,6 +3,7 @@ using PigeonCorp.Commands;
 using PigeonCorp.Dispatcher;
 using PigeonCorp.Persistence.Gateway;
 using PigeonCorp.Persistence.TitleData;
+using PigeonCorp.UserState;
 using PigeonCorp.ValueModifiers;
 using UniRx;
 
@@ -15,20 +16,23 @@ namespace PigeonCorp.Research
         private readonly ResearchTitleData _config;
         private readonly ICommand<float> _subtractCurrencyCommand;
         private readonly ResearchValueModifiers _valueModifiers;
+        private readonly UserStateModel _userStateModel;
 
-        
+
         public ResearchMediator(
             ResearchModel model,
             ResearchView view,
             ResearchTitleData config,
             ICommand<float> subtractCurrencyCommand,
-            UC_GetResearchValueModifiers getResearchValueModifiersUc
+            UC_GetResearchValueModifiers getResearchValueModifiersUc,
+            UserStateModel userStateModel
         )
         {
             _model = model;
             _view = view;
             _config = config;
             _subtractCurrencyCommand = subtractCurrencyCommand;
+            _userStateModel = userStateModel;
 
             _valueModifiers = (ResearchValueModifiers)getResearchValueModifiersUc.Execute();
             
@@ -55,7 +59,8 @@ namespace PigeonCorp.Research
                     _view.GetBonusView(i),
                     _config,
                     _subtractCurrencyCommand,
-                    _valueModifiers
+                    _valueModifiers,
+                    _userStateModel
                 );
             }
         }

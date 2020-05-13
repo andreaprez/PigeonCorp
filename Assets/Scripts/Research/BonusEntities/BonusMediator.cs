@@ -3,6 +3,7 @@ using PigeonCorp.Commands;
 using PigeonCorp.Dispatcher;
 using PigeonCorp.Persistence.Gateway;
 using PigeonCorp.Persistence.TitleData;
+using PigeonCorp.UserState;
 using PigeonCorp.Utils;
 using PigeonCorp.ValueModifiers;
 using UniRx;
@@ -24,7 +25,8 @@ namespace PigeonCorp.Research
             BonusView view,
             ResearchTitleData config,
             ICommand<float> subtractCurrencyCommand,
-            ResearchValueModifiers valueModifiers
+            ResearchValueModifiers valueModifiers,
+            UserStateModel userStateModel
         )
         {
             _researchModel = researchModel;
@@ -73,12 +75,21 @@ namespace PigeonCorp.Research
             _model.CurrentValue.AsObservable().Subscribe(currentValue =>
             {
                 _model.ApplyBonus();
-                _view.UpdateCurrentValue(currentValue);
+                var value = GetValueFormatWithType(currentValue);
+                _view.UpdateCurrentValue(value);
             }).AddTo(MainDispatcher.Disposables);
             
             _model.NextValue.AsObservable().Subscribe(nextValue =>
             {
-                _view.UpdateNextValue(nextValue);
+                var value = GetValueFormatWithType(nextValue);
+                _view.UpdateNextValue(value);
+            }).AddTo(MainDispatcher.Disposables);
+            
+            userStateModel.Currency.AsObservable().Subscribe(currency => 
+            {
+                var nextCost = _model.NextCost.Value;
+                var enoughCurrency = currency >= nextCost;
+                _view.SetButtonInteractable(enoughCurrency);
             }).AddTo(MainDispatcher.Disposables);
 
             SubscribeToValueModifiers();
@@ -95,6 +106,19 @@ namespace PigeonCorp.Research
             }
 
             throw new Exception("No config found for bonus type: " + _model.Type);
+        }
+
+        private String GetValueFormatWithType(float value)
+        {
+            switch (_model.UnitType.Position)
+            {
+                case UnitPosition.START:
+                    return _model.UnitType.Unit + value;
+                case UnitPosition.END:
+                    return value + _model.UnitType.Unit;
+                default:
+                    return value.ToString();
+            }
         }
         
         private void SubscribeToValueModifiers()
