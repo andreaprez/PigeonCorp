@@ -1,5 +1,6 @@
 using PigeonCorp.Dispatcher;
 using PigeonCorp.Commands;
+using PigeonCorp.MainTopBar;
 using PigeonCorp.Persistence.TitleData;
 using PigeonCorp.Research;
 using PigeonCorp.UserState;
@@ -20,7 +21,7 @@ namespace PigeonCorp.MainBuyButton
             MainBuyButtonModel model,
             ICommand spawnPigeonCommand,
             ICommand<float> subtractCurrencyCommand,
-            UserStateModel userStateModel,
+            MainTopBarEntity mainTopBarEntity,
             PigeonTitleData pigeonConfig,
             UC_GetMainBuyButtonValueModifiers getMainBuyButtonModifiersUC
         )
@@ -30,7 +31,7 @@ namespace PigeonCorp.MainBuyButton
 
             _valueModifiers = (MainBuyButtonValueModifiers)getMainBuyButtonModifiersUC.Execute();
             
-            userStateModel.Currency.AsObservable().Subscribe(currency =>
+            mainTopBarEntity.Currency.AsObservable().Subscribe(currency =>
             {
                 var nextClickCost = model.PigeonsPerClick * pigeonConfig.Cost;
                 if (currency < nextClickCost)

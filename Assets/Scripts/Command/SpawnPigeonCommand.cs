@@ -1,22 +1,22 @@
 using PigeonCorp.Factory;
-using PigeonCorp.UserState;
+using PigeonCorp.MainTopBar;
 
 namespace PigeonCorp.Commands
 {
     public class SpawnPigeonCommand : ICommand
     {
-        private readonly UserStateModel _userStateModel;
+        private readonly MainTopBarEntity _mainTopBarEntity;
         private readonly IFactory<int> _pigeonFactory;
 
-        public SpawnPigeonCommand(UserStateModel userStateModel, IFactory<int> pigeonFactory)
+        public SpawnPigeonCommand(MainTopBarEntity mainTopBarEntity, IFactory<int> pigeonFactory)
         {
-            _userStateModel = userStateModel;
+            _mainTopBarEntity = mainTopBarEntity;
             _pigeonFactory = pigeonFactory;
         }
         
         public void Execute()
         {
-            _userStateModel.AddPigeons(1);
+            _mainTopBarEntity.AddPigeons(1);
             _pigeonFactory.Create(1);
         }
     }

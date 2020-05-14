@@ -3,6 +3,7 @@ using PigeonCorp.Commands;
 using PigeonCorp.Factory;
 using PigeonCorp.Hatcheries;
 using PigeonCorp.MainScreen;
+using PigeonCorp.MainTopBar;
 using PigeonCorp.Persistence.TitleData;
 using PigeonCorp.Research;
 using PigeonCorp.UserState;
@@ -20,7 +21,7 @@ namespace PigeonCorp.MainBuyButton
         
         public void Install(
             MainBuyButtonModel model,
-            UserStateModel userStateModel,
+            MainTopBarEntity mainTopBarEntity,
             PigeonTitleData pigeonConfig,
             ICommand<float> subtractCurrencyCommand,
             HatcheriesModel hatcheriesModel,
@@ -32,14 +33,14 @@ namespace PigeonCorp.MainBuyButton
                 _pigeonContainer,
                 hatcheriesModel
             );
-            var spawnPigeonCommand = new SpawnPigeonCommand(userStateModel, pigeonFactory);
+            var spawnPigeonCommand = new SpawnPigeonCommand(mainTopBarEntity, pigeonFactory);
 
             var mediator = new MainBuyButtonMediator(
                 _view,
                 model,
                 spawnPigeonCommand,
                 subtractCurrencyCommand,
-                userStateModel,
+                mainTopBarEntity,
                 pigeonConfig,
                 getMainBuyButtonModifiersUC
             );

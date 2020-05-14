@@ -1,6 +1,6 @@
 using System;
+using PigeonCorp.MainTopBar;
 using PigeonCorp.Persistence.TitleData;
-using PigeonCorp.UserState;
 
 namespace PigeonCorp.Persistence.UserData
 {
@@ -17,10 +17,10 @@ namespace PigeonCorp.Persistence.UserData
             CurrentPigeons = config.InitialPigeons;
         }
         
-        public UserStateUserData(UserStateModel model)
+        public UserStateUserData(MainTopBarEntity model)
         {
             Currency = model.Currency.Value;
-            CurrentPigeons = model.CurrentPigeons.Value;
+            CurrentPigeons = model.PigeonsCount.Value;
         }
     }
 }

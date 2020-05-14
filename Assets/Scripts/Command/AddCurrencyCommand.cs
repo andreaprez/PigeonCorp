@@ -1,19 +1,19 @@
-using PigeonCorp.UserState;
+using PigeonCorp.MainTopBar;
 
 namespace PigeonCorp.Commands
 {
     public class AddCurrencyCommand : ICommand<float>
     {
-        private readonly UserStateModel _userStateModel;
+        private readonly MainTopBarEntity _mainTopBarEntity;
 
-        public AddCurrencyCommand(UserStateModel userStateModel)
+        public AddCurrencyCommand(MainTopBarEntity mainTopBarEntity)
         {
-            _userStateModel = userStateModel;
+            _mainTopBarEntity = mainTopBarEntity;
         }
         
         public void Execute(float currency)
         {
-            _userStateModel.AddCurrency(currency);
+            _mainTopBarEntity.AddCurrency(currency);
         }
     }
 }

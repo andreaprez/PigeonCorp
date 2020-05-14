@@ -17,7 +17,6 @@ namespace PigeonCorp.MainScreen
         [SerializeField] private TitleDataHolder titleDataHolder;
         [Space]
         [SerializeField] private MainBuyButtonInstaller _mainBuyButtonInstaller;
-        [SerializeField] private MainTopBarInstaller _mainTopBarInstaller;
         [SerializeField] private HatcheriesInstaller _hatcheriesInstaller;
         [SerializeField] private ShippingInstaller _shippingInstaller;
         [SerializeField] private ResearchInstaller _researchInstaller;
@@ -52,9 +51,11 @@ namespace PigeonCorp.MainScreen
             
             // GAME INIT
             var userStateModel = new UserStateModel(userStateData);
+            var mainTopBarEntity = new MainTopBarEntity();
+            new MainTopBarInstaller().Install(mainTopBarEntity, userStateData);
             
-            var subtractCurrencyCommand = new SubtractCurrencyCommand(userStateModel);
-            var addCurrencyCommand = new AddCurrencyCommand(userStateModel);
+            var subtractCurrencyCommand = new SubtractCurrencyCommand(mainTopBarEntity);
+            var addCurrencyCommand = new AddCurrencyCommand(mainTopBarEntity);
 
             var initValueModifiersRepositoryUC = new UC_InitValueModifiersRepository();
             var valueModifiersRepository = initValueModifiersRepositoryUC.Execute();
@@ -65,8 +66,6 @@ namespace PigeonCorp.MainScreen
             var getResearchModifiersUC = new UC_GetResearchValueModifiers(valueModifiersRepository);
             
             
-            var mainTopBarModel = new MainTopBarModel(userStateModel);
-            _mainTopBarInstaller.Install(mainTopBarModel, userStateModel);
             
             var researchModel = new ResearchModel(
                 researchConfig,
@@ -109,7 +108,7 @@ namespace PigeonCorp.MainScreen
             var mainBuyButtonModel = new MainBuyButtonModel(pigeonConfig);
             _mainBuyButtonInstaller.Install(
                 mainBuyButtonModel,
-                userStateModel,
+                mainTopBarEntity,
                 pigeonConfig,
                 subtractCurrencyCommand,
                 hatcheriesModel,
