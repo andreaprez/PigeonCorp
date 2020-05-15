@@ -233,7 +233,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 542569806}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &29401536
 MonoBehaviour:
@@ -961,7 +961,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 542569806}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &444668574
 MonoBehaviour:
@@ -1020,10 +1020,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   titleDataHolder: {fileID: 11400000, guid: b5dad9bbcc9f1474f8f12cdd5819ab78, type: 2}
-  _mainBuyButtonInstaller: {fileID: 1728339115}
   _hatcheriesInstaller: {fileID: 1930912108}
   _shippingInstaller: {fileID: 29401536}
   _researchInstaller: {fileID: 444668574}
+  _pigeonsContainer: {fileID: 1398813453}
 --- !u!1 &513990110
 GameObject:
   m_ObjectHideFlags: 0
@@ -1288,7 +1288,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 513211802}
-  - {fileID: 1728339114}
   - {fileID: 1930912107}
   - {fileID: 29401535}
   - {fileID: 444668573}
@@ -1893,18 +1892,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1280785824 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3544424308029328436, guid: c706fa30fe608bd4e94aedfe200c4999,
-    type: 3}
-  m_PrefabInstance: {fileID: 3544424309165273492}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67818d115fe74bccbe9f35434c94951b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &1280785825 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3544424308029328437, guid: c706fa30fe608bd4e94aedfe200c4999,
@@ -2119,53 +2106,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 52.037003, y: 36.316, z: 26.591002}
---- !u!1 &1728339113
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1728339114}
-  - component: {fileID: 1728339115}
-  m_Layer: 0
-  m_Name: MainBuyButtonInstaller
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1728339114
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1728339113}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 542569806}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1728339115
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1728339113}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20e99afc8f734609946e3656ad68ad8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _view: {fileID: 1280785824}
-  _pigeonPrefab: {fileID: 5893904801407025503, guid: 50f39a572a1594847b233c0b6d797a33,
-    type: 3}
-  _pigeonContainer: {fileID: 1398813453}
 --- !u!1 &1751785110
 GameObject:
   m_ObjectHideFlags: 0
@@ -2288,7 +2228,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 542569806}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1930912108
 MonoBehaviour:

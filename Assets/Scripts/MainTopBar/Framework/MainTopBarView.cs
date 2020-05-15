@@ -3,6 +3,7 @@ using PigeonCorp.Installers;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace PigeonCorp.MainTopBar
 {
@@ -10,13 +11,12 @@ namespace PigeonCorp.MainTopBar
     {
         [SerializeField] private Text _currency;
         [SerializeField] private Text _pigeonsCount;
-        
+
         private MainTopBarViewModel _viewModel;
 
-        
         public void Start()
         {
-            _viewModel = Containers.Scene.Resolve<MainTopBarViewModel>();
+            _viewModel = ProjectContext.Instance.Container.Resolve<MainTopBarViewModel>();
             
             SubscribeToViewModel();
         }

@@ -1,24 +1,23 @@
 using PigeonCorp.Hatcheries;
 using PigeonCorp.MainScreen;
+using PigeonCorp.MainScreen.UseCase;
 using UnityEngine;
+using Zenject;
 
 namespace PigeonCorp.Factory
 {
     public class PigeonFactory : IFactory<int>
     {
         private readonly PigeonBehaviour _pigeonPrefab;
-        private readonly Transform _container;
+        private readonly Transform _pigeonContainer;
         private readonly HatcheriesModel _hatcheriesModel;
 
-        public PigeonFactory(
-            PigeonBehaviour prefab,
-            Transform container,
-            HatcheriesModel hatcheriesModel
-        )
+        public PigeonFactory(HatcheriesModel hatcheriesModel, UC_GetPigeonsContainer getPigeonsContainerUC)
         {
-            _pigeonPrefab = prefab;
-            _container = container;
+            _pigeonContainer = getPigeonsContainerUC.Execute();
             _hatcheriesModel = hatcheriesModel;
+            
+            _pigeonPrefab = ProjectContext.Instance.Container.Resolve<PigeonBehaviour>();
         }
         
         public void Create(int quantity)
@@ -27,7 +26,7 @@ namespace PigeonCorp.Factory
             {
                 var destinationHatchery = _hatcheriesModel.GetRandomBuiltHatchery();
 
-                PigeonBehaviour pigeon = Object.Instantiate(_pigeonPrefab, _container);
+                PigeonBehaviour pigeon = Object.Instantiate(_pigeonPrefab, _pigeonContainer);
                 pigeon.Initialize(destinationHatchery);
             }
         }

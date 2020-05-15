@@ -1,4 +1,5 @@
 using PigeonCorp.Persistence.UserData;
+using Zenject;
 
 namespace PigeonCorp.MainTopBar
 {
@@ -7,7 +8,10 @@ namespace PigeonCorp.MainTopBar
         public void Install(MainTopBarEntity entity, UserStateUserData userStateData)
         {
             InitEntity(entity, userStateData);
-            new MainTopBarMediator(entity).Initialize();
+            
+            ProjectContext.Instance.Container
+                .Resolve<MainTopBarMediator>()
+                .Initialize(entity);
         }
 
         private static void InitEntity(MainTopBarEntity entity, UserStateUserData userStateData)

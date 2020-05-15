@@ -2,6 +2,7 @@ using PigeonCorp.Research;
 using PigeonCorp.Commands;
 using PigeonCorp.Hatcheries;
 using PigeonCorp.MainBuyButton;
+using PigeonCorp.MainScreen.UseCase;
 using PigeonCorp.MainTopBar;
 using PigeonCorp.UserState;
 using PigeonCorp.Persistence.Gateway;
@@ -16,11 +17,11 @@ namespace PigeonCorp.MainScreen
     {
         [SerializeField] private TitleDataHolder titleDataHolder;
         [Space]
-        [SerializeField] private MainBuyButtonInstaller _mainBuyButtonInstaller;
         [SerializeField] private HatcheriesInstaller _hatcheriesInstaller;
         [SerializeField] private ShippingInstaller _shippingInstaller;
         [SerializeField] private ResearchInstaller _researchInstaller;
-
+        [Space]
+        [SerializeField] private Transform _pigeonsContainer;
 
         private void Start()
         {
@@ -60,11 +61,11 @@ namespace PigeonCorp.MainScreen
             var initValueModifiersRepositoryUC = new UC_InitValueModifiersRepository();
             var valueModifiersRepository = initValueModifiersRepositoryUC.Execute();
             
+            var getPigeonsContainerUC = new UC_GetPigeonsContainer(_pigeonsContainer);
             var getMainBuyButtonModifiersUC = new UC_GetMainBuyButtonValueModifiers(valueModifiersRepository);
             var getHatcheriesModifiersUC = new UC_GetHatcheriesValueModifiers(valueModifiersRepository);
             var getShippingModifiersUC = new UC_GetShippingValueModifiers(valueModifiersRepository);
             var getResearchModifiersUC = new UC_GetResearchValueModifiers(valueModifiersRepository);
-            
             
             
             var researchModel = new ResearchModel(
@@ -105,13 +106,14 @@ namespace PigeonCorp.MainScreen
                 getShippingModifiersUC
             );
             
-            var mainBuyButtonModel = new MainBuyButtonModel(pigeonConfig);
-            _mainBuyButtonInstaller.Install(
+            var mainBuyButtonModel = new MainBuyButtonEntity();
+            new MainBuyButtonInstaller().Install(
                 mainBuyButtonModel,
                 mainTopBarEntity,
                 pigeonConfig,
                 subtractCurrencyCommand,
                 hatcheriesModel,
+                getPigeonsContainerUC,
                 getMainBuyButtonModifiersUC
             );
         }

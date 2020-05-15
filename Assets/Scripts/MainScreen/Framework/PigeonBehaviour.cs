@@ -9,9 +9,9 @@ namespace PigeonCorp.MainScreen
     { 
         [SerializeField] private NavMeshAgent _agent;
 
-        public void Initialize(Transform hatcheryEntrance)
+        public void Initialize(Transform destination)
         {
-            _agent.SetDestination(hatcheryEntrance.position);
+            _agent.SetDestination(destination.position);
         }
 
         private void Update()
