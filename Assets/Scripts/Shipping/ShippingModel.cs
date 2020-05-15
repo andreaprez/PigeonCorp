@@ -13,16 +13,16 @@ namespace PigeonCorp.Shipping
         public readonly ReactiveProperty<float> UsedShippingRate;
 
         private readonly ShippingTitleData _config;
-        private readonly HatcheriesModel _hatcheriesModel;
+        private readonly HatcheriesEntity _hatcheriesEntity;
 
         public ShippingModel(
             ShippingTitleData config,
             ShippingUserData userData,
-            HatcheriesModel hatcheriesModel
+            HatcheriesEntity hatcheriesEntity
         )
         {
             _config = config;
-            _hatcheriesModel = hatcheriesModel;
+            _hatcheriesEntity = hatcheriesEntity;
 
             Vehicles = new List<VehicleModel>();
             InitVehicles(userData.Vehicles);
@@ -67,11 +67,11 @@ namespace PigeonCorp.Shipping
 
         private float CalculateUsedShippingRate()
         {
-            var totalProduction = _hatcheriesModel.TotalProduction.Value;
+            var totalProduction = _hatcheriesEntity.TotalProduction.Value;
             
             if (totalProduction < MaxShippingRate.Value)
             {
-                return _hatcheriesModel.TotalProduction.Value;
+                return _hatcheriesEntity.TotalProduction.Value;
             }
             return MaxShippingRate.Value;
         }

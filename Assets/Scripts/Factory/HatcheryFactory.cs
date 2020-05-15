@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using PigeonCorp.Installers.Hatcheries.UseCase;
 using UnityEngine;
 
 namespace PigeonCorp.Factory
@@ -9,12 +10,12 @@ namespace PigeonCorp.Factory
         private readonly List<Transform> _hatcheryContainers;
 
         public HatcheryFactory(
-            List<GameObject> prefabs,
-            List<Transform> containers
+            UC_GetHatcheriesPrefabs getHatcheriesPrefabsUC,
+            UC_GetHatcheriesContainers getHatcheriesContainersUC
         )
         {
-            _hatcheryPrefabs = prefabs;
-            _hatcheryContainers = containers;
+            _hatcheryPrefabs = getHatcheriesPrefabsUC.Execute();
+            _hatcheryContainers = getHatcheriesContainersUC.Execute();
         }
         
         public void Create(int prefabId, int positionId)

@@ -18,10 +18,7 @@ namespace PigeonCorp.MainBuyButton
             
             SubscribeToViewModel();
 
-            _button.OnClickAsObservable().Subscribe(u =>
-            {
-                ProjectContext.Instance.Container.Resolve<MainBuyButtonMediator>().OnButtonClick();
-            }).AddTo(MainDispatcher.Disposables);
+            SubscribeToButton();
         }
         
         private void SubscribeToViewModel()
@@ -29,6 +26,14 @@ namespace PigeonCorp.MainBuyButton
             _viewModel.IsInteractable.Subscribe(interactable =>
             {
                 _button.interactable = interactable;
+            }).AddTo(MainDispatcher.Disposables);
+        }
+        
+        private void SubscribeToButton()
+        {
+            _button.OnClickAsObservable().Subscribe(u =>
+            {
+                ProjectContext.Instance.Container.Resolve<MainBuyButtonMediator>().OnButtonClick();
             }).AddTo(MainDispatcher.Disposables);
         }
     }

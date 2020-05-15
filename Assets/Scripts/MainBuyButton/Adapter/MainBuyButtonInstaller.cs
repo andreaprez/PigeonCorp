@@ -16,14 +16,19 @@ namespace PigeonCorp.MainBuyButton
             MainTopBarEntity mainTopBarEntity,
             PigeonTitleData pigeonConfig,
             ICommand<float> subtractCurrencyCommand,
-            HatcheriesModel hatcheriesModel,
+            HatcheriesEntity hatcheriesEntity,
             UC_GetPigeonsContainer getPigeonsContainerUC,
+            UC_GetPigeonDestinations getPigeonDestinationsUC,
             UC_GetMainBuyButtonValueModifiers getMainBuyButtonModifiersUC
         )
         {
             InitEntity(entity, pigeonConfig);
             
-            var pigeonFactory = new PigeonFactory(hatcheriesModel, getPigeonsContainerUC);
+            var pigeonFactory = new PigeonFactory(
+                hatcheriesEntity,
+                getPigeonsContainerUC,
+                getPigeonDestinationsUC
+            );
             var spawnPigeonCommand = new SpawnPigeonCommand(mainTopBarEntity, pigeonFactory);
 
             ProjectContext.Instance.Container

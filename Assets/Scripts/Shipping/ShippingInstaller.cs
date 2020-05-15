@@ -19,7 +19,7 @@ namespace PigeonCorp.Shipping
         public void Install(
             ShippingModel model,
             ShippingTitleData config,
-            HatcheriesModel hatcheriesModel,
+            HatcheriesEntity hatcheriesEntity,
             UserStateModel userStateModel,
             ICommand<float> subtractCurrencyCommand,
             ICommand grantShippingRevenueCommand,
@@ -37,7 +37,7 @@ namespace PigeonCorp.Shipping
                 model,
                 _view,
                 config,
-                hatcheriesModel,
+                hatcheriesEntity,
                 userStateModel,
                 subtractCurrencyCommand,
                 spawnVehicleCommand,

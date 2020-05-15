@@ -18,7 +18,7 @@ namespace PigeonCorp.Shipping
         private readonly ShippingModel _model;
         private readonly ShippingView _view;
         private readonly ShippingTitleData _config;
-        private readonly HatcheriesModel _hatcheriesModel;
+        private readonly HatcheriesEntity _hatcheriesEntity;
         private readonly UserStateModel _userStateModel;
         private readonly ICommand<float> _subtractCurrencyCommand;
         private readonly ICommand<int> _spawnVehicleCommand;
@@ -29,7 +29,7 @@ namespace PigeonCorp.Shipping
             ShippingModel model,
             ShippingView view,
             ShippingTitleData config,
-            HatcheriesModel hatcheriesModel,
+            HatcheriesEntity hatcheriesEntity,
             UserStateModel userStateModel,
             ICommand<float> subtractCurrencyCommand,
             ICommand<int> spawnVehicleCommand,
@@ -40,7 +40,7 @@ namespace PigeonCorp.Shipping
             _model = model;
             _view = view;
             _config = config;
-            _hatcheriesModel = hatcheriesModel;
+            _hatcheriesEntity = hatcheriesEntity;
             _userStateModel = userStateModel;
             _subtractCurrencyCommand = subtractCurrencyCommand;
             _spawnVehicleCommand = spawnVehicleCommand;
@@ -78,7 +78,7 @@ namespace PigeonCorp.Shipping
                 view.UpdateMaxShippingRateBar(shippingRatePercentage);
             }).AddTo(MainDispatcher.Disposables);
 
-            _hatcheriesModel.TotalProduction.AsObservable().Subscribe(production =>
+            _hatcheriesEntity.TotalProduction.AsObservable().Subscribe(production =>
             {
                 _model.UpdateUsedShippingRate();
             }).AddTo(MainDispatcher.Disposables);

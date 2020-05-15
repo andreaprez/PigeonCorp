@@ -1,5 +1,4 @@
 using PigeonCorp.Dispatcher;
-using PigeonCorp.Installers;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;

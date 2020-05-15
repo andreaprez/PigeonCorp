@@ -5,7 +5,6 @@ using PigeonCorp.Persistence.TitleData;
 using PigeonCorp.Utils;
 using PigeonCorp.ValueModifiers;
 using UniRx;
-using UnityEngine;
 using Zenject;
 
 namespace PigeonCorp.MainBuyButton

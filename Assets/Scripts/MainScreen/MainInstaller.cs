@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using PigeonCorp.Research;
 using PigeonCorp.Commands;
 using PigeonCorp.Hatcheries;
+using PigeonCorp.Installers.Hatcheries.UseCase;
 using PigeonCorp.MainBuyButton;
 using PigeonCorp.MainScreen.UseCase;
 using PigeonCorp.MainTopBar;
@@ -17,11 +19,14 @@ namespace PigeonCorp.MainScreen
     {
         [SerializeField] private TitleDataHolder titleDataHolder;
         [Space]
-        [SerializeField] private HatcheriesInstaller _hatcheriesInstaller;
         [SerializeField] private ShippingInstaller _shippingInstaller;
         [SerializeField] private ResearchInstaller _researchInstaller;
         [Space]
         [SerializeField] private Transform _pigeonsContainer;
+        [SerializeField] private List<Transform> _pigeonDestinations;
+        [Space]
+        [SerializeField] private List<GameObject> _hatcheryPrefabs;
+        [SerializeField] private List<Transform> _hatcheryContainers;
 
         private void Start()
         {
@@ -62,6 +67,11 @@ namespace PigeonCorp.MainScreen
             var valueModifiersRepository = initValueModifiersRepositoryUC.Execute();
             
             var getPigeonsContainerUC = new UC_GetPigeonsContainer(_pigeonsContainer);
+            var getPigeonDestinationsUC = new UC_GetPigeonDestinations(_pigeonDestinations);
+            
+            var getHatcheriesContainersUC = new UC_GetHatcheriesContainers(_hatcheryContainers);
+            var getHatcheriesPrefabsUC = new UC_GetHatcheriesPrefabs(_hatcheryPrefabs);
+
             var getMainBuyButtonModifiersUC = new UC_GetMainBuyButtonValueModifiers(valueModifiersRepository);
             var getHatcheriesModifiersUC = new UC_GetHatcheriesValueModifiers(valueModifiersRepository);
             var getShippingModifiersUC = new UC_GetShippingValueModifiers(valueModifiersRepository);
@@ -85,12 +95,15 @@ namespace PigeonCorp.MainScreen
                 userStateModel
             );
             
-            var hatcheriesModel = new HatcheriesModel(hatcheriesConfig, hatcheriesData, userStateModel);
-            _hatcheriesInstaller.Install(
+            var hatcheriesModel = new HatcheriesEntity();
+            new HatcheriesInstaller().Install(
                 hatcheriesModel,
+                hatcheriesData,
                 hatcheriesConfig,
-                userStateModel,
+                mainTopBarEntity,
                 subtractCurrencyCommand,
+                getHatcheriesPrefabsUC,
+                getHatcheriesContainersUC,
                 getHatcheriesModifiersUC
             );
 
@@ -114,6 +127,7 @@ namespace PigeonCorp.MainScreen
                 subtractCurrencyCommand,
                 hatcheriesModel,
                 getPigeonsContainerUC,
+                getPigeonDestinationsUC,
                 getMainBuyButtonModifiersUC
             );
         }
