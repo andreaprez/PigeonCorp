@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
+using PigeonCorp.ValueModifiers.Entity;
 
-namespace PigeonCorp.ValueModifiers
+namespace PigeonCorp.ValueModifiers.UseCase
 {
     public class ValueModifiersRepository
     {

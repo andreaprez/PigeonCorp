@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using PigeonCorp.Hatcheries;
+using PigeonCorp.Hatcheries.Entity;
 using PigeonCorp.Persistence.TitleData;
 
 namespace PigeonCorp.Persistence.UserData
@@ -16,13 +16,13 @@ namespace PigeonCorp.Persistence.UserData
             Hatcheries = config.InitialHatcheries;
         }
         
-        public HatcheriesUserData(HatcheriesModel model)
+        public HatcheriesUserData(HatcheriesEntity entity)
         {
             Hatcheries = new List<HatcheryState>();
             
-            for (int i = 0; i < model.Hatcheries.Count; i++)
+            for (int i = 0; i < entity.Hatcheries.Count; i++)
             {
-                var hatcheryModel = model.Hatcheries[i];
+                var hatcheryModel = entity.Hatcheries[i];
                 var hatcheryData = new HatcheryState
                 {
                     Built = hatcheryModel.Built.Value,

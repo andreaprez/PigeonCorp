@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using PigeonCorp.Persistence.TitleData;
-using PigeonCorp.Research;
+using PigeonCorp.Research.Entity;
 
 namespace PigeonCorp.Persistence.UserData
 {
@@ -25,11 +25,11 @@ namespace PigeonCorp.Persistence.UserData
             }
         }
         
-        public ResearchUserData(ResearchModel model)
+        public ResearchUserData(ResearchEntity entity)
         {
             Bonuses = new List<BonusState>();
 
-            foreach (var bonusType in model.Bonuses)
+            foreach (var bonusType in entity.Bonuses)
             {
                 var bonusData = new BonusState()
                 {

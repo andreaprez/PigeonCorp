@@ -1,6 +1,6 @@
-using PigeonCorp.Research;
+using PigeonCorp.Research.Entity;
 
-namespace PigeonCorp.ValueModifiers
+namespace PigeonCorp.ValueModifiers.Entity
 {
     public abstract class BaseValueModifiers : IApplicableBonus
     {

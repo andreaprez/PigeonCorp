@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using PigeonCorp.Persistence.TitleData;
-using PigeonCorp.Shipping;
+using PigeonCorp.Shipping.Entity;
 
 namespace PigeonCorp.Persistence.UserData
 {
@@ -16,13 +16,13 @@ namespace PigeonCorp.Persistence.UserData
             Vehicles = config.InitialVehicles;
         }
         
-        public ShippingUserData(ShippingModel model)
+        public ShippingUserData(ShippingEntity entity)
         {
             Vehicles = new List<VehicleState>();
             
-            for (int i = 0; i < model.Vehicles.Count; i++)
+            for (int i = 0; i < entity.Vehicles.Count; i++)
             {
-                var vehicleModel = model.Vehicles[i];
+                var vehicleModel = entity.Vehicles[i];
                 var vehicleData = new VehicleState
                 {
                     Purchased = vehicleModel.Purchased.Value,

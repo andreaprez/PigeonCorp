@@ -1,6 +1,6 @@
 using UniRx;
 
-namespace PigeonCorp.ValueModifiers
+namespace PigeonCorp.ValueModifiers.Entity
 {
     public class MainBuyButtonValueModifiers : BaseValueModifiers
     {
