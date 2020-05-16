@@ -1,12 +1,12 @@
-﻿using PigeonCorp.Hatcheries;
-using PigeonCorp.MainBuyButton;
-using PigeonCorp.MainScreen;
-using PigeonCorp.MainTopBar;
-using PigeonCorp.Research;
-using PigeonCorp.Shipping;
+﻿using PigeonCorp.Hatcheries.Adapter;
+using PigeonCorp.MainBuyButton.Adapter;
+using PigeonCorp.MainScreen.Framework;
+using PigeonCorp.MainTopBar.Adapter;
+using PigeonCorp.Research.Adapter;
+using PigeonCorp.Shipping.Adapter;
 using Zenject;
 
-namespace PigeonCorp.Installers
+namespace PigeonCorp.GameInstallation
 {
     public class SceneInstaller : MonoInstaller
     {

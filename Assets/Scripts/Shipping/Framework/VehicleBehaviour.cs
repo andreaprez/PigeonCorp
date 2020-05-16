@@ -3,7 +3,7 @@ using PigeonCorp.Persistence.TitleData;
 using UniRx;
 using UnityEngine;
 
-namespace PigeonCorp.Shipping
+namespace PigeonCorp.Shipping.Framework
 {
     public class VehicleBehaviour : MonoBehaviour
     {

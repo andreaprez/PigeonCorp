@@ -1,7 +1,7 @@
 using UniRx;
 using UnityEngine;
 
-namespace PigeonCorp.Hatcheries
+namespace PigeonCorp.Hatcheries.Adapter
 {
     public class HatcheryViewModel
     {

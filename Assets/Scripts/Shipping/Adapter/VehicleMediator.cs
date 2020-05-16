@@ -1,12 +1,13 @@
 using PigeonCorp.Dispatcher;
-using PigeonCorp.MainTopBar;
+using PigeonCorp.MainTopBar.Entity;
 using PigeonCorp.Persistence.TitleData;
+using PigeonCorp.Shipping.Entity;
 using PigeonCorp.Utils;
-using PigeonCorp.ValueModifiers;
+using PigeonCorp.ValueModifiers.Entity;
 using UniRx;
 using Zenject;
 
-namespace PigeonCorp.Shipping
+namespace PigeonCorp.Shipping.Adapter
 {
     public class VehicleMediator
     {

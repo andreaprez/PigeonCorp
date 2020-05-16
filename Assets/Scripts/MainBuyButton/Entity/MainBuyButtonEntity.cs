@@ -1,4 +1,4 @@
-namespace PigeonCorp.MainBuyButton
+namespace PigeonCorp.MainBuyButton.Entity
 {
     public class MainBuyButtonEntity
     {

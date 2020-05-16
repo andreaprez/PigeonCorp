@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace PigeonCorp.Installers.Shipping.UseCase
+namespace PigeonCorp.Shipping.UseCase
 {
     public class UC_GetVehicleContainer
     {

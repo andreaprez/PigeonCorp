@@ -1,4 +1,4 @@
-namespace PigeonCorp.Commands
+namespace PigeonCorp.Command
 {
     public interface ICommand
     {

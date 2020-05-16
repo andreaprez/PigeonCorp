@@ -1,7 +1,7 @@
 using UniRx;
 using UnityEngine;
 
-namespace PigeonCorp.Shipping
+namespace PigeonCorp.Shipping.Entity
 {
     public class VehicleEntity
     {

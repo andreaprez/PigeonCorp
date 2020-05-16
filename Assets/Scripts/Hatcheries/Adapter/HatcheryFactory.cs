@@ -1,8 +1,9 @@
 using System.Collections.Generic;
-using PigeonCorp.Installers.Hatcheries.UseCase;
+using PigeonCorp.Factory;
+using PigeonCorp.Hatcheries.UseCase;
 using UnityEngine;
 
-namespace PigeonCorp.Factory
+namespace PigeonCorp.Hatcheries.Adapter
 {
     public class HatcheryFactory : IFactory<int, int>
     {

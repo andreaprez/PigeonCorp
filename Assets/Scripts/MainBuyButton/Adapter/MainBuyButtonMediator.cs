@@ -1,13 +1,15 @@
+using PigeonCorp.Command;
 using PigeonCorp.Dispatcher;
-using PigeonCorp.Commands;
-using PigeonCorp.MainTopBar;
+using PigeonCorp.MainBuyButton.Entity;
+using PigeonCorp.MainTopBar.Entity;
 using PigeonCorp.Persistence.TitleData;
 using PigeonCorp.Utils;
-using PigeonCorp.ValueModifiers;
+using PigeonCorp.ValueModifiers.Entity;
+using PigeonCorp.ValueModifiers.UseCase;
 using UniRx;
 using Zenject;
 
-namespace PigeonCorp.MainBuyButton
+namespace PigeonCorp.MainBuyButton.Adapter
 {
     public class MainBuyButtonMediator
     {

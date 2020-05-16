@@ -1,15 +1,17 @@
-using PigeonCorp.Commands;
+using PigeonCorp.Command;
 using PigeonCorp.Dispatcher;
-using PigeonCorp.MainTopBar;
+using PigeonCorp.Hatcheries.Entity;
+using PigeonCorp.MainTopBar.Entity;
 using PigeonCorp.Persistence.Gateway;
 using PigeonCorp.Persistence.TitleData;
 using PigeonCorp.Persistence.UserData;
 using PigeonCorp.Utils;
-using PigeonCorp.ValueModifiers;
+using PigeonCorp.ValueModifiers.Entity;
+using PigeonCorp.ValueModifiers.UseCase;
 using UniRx;
 using Zenject;
 
-namespace PigeonCorp.Hatcheries
+namespace PigeonCorp.Hatcheries.Adapter
 {
     public class HatcheriesMediator
     {

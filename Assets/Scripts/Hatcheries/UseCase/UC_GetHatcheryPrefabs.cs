@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace PigeonCorp.Installers.Hatcheries.UseCase
+namespace PigeonCorp.Hatcheries.UseCase
 {
     public class UC_GetHatcheryPrefabs
     {

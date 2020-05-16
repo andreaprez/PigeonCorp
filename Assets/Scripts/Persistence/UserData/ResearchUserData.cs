@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using PigeonCorp.Persistence.TitleData;
-using PigeonCorp.Research;
+using PigeonCorp.Research.Entity;
 
 namespace PigeonCorp.Persistence.UserData
 {

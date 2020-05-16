@@ -1,19 +1,25 @@
 using System.Collections.Generic;
-using PigeonCorp.Research;
-using PigeonCorp.Commands;
-using PigeonCorp.Hatcheries;
-using PigeonCorp.Installers.Hatcheries.UseCase;
-using PigeonCorp.Installers.Shipping.UseCase;
-using PigeonCorp.MainBuyButton;
-using PigeonCorp.MainScreen.UseCase;
-using PigeonCorp.MainTopBar;
+using PigeonCorp.Hatcheries.Adapter;
+using PigeonCorp.Hatcheries.Entity;
+using PigeonCorp.Hatcheries.UseCase;
+using PigeonCorp.MainBuyButton.Adapter;
+using PigeonCorp.MainBuyButton.Entity;
+using PigeonCorp.MainBuyButton.UseCase;
+using PigeonCorp.MainTopBar.Adapter;
+using PigeonCorp.MainTopBar.Entity;
+using PigeonCorp.MainTopBar.UseCase;
 using PigeonCorp.Persistence.Gateway;
 using PigeonCorp.Persistence.TitleData;
-using PigeonCorp.Shipping;
-using PigeonCorp.ValueModifiers;
+using PigeonCorp.Research.Adapter;
+using PigeonCorp.Research.Entity;
+using PigeonCorp.Shipping.Adapter;
+using PigeonCorp.Shipping.Entity;
+using PigeonCorp.Shipping.Framework;
+using PigeonCorp.Shipping.UseCase;
+using PigeonCorp.ValueModifiers.UseCase;
 using UnityEngine;
 
-namespace PigeonCorp.MainScreen
+namespace PigeonCorp.GameInstallation
 {
     public class MainInstaller : MonoBehaviour
     {
@@ -94,6 +100,7 @@ namespace PigeonCorp.MainScreen
             );
             
             var hatcheriesEntity = new HatcheriesEntity();
+            var getRandomBuiltHatcheryIdUC = new UC_GetRandomBuiltHatcheryId(hatcheriesEntity);
             new HatcheriesInstaller().Install(
                 hatcheriesEntity,
                 hatcheriesData,
@@ -126,10 +133,10 @@ namespace PigeonCorp.MainScreen
                 mainTopBarEntity,
                 pigeonConfig,
                 subtractCurrencyCommand,
-                hatcheriesEntity,
                 getPigeonsContainerUC,
                 getPigeonDestinationsUC,
-                getMainBuyButtonModifiersUC
+                getMainBuyButtonModifiersUC,
+                getRandomBuiltHatcheryIdUC
             );
         }
     }

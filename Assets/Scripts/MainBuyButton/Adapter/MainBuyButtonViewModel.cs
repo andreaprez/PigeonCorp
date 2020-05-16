@@ -1,6 +1,6 @@
 using UniRx;
 
-namespace PigeonCorp.MainBuyButton
+namespace PigeonCorp.MainBuyButton.Adapter
 {
     public class MainBuyButtonViewModel
     {

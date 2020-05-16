@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace PigeonCorp.MainScreen.UseCase
+namespace PigeonCorp.MainBuyButton.UseCase
 {
     public class UC_GetPigeonsContainer
     {

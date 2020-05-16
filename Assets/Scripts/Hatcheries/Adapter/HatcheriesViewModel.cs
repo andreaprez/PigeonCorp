@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UniRx;
 
-namespace PigeonCorp.Hatcheries
+namespace PigeonCorp.Hatcheries.Adapter
 {
     public class HatcheriesViewModel
     {

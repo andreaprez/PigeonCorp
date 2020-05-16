@@ -1,12 +1,13 @@
 using System;
-using PigeonCorp.Commands;
-using PigeonCorp.MainTopBar;
+using PigeonCorp.Command;
+using PigeonCorp.MainTopBar.Entity;
 using PigeonCorp.Persistence.TitleData;
 using PigeonCorp.Persistence.UserData;
-using PigeonCorp.ValueModifiers;
+using PigeonCorp.Research.Entity;
+using PigeonCorp.ValueModifiers.UseCase;
 using Zenject;
 
-namespace PigeonCorp.Research
+namespace PigeonCorp.Research.Adapter
 {
     public class ResearchInstaller
     {

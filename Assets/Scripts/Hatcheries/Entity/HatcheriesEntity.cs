@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using PigeonCorp.MainTopBar;
+using PigeonCorp.MainTopBar.Entity;
 using PigeonCorp.Utils;
 using UniRx;
 using Random = UnityEngine.Random;
 
-namespace PigeonCorp.Hatcheries
+namespace PigeonCorp.Hatcheries.Entity
 {
     public class HatcheriesEntity
     {

@@ -1,11 +1,11 @@
 using PigeonCorp.Dispatcher;
-using PigeonCorp.Hatcheries;
+using PigeonCorp.Shipping.Adapter;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace PigeonCorp.Shipping
+namespace PigeonCorp.Shipping.Framework
 {
     public class VehicleView : MonoBehaviour
     {
@@ -31,7 +31,6 @@ namespace PigeonCorp.Shipping
                 .Resolve<ShippingViewModel>().VehicleViewModels[_id];
             
             SubscribeToViewModel();
-            
             SubscribeToButtons();
         }
         

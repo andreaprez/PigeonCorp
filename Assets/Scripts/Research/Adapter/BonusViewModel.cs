@@ -1,7 +1,7 @@
 using UniRx;
 using UnityEngine;
 
-namespace PigeonCorp.Research
+namespace PigeonCorp.Research.Adapter
 {
     public class BonusViewModel
     {

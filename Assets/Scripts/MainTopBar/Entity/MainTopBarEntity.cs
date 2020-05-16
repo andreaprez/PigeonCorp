@@ -1,6 +1,6 @@
 using UniRx;
 
-namespace PigeonCorp.MainTopBar
+namespace PigeonCorp.MainTopBar.Entity
 {
     public class MainTopBarEntity
     {

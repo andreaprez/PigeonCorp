@@ -1,6 +1,7 @@
+using PigeonCorp.Command;
 using PigeonCorp.Factory;
 
-namespace PigeonCorp.Commands
+namespace PigeonCorp.Hatcheries.UseCase
 {
     public class SpawnHatcheryCommand : ICommand<int, int>
     {

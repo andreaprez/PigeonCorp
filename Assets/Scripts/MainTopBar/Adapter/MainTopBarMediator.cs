@@ -1,10 +1,11 @@
 using PigeonCorp.Dispatcher;
+using PigeonCorp.MainTopBar.Entity;
 using PigeonCorp.Persistence.Gateway;
 using PigeonCorp.Persistence.UserData;
 using UniRx;
 using Zenject;
 
-namespace PigeonCorp.MainTopBar
+namespace PigeonCorp.MainTopBar.Adapter
 {
     public class MainTopBarMediator
     {

@@ -3,7 +3,7 @@ using PigeonCorp.Persistence.TitleData;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace PigeonCorp.MainScreen
+namespace PigeonCorp.MainScreen.Framework
 {
     public class PigeonBehaviour : MonoBehaviour
     { 

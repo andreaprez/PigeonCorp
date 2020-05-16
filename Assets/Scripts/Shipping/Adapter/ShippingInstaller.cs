@@ -1,14 +1,14 @@
-using PigeonCorp.Commands;
-using PigeonCorp.Factory;
-using PigeonCorp.Hatcheries;
-using PigeonCorp.Installers.Shipping.UseCase;
-using PigeonCorp.MainTopBar;
+using PigeonCorp.Command;
+using PigeonCorp.Hatcheries.Entity;
+using PigeonCorp.MainTopBar.Entity;
 using PigeonCorp.Persistence.TitleData;
 using PigeonCorp.Persistence.UserData;
-using PigeonCorp.ValueModifiers;
+using PigeonCorp.Shipping.Entity;
+using PigeonCorp.Shipping.UseCase;
+using PigeonCorp.ValueModifiers.UseCase;
 using Zenject;
 
-namespace PigeonCorp.Shipping
+namespace PigeonCorp.Shipping.Adapter
 {
     public class ShippingInstaller
     {

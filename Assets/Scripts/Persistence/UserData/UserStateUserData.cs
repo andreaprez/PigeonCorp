@@ -1,5 +1,5 @@
 using System;
-using PigeonCorp.MainTopBar;
+using PigeonCorp.MainTopBar.Entity;
 using PigeonCorp.Persistence.TitleData;
 
 namespace PigeonCorp.Persistence.UserData

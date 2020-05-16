@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using PigeonCorp.Hatcheries;
+using PigeonCorp.Hatcheries.Entity;
 using PigeonCorp.Utils;
 using UniRx;
 
-namespace PigeonCorp.Shipping
+namespace PigeonCorp.Shipping.Entity
 {
     public class ShippingEntity
     {

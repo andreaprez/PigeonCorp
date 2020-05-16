@@ -1,10 +1,11 @@
 using PigeonCorp.Dispatcher;
+using PigeonCorp.Research.Adapter;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace PigeonCorp.Research
+namespace PigeonCorp.Research.Framework
 {
     public class BonusView : MonoBehaviour
     {
@@ -26,7 +27,6 @@ namespace PigeonCorp.Research
                 .Resolve<ResearchViewModel>().BonusViewModels[_id];
             
             SubscribeToViewModel();
-            
             SubscribeToButtons();
         }
         

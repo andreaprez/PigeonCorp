@@ -1,13 +1,13 @@
-using PigeonCorp.Commands;
-using PigeonCorp.Factory;
-using PigeonCorp.Installers.Hatcheries.UseCase;
-using PigeonCorp.MainTopBar;
+using PigeonCorp.Command;
+using PigeonCorp.Hatcheries.Entity;
+using PigeonCorp.Hatcheries.UseCase;
+using PigeonCorp.MainTopBar.Entity;
 using PigeonCorp.Persistence.TitleData;
 using PigeonCorp.Persistence.UserData;
-using PigeonCorp.ValueModifiers;
+using PigeonCorp.ValueModifiers.UseCase;
 using Zenject;
 
-namespace PigeonCorp.Hatcheries
+namespace PigeonCorp.Hatcheries.Adapter
 {
     public class HatcheriesInstaller
     {

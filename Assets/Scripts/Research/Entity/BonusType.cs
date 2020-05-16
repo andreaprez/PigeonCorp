@@ -1,4 +1,4 @@
-namespace PigeonCorp.Research
+namespace PigeonCorp.Research.Entity
 {
     public enum BonusType
     {

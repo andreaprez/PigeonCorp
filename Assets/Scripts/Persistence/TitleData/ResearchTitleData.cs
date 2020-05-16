@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using PigeonCorp.Research;
+using PigeonCorp.Research.Entity;
 using UnityEngine;
 
 namespace PigeonCorp.Persistence.TitleData

@@ -1,10 +1,11 @@
 using System.Collections.Generic;
-using PigeonCorp.Installers.Shipping.UseCase;
+using PigeonCorp.Factory;
 using PigeonCorp.Persistence.TitleData;
-using PigeonCorp.Shipping;
+using PigeonCorp.Shipping.Framework;
+using PigeonCorp.Shipping.UseCase;
 using UnityEngine;
 
-namespace PigeonCorp.Factory
+namespace PigeonCorp.Shipping.Adapter
 {
     public class VehicleFactory : IFactory<int>
     {

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UniRx;
 
-namespace PigeonCorp.Research
+namespace PigeonCorp.Research.Adapter
 {
     public class ResearchViewModel
     {

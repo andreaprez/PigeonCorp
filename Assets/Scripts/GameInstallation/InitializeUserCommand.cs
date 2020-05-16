@@ -1,7 +1,8 @@
+using PigeonCorp.Command;
 using PigeonCorp.Persistence.Gateway;
 using PigeonCorp.Persistence.UserData;
 
-namespace PigeonCorp.Commands
+namespace PigeonCorp.GameInstallation
 {
     public class InitializeUserCommand : ICommand
     {

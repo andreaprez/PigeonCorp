@@ -1,10 +1,11 @@
 using PigeonCorp.Dispatcher;
+using PigeonCorp.Shipping.Adapter;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace PigeonCorp.Shipping
+namespace PigeonCorp.Shipping.Framework
 {
     public class ShippingView : MonoBehaviour
     {
@@ -21,7 +22,6 @@ namespace PigeonCorp.Shipping
             _viewModel = ProjectContext.Instance.Container.Resolve<ShippingViewModel>();
             
             SubscribeToViewModel();
-            
             SubscribeToButtons();
         }
 

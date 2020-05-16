@@ -1,4 +1,4 @@
-namespace PigeonCorp.Persistence.TitleData
+namespace PigeonCorp.Research.Entity
 {
     public enum UnitPosition
     {

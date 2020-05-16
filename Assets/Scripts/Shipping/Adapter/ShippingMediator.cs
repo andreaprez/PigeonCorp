@@ -1,18 +1,20 @@
 using System.Collections;
-using PigeonCorp.Commands;
+using PigeonCorp.Command;
 using PigeonCorp.Dispatcher;
-using PigeonCorp.Hatcheries;
-using PigeonCorp.MainTopBar;
+using PigeonCorp.Hatcheries.Entity;
+using PigeonCorp.MainTopBar.Entity;
 using PigeonCorp.Persistence.Gateway;
 using PigeonCorp.Persistence.TitleData;
 using PigeonCorp.Persistence.UserData;
+using PigeonCorp.Shipping.Entity;
 using PigeonCorp.Utils;
-using PigeonCorp.ValueModifiers;
+using PigeonCorp.ValueModifiers.Entity;
+using PigeonCorp.ValueModifiers.UseCase;
 using UniRx;
 using UnityEngine;
 using Zenject;
 
-namespace PigeonCorp.Shipping
+namespace PigeonCorp.Shipping.Adapter
 {
     public class ShippingMediator
     {

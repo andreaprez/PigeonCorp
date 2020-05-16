@@ -1,10 +1,11 @@
 using PigeonCorp.Dispatcher;
+using PigeonCorp.MainTopBar.Adapter;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace PigeonCorp.MainTopBar
+namespace PigeonCorp.MainTopBar.Framework
 {
     public class MainTopBarView : MonoBehaviour
     {

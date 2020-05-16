@@ -1,10 +1,11 @@
 using PigeonCorp.Dispatcher;
+using PigeonCorp.MainBuyButton.Adapter;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace PigeonCorp.MainBuyButton
+namespace PigeonCorp.MainBuyButton.Framework
 {
     public class MainBuyButtonView : MonoBehaviour
     {
@@ -17,7 +18,6 @@ namespace PigeonCorp.MainBuyButton
             _viewModel = ProjectContext.Instance.Container.Resolve<MainBuyButtonViewModel>();
             
             SubscribeToViewModel();
-
             SubscribeToButton();
         }
         

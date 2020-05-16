@@ -1,6 +1,7 @@
-using PigeonCorp.Shipping;
+using PigeonCorp.Command;
+using PigeonCorp.Shipping.Entity;
 
-namespace PigeonCorp.Commands
+namespace PigeonCorp.Shipping.UseCase
 {
     public class GrantShippingRevenueCommand : ICommand
     {

@@ -1,4 +1,6 @@
-namespace PigeonCorp.ValueModifiers
+using PigeonCorp.ValueModifiers.Entity;
+
+namespace PigeonCorp.ValueModifiers.UseCase
 {
     public class UC_InitValueModifiersRepository
     {

@@ -1,7 +1,8 @@
+using PigeonCorp.MainTopBar.Entity;
 using PigeonCorp.Persistence.UserData;
 using Zenject;
 
-namespace PigeonCorp.MainTopBar
+namespace PigeonCorp.MainTopBar.Adapter
 {
     public class MainTopBarInstaller
     {

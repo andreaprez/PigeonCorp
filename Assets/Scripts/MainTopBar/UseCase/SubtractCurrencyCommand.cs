@@ -1,6 +1,7 @@
-using PigeonCorp.MainTopBar;
+using PigeonCorp.Command;
+using PigeonCorp.MainTopBar.Entity;
 
-namespace PigeonCorp.Commands
+namespace PigeonCorp.MainTopBar.UseCase
 {
     public class SubtractCurrencyCommand : ICommand<float>
     {

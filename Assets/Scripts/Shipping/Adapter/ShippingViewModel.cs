@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UniRx;
 
-namespace PigeonCorp.Shipping
+namespace PigeonCorp.Shipping.Adapter
 {
     public class ShippingViewModel
     {

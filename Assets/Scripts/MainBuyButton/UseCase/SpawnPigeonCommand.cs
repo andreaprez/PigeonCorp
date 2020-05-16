@@ -1,7 +1,8 @@
+using PigeonCorp.Command;
 using PigeonCorp.Factory;
-using PigeonCorp.MainTopBar;
+using PigeonCorp.MainTopBar.Entity;
 
-namespace PigeonCorp.Commands
+namespace PigeonCorp.MainBuyButton.UseCase
 {
     public class SpawnPigeonCommand : ICommand
     {

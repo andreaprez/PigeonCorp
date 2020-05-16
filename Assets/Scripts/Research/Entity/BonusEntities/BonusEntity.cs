@@ -2,7 +2,7 @@ using PigeonCorp.Persistence.TitleData;
 using UniRx;
 using UnityEngine;
 
-namespace PigeonCorp.Research
+namespace PigeonCorp.Research.Entity
 {
     public abstract class BonusEntity
     {

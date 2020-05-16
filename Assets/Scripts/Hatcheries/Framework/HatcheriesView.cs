@@ -1,10 +1,11 @@
 using PigeonCorp.Dispatcher;
+using PigeonCorp.Hatcheries.Adapter;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace PigeonCorp.Hatcheries
+namespace PigeonCorp.Hatcheries.Framework
 {
     public class HatcheriesView : MonoBehaviour
     {
@@ -21,7 +22,6 @@ namespace PigeonCorp.Hatcheries
             _viewModel = ProjectContext.Instance.Container.Resolve<HatcheriesViewModel>();
             
             SubscribeToViewModel();
-            
             SubscribeToButtons();
         }
 

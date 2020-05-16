@@ -1,10 +1,11 @@
 using PigeonCorp.Dispatcher;
+using PigeonCorp.Research.Adapter;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace PigeonCorp.Research
+namespace PigeonCorp.Research.Framework
 {
     public class ResearchView : MonoBehaviour
     {
@@ -18,7 +19,6 @@ namespace PigeonCorp.Research
             _viewModel = ProjectContext.Instance.Container.Resolve<ResearchViewModel>();
             
             SubscribeToViewModel();
-            
             SubscribeToButtons();
         }
 

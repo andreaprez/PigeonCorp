@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using PigeonCorp.Shipping;
+using PigeonCorp.Shipping.Framework;
 
-namespace PigeonCorp.Installers.Shipping.UseCase
+namespace PigeonCorp.Shipping.UseCase
 {
     public class UC_GetVehiclePrefabs
     {

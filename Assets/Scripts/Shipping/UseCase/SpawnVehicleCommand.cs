@@ -1,6 +1,7 @@
+using PigeonCorp.Command;
 using PigeonCorp.Factory;
 
-namespace PigeonCorp.Commands
+namespace PigeonCorp.Shipping.UseCase
 {
     public class SpawnVehicleCommand : ICommand<int>
     {

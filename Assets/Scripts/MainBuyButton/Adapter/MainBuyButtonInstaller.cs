@@ -1,13 +1,14 @@
-using PigeonCorp.Commands;
-using PigeonCorp.Factory;
-using PigeonCorp.Hatcheries;
-using PigeonCorp.MainScreen.UseCase;
-using PigeonCorp.MainTopBar;
+using PigeonCorp.Command;
+using PigeonCorp.Hatcheries.Entity;
+using PigeonCorp.Hatcheries.UseCase;
+using PigeonCorp.MainBuyButton.Entity;
+using PigeonCorp.MainBuyButton.UseCase;
+using PigeonCorp.MainTopBar.Entity;
 using PigeonCorp.Persistence.TitleData;
-using PigeonCorp.ValueModifiers;
+using PigeonCorp.ValueModifiers.UseCase;
 using Zenject;
 
-namespace PigeonCorp.MainBuyButton
+namespace PigeonCorp.MainBuyButton.Adapter
 {
     public class MainBuyButtonInstaller
     {
@@ -16,18 +17,18 @@ namespace PigeonCorp.MainBuyButton
             MainTopBarEntity mainTopBarEntity,
             PigeonTitleData pigeonConfig,
             ICommand<float> subtractCurrencyCommand,
-            HatcheriesEntity hatcheriesEntity,
             UC_GetPigeonsContainer getPigeonsContainerUC,
             UC_GetPigeonDestinations getPigeonDestinationsUC,
-            UC_GetMainBuyButtonValueModifiers getMainBuyButtonModifiersUC
+            UC_GetMainBuyButtonValueModifiers getMainBuyButtonModifiersUC,
+            UC_GetRandomBuiltHatcheryId getRandomBuiltHatcheryIdUC
         )
         {
             InitEntity(entity, pigeonConfig);
             
             var pigeonFactory = new PigeonFactory(
-                hatcheriesEntity,
                 getPigeonsContainerUC,
-                getPigeonDestinationsUC
+                getPigeonDestinationsUC,
+                getRandomBuiltHatcheryIdUC
             );
             var spawnPigeonCommand = new SpawnPigeonCommand(mainTopBarEntity, pigeonFactory);
 
