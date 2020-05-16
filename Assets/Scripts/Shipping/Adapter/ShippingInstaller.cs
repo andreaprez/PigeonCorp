@@ -48,7 +48,7 @@ namespace PigeonCorp.Shipping
             );
         }
         
-        private static void InitEntity(
+        private void InitEntity(
             ShippingEntity entity,
             HatcheriesEntity hatcheriesEntity,
             ShippingUserData data,

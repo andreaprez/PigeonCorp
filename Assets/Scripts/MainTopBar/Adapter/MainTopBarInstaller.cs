@@ -14,7 +14,7 @@ namespace PigeonCorp.MainTopBar
                 .Initialize(entity);
         }
 
-        private static void InitEntity(MainTopBarEntity entity, UserStateUserData userStateData)
+        private void InitEntity(MainTopBarEntity entity, UserStateUserData userStateData)
         {
             entity.Currency.Value = userStateData.Currency;
             entity.PigeonsCount.Value = userStateData.CurrentPigeons;

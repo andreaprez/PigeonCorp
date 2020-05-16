@@ -42,7 +42,7 @@ namespace PigeonCorp.Hatcheries
             );
         }
         
-        private static void InitEntity(
+        private void InitEntity(
             HatcheriesEntity entity,
             MainTopBarEntity mainTopBarEntity,
             HatcheriesUserData data,

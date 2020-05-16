@@ -2,6 +2,7 @@
 using PigeonCorp.MainBuyButton;
 using PigeonCorp.MainScreen;
 using PigeonCorp.MainTopBar;
+using PigeonCorp.Research;
 using PigeonCorp.Shipping;
 using Zenject;
 
@@ -35,6 +36,10 @@ namespace PigeonCorp.Installers
             ProjectContext.Instance.Container
                 .Bind<ShippingViewModel>()
                 .AsSingle();
+            
+            ProjectContext.Instance.Container
+                .Bind<ResearchViewModel>()
+                .AsSingle();
         }
         
         private void BindMediators()
@@ -53,6 +58,10 @@ namespace PigeonCorp.Installers
             
             ProjectContext.Instance.Container
                 .Bind<ShippingMediator>()
+                .AsSingle();
+            
+            ProjectContext.Instance.Container
+                .Bind<ResearchMediator>()
                 .AsSingle();
         }
 

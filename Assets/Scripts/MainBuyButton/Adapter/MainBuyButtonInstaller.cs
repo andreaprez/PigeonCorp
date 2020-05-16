@@ -43,7 +43,7 @@ namespace PigeonCorp.MainBuyButton
                 );
         }
         
-        private static void InitEntity(MainBuyButtonEntity entity, PigeonTitleData pigeonConfig)
+        private void InitEntity(MainBuyButtonEntity entity, PigeonTitleData pigeonConfig)
         {
             entity.PigeonsPerClick = 1;
             entity.PigeonCost = pigeonConfig.Cost;

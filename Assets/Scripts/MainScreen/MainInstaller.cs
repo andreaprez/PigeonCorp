@@ -7,7 +7,6 @@ using PigeonCorp.Installers.Shipping.UseCase;
 using PigeonCorp.MainBuyButton;
 using PigeonCorp.MainScreen.UseCase;
 using PigeonCorp.MainTopBar;
-using PigeonCorp.UserState;
 using PigeonCorp.Persistence.Gateway;
 using PigeonCorp.Persistence.TitleData;
 using PigeonCorp.Shipping;
@@ -19,8 +18,6 @@ namespace PigeonCorp.MainScreen
     public class MainInstaller : MonoBehaviour
     {
         [SerializeField] private TitleDataHolder titleDataHolder;
-        [Space]
-        [SerializeField] private ResearchInstaller _researchInstaller;
         [Space]
         [SerializeField] private Transform _pigeonsContainer;
         [SerializeField] private List<Transform> _pigeonDestinations;
@@ -59,7 +56,6 @@ namespace PigeonCorp.MainScreen
             var researchData = Gateway.Instance.GetResearchData();
             
             // GAME INIT
-            var userStateModel = new UserStateModel(userStateData);
             var mainTopBarEntity = new MainTopBarEntity();
             new MainTopBarInstaller().Install(mainTopBarEntity, userStateData);
             
@@ -84,21 +80,17 @@ namespace PigeonCorp.MainScreen
             var getResearchModifiersUC = new UC_GetResearchValueModifiers(valueModifiersRepository);
             
             
-            var researchModel = new ResearchModel(
-                researchConfig,
+            var researchEntity = new ResearchEntity();
+            new ResearchInstaller().Install(
+                researchEntity,
                 researchData,
-                getMainBuyButtonModifiersUC.Execute(),
-                getHatcheriesModifiersUC.Execute(),
-                getShippingModifiersUC.Execute(),
-                getResearchModifiersUC.Execute()
-            );
-            _researchInstaller.Install(
-                researchModel,
                 researchConfig,
+                mainTopBarEntity,
                 subtractCurrencyCommand,
-                getResearchModifiersUC,
                 getMainBuyButtonModifiersUC,
-                userStateModel
+                getHatcheriesModifiersUC,
+                getShippingModifiersUC,
+                getResearchModifiersUC
             );
             
             var hatcheriesEntity = new HatcheriesEntity();
