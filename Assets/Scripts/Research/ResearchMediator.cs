@@ -24,7 +24,7 @@ namespace PigeonCorp.Research
             ResearchView view,
             ResearchTitleData config,
             ICommand<float> subtractCurrencyCommand,
-            UC_GetResearchValueModifiers getResearchValueModifiersUc,
+            UC_GetResearchValueModifiers getResearchValueModifiersUC,
             UserStateModel userStateModel
         )
         {
@@ -34,7 +34,7 @@ namespace PigeonCorp.Research
             _subtractCurrencyCommand = subtractCurrencyCommand;
             _userStateModel = userStateModel;
 
-            _valueModifiers = (ResearchValueModifiers)getResearchValueModifiersUc.Execute();
+            _valueModifiers = (ResearchValueModifiers)getResearchValueModifiersUC.Execute();
             
             view.GetOpenButtonAsObservable().Subscribe(open =>
             {

@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace PigeonCorp.Installers.Hatcheries.UseCase
 {
-    public class UC_GetHatcheriesPrefabs
+    public class UC_GetHatcheryPrefabs
     {
         private readonly List<GameObject> _hatcheriesPrefabs;
 
-        public UC_GetHatcheriesPrefabs(List<GameObject> hatcheriesPrefabs)
+        public UC_GetHatcheryPrefabs(List<GameObject> hatcheriesPrefabs)
         {
             _hatcheriesPrefabs = hatcheriesPrefabs;
         }

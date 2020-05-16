@@ -33,7 +33,8 @@ namespace PigeonCorp.Hatcheries
             MainTopBarEntity mainTopBarEntity,
             ICommand<float> subtractCurrencyCommand,
             ICommand<int, int> spawnHatcheryCommand,
-            UC_GetHatcheriesValueModifiers getHatcheriesValueModifiersUC)
+            UC_GetHatcheriesValueModifiers getHatcheriesValueModifiersUC
+        )
         {
             _entity = entity;
             _config = config;
@@ -91,6 +92,7 @@ namespace PigeonCorp.Hatcheries
         {
             _entity.UsedCapacity.AsObservable().Subscribe(used =>
             {
+                _entity.UpdateUsedCapacityOfAllHatcheries();
                 var capacityPercentage = MathUtils.CalculatePercentageDecimalFromQuantity(
                     used,
                     _entity.MaxCapacity.Value

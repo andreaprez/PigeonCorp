@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using PigeonCorp.Commands;
 using PigeonCorp.Factory;
 using PigeonCorp.Installers.Hatcheries.UseCase;
@@ -6,7 +5,6 @@ using PigeonCorp.MainTopBar;
 using PigeonCorp.Persistence.TitleData;
 using PigeonCorp.Persistence.UserData;
 using PigeonCorp.ValueModifiers;
-using UnityEngine;
 using Zenject;
 
 namespace PigeonCorp.Hatcheries
@@ -19,7 +17,7 @@ namespace PigeonCorp.Hatcheries
             HatcheriesTitleData config,
             MainTopBarEntity mainTopBarEntity,
             ICommand<float> subtractCurrencyCommand,
-            UC_GetHatcheriesPrefabs getHatcheriesPrefabsUC,
+            UC_GetHatcheryPrefabs getHatcheryPrefabsUC,
             UC_GetHatcheriesContainers getHatcheriesContainersUC,
             UC_GetHatcheriesValueModifiers getHatcheriesValueModifiersUC
         )
@@ -27,7 +25,7 @@ namespace PigeonCorp.Hatcheries
             InitEntity(entity, mainTopBarEntity, data, config);
 
             var hatcheryFactory = new HatcheryFactory(
-                getHatcheriesPrefabsUC,
+                getHatcheryPrefabsUC,
                 getHatcheriesContainersUC
             );
             var spawnHatcheryCommand = new SpawnHatcheryCommand(hatcheryFactory);

@@ -10,11 +10,11 @@ namespace PigeonCorp.Factory
         private readonly List<Transform> _hatcheryContainers;
 
         public HatcheryFactory(
-            UC_GetHatcheriesPrefabs getHatcheriesPrefabsUC,
+            UC_GetHatcheryPrefabs getHatcheryPrefabsUC,
             UC_GetHatcheriesContainers getHatcheriesContainersUC
         )
         {
-            _hatcheryPrefabs = getHatcheriesPrefabsUC.Execute();
+            _hatcheryPrefabs = getHatcheryPrefabsUC.Execute();
             _hatcheryContainers = getHatcheriesContainersUC.Execute();
         }
         

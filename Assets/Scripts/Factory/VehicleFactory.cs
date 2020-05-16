@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using PigeonCorp.Installers.Shipping.UseCase;
 using PigeonCorp.Persistence.TitleData;
 using PigeonCorp.Shipping;
 using UnityEngine;
@@ -12,14 +13,14 @@ namespace PigeonCorp.Factory
         private readonly ShippingTitleData _config;
 
         public VehicleFactory(
-            List<VehicleBehaviour> prefabs,
-            Transform container,
-            ShippingTitleData config
+            ShippingTitleData config,
+            UC_GetVehiclePrefabs getVehiclePrefabsUC,
+            UC_GetVehicleContainer getVehicleContainerUC
         )
         {
-            _vehiclePrefabs = prefabs;
-            _container = container;
             _config = config;
+            _vehiclePrefabs = getVehiclePrefabsUC.Execute();
+            _container = getVehicleContainerUC.Execute();
         }
         
         public void Create(int prefabId)

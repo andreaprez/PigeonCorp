@@ -6,23 +6,23 @@ namespace PigeonCorp.Commands
     {
         private readonly ICommand<float> _addCurrencyCommand;
         // private readonly EvolutionModel _evolutionModel;
-        private readonly ShippingModel _shippingModel;
+        private readonly ShippingEntity _shippingEntity;
 
         public GrantShippingRevenueCommand(
             ICommand<float> addCurrencyCommand,
             //EvolutionModel evolutionModel,
-            ShippingModel shippingModel
+            ShippingEntity shippingEntity
         )
         {
             _addCurrencyCommand = addCurrencyCommand;
             //_evolutionModel = evolutionModel;
-            _shippingModel = shippingModel;
+            _shippingEntity = shippingEntity;
         }
 
         public void Execute()
         {
             // var revenue = _evolutionModel.EggValue * _shippingModel.UsedShippingRate.Value;
-            var revenue = 1 * _shippingModel.UsedShippingRate.Value;
+            var revenue = 1 * _shippingEntity.UsedShippingRate.Value;
             _addCurrencyCommand.Execute(revenue);
         }
     }

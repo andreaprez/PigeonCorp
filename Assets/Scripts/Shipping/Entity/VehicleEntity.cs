@@ -1,36 +1,34 @@
 using UniRx;
 using UnityEngine;
 
-namespace PigeonCorp.Hatcheries
+namespace PigeonCorp.Shipping
 {
-    public class HatcheryEntity
+    public class VehicleEntity
     {
         public int Id;
-        
-        public readonly ReactiveProperty<bool> Built;
+
+        public readonly ReactiveProperty<bool> Purchased;
         public readonly ReactiveProperty<int> Level;
         public readonly ReactiveProperty<string> Name;
         public readonly ReactiveProperty<Sprite> Icon;
         public readonly ReactiveProperty<float> NextCost;
-        public readonly ReactiveProperty<int> MaxCapacity;
-        public readonly ReactiveProperty<int> UsedCapacity;
-        public readonly ReactiveProperty<float> EggLayingRate;
+        public readonly ReactiveProperty<float> MaxShippingRate;
+        public readonly ReactiveProperty<float> UsedShippingRate;
         
-        public HatcheryEntity()
+        public VehicleEntity()
         {
-            Built = new ReactiveProperty<bool>();
+            Purchased = new ReactiveProperty<bool>();
             Level = new ReactiveProperty<int>();
             Name = new ReactiveProperty<string>();
             Icon = new ReactiveProperty<Sprite>();
             NextCost = new ReactiveProperty<float>();
-            MaxCapacity = new ReactiveProperty<int>();
-            UsedCapacity = new ReactiveProperty<int>();
-            EggLayingRate = new ReactiveProperty<float>();
+            MaxShippingRate = new ReactiveProperty<float>();
+            UsedShippingRate = new ReactiveProperty<float>();
         }
 
-        public void Build()
+        public void Purchase()
         {
-            Built.Value = true;
+            Purchased.Value = true;
             Level.Value = 1;
         }
         

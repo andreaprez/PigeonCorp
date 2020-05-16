@@ -25,7 +25,8 @@ namespace PigeonCorp.Hatcheries
             HatcheriesTitleData config,
             MainTopBarEntity mainTopBarEntity,
             ICommand<int, int> spawnHatcheryCommand,
-            HatcheriesValueModifiers valueModifiers)
+            HatcheriesValueModifiers valueModifiers
+        )
         {
             _hatcheriesEntity = hatcheriesEntity;
             _entity = entity;
@@ -40,17 +41,8 @@ namespace PigeonCorp.Hatcheries
             _viewModel.UpgradeAvailable.Value = true;
 
             SubscribeToCurrency();
-            SubscribeToParentEntity();
             SubscribeToEntity();
             SubscribeToValueModifiers();
-        }
-
-        private void SubscribeToParentEntity()
-        {
-            _hatcheriesEntity.UsedCapacity.AsObservable().Subscribe(used =>
-            {
-                _hatcheriesEntity.UpdateUsedCapacityOfAllHatcheries();
-            }).AddTo(MainDispatcher.Disposables);
         }
 
         private void SubscribeToCurrency()
@@ -157,39 +149,36 @@ namespace PigeonCorp.Hatcheries
         
         private void ApplyMultiplierToEggLayingRate(float multiplier)
         {
-            var hatchery = _entity;
-            if (hatchery.Built.Value)
+            if (_entity.Built.Value)
             { 
-                var baseValue = _config.HatcheriesConfiguration[hatchery.Level.Value - 1].EggLayingRate;
-                hatchery.EggLayingRate.Value = baseValue * multiplier;
+                var baseValue = _config.HatcheriesConfiguration[_entity.Level.Value - 1].EggLayingRate;
+                _entity.EggLayingRate.Value = baseValue * multiplier;
             }
         }
         
         private void ApplyIncrementToMaxCapacity(float increment)
         {
-            var hatchery = _entity;
-            if (hatchery.Built.Value)
+            if (_entity.Built.Value)
             { 
-                var baseValue = _config.HatcheriesConfiguration[hatchery.Level.Value - 1].MaxCapacity;
+                var baseValue = _config.HatcheriesConfiguration[_entity.Level.Value - 1].MaxCapacity;
                 var incrementValue = MathUtils.CalculateQuantityFromPercentage(
                     increment,
                     baseValue
                 );
-                hatchery.MaxCapacity.Value = baseValue + (int)incrementValue;
+                _entity.MaxCapacity.Value = baseValue + (int)incrementValue;
             }
         }
         
         private void ApplyDiscountToHatchery(float discount)
         {
-            var hatchery = _entity;
-            if (hatchery.Level.Value < _config.HatcheriesConfiguration.Count)
+            if (_entity.Level.Value < _config.HatcheriesConfiguration.Count)
             { 
-                var baseValue = _config.HatcheriesConfiguration[hatchery.Level.Value].Cost;
+                var baseValue = _config.HatcheriesConfiguration[_entity.Level.Value].Cost;
                 var discountValue = MathUtils.CalculateQuantityFromPercentage(
                     discount,
                     baseValue
                 );
-                hatchery.NextCost.Value = baseValue - discountValue;
+                _entity.NextCost.Value = baseValue - discountValue;
             }
         }
     }
