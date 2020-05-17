@@ -1,3 +1,4 @@
+using PigeonCorp.Command;
 using PigeonCorp.Evolution.Entity;
 using PigeonCorp.Persistence.TitleData;
 using PigeonCorp.Persistence.UserData;
@@ -12,6 +13,7 @@ namespace PigeonCorp.Evolution.Adapter
             EvolutionEntity entity,
             EvolutionUserData data,
             EvolutionTitleData config,
+            ICommand resetFarmCommand,
             UC_GetEvolutionValueModifiers getEvolutionValueModifiersUC
         )
         {
@@ -22,6 +24,7 @@ namespace PigeonCorp.Evolution.Adapter
                 .Initialize(
                     entity,
                     config,
+                    resetFarmCommand,
                     getEvolutionValueModifiersUC
             );
         }

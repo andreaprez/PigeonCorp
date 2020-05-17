@@ -14,20 +14,17 @@ namespace PigeonCorp.Research.Adapter
     {
         private BonusEntity _entity;
         private BonusConfig _config;
-        private MainTopBarEntity _mainTopBarEntity;
         private ResearchValueModifiers _valueModifiers;
         private BonusViewModel _viewModel;
 
         public void Initialize(
             BonusEntity entity,
             BonusConfig config,
-            MainTopBarEntity mainTopBarEntity,
             ResearchValueModifiers valueModifiers
         )
         {
             _entity = entity;
             _config = config;
-            _mainTopBarEntity = mainTopBarEntity;
             _valueModifiers = valueModifiers;
 
             _viewModel = ProjectContext.Instance.Container
@@ -35,21 +32,10 @@ namespace PigeonCorp.Research.Adapter
             _viewModel.ButtonInteractable.Value = true;
             _viewModel.ResearchAvailable.Value = true;
 
-            SubscribeToCurrency();
             SubscribeToEntity();
             SubscribeToValueModifiers();
         }
 
-        private void SubscribeToCurrency()
-        {
-            _mainTopBarEntity.Currency.AsObservable().Subscribe(currency =>
-            {
-                var nextCost = _entity.NextCost.Value;
-                var enoughCurrency = currency >= nextCost;
-                _viewModel.ButtonInteractable.Value = enoughCurrency;
-            }).AddTo(MainDispatcher.Disposables);
-        }
-        
         private void SubscribeToEntity()
         {
             _entity.Tier.AsObservable().Subscribe(level =>

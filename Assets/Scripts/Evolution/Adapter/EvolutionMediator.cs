@@ -1,3 +1,4 @@
+using PigeonCorp.Command;
 using PigeonCorp.Dispatcher;
 using PigeonCorp.Evolution.Entity;
 using PigeonCorp.Persistence.Gateway;
@@ -16,6 +17,7 @@ namespace PigeonCorp.Evolution.Adapter
 
         private EvolutionEntity _entity;
         private EvolutionTitleData _config;
+        private ICommand _resetFarmCommand;
         private EvolutionValueModifiers _valueModifiers;
         private int _lastSelectedId;
         
@@ -27,11 +29,13 @@ namespace PigeonCorp.Evolution.Adapter
         public void Initialize(
             EvolutionEntity entity,
             EvolutionTitleData config,
+            ICommand resetFarmCommand,
             UC_GetEvolutionValueModifiers getEvolutionValueModifiersUC
         )
         {
             _entity = entity;
             _config = config;
+            _resetFarmCommand = resetFarmCommand;
             _valueModifiers = (EvolutionValueModifiers)getEvolutionValueModifiersUC.Execute();
 
             _lastSelectedId = _entity.SelectedEggId.Value;
@@ -47,6 +51,7 @@ namespace PigeonCorp.Evolution.Adapter
         
         public void OnOpenButtonClick()
         {
+            _entity.SelectedEggId.Value = _entity.CurrentEggId.Value;
             _viewModel.IsOpen.Value = true;
         }
 
@@ -81,6 +86,8 @@ namespace PigeonCorp.Evolution.Adapter
         {
             _entity.Evolve();
             Gateway.Instance.UpdateEvolutionData(SerializeEntityModel());
+            
+            _resetFarmCommand.Execute();
         }
 
         private void InitializeSubViewModels()
@@ -98,11 +105,11 @@ namespace PigeonCorp.Evolution.Adapter
             {
                 _entity.EvolutionEggs[id].IsDiscovered.Value = true;
                 _entity.SelectedEggId.Value = id;
-                
-                var currentConfig = _config.EvolutionsConfiguration[id];
-                _entity.CurrentPigeonIcon.Value = currentConfig.Icon;
-                _entity.CurrentPigeonName.Value = currentConfig.Name;
-                _entity.CurrentEggValue.Value = currentConfig.EggValue;
+
+                var currentEggConfig = _config.EvolutionsConfiguration[id];
+                _entity.CurrentPigeonIcon.Value = currentEggConfig.Icon;
+                _entity.CurrentPigeonName.Value = currentEggConfig.Name;
+                _entity.CurrentEggValue.Value = currentEggConfig.EggValue * _valueModifiers.EggValueMultiplier.Value;
                 
                 if (id < _config.EvolutionsConfiguration.Count - 1)
                 {
@@ -119,6 +126,11 @@ namespace PigeonCorp.Evolution.Adapter
             
             _entity.SelectedEggId.AsObservable().Subscribe(id =>
             {
+                var selectedEggConfig = _config.EvolutionsConfiguration[id];
+                _viewModel.PigeonIcon.Value = selectedEggConfig.Icon;
+                _viewModel.PigeonName.Value = selectedEggConfig.Name;
+                _viewModel.EggValue.Value = selectedEggConfig.EggValue * _valueModifiers.EggValueMultiplier.Value;
+                
                 _viewModel.EvolutionEggViewModels[_lastSelectedId].IsSelected.Value = false;
                 _viewModel.EvolutionEggViewModels[id].IsSelected.Value = true;
                 _lastSelectedId = id;

@@ -1,5 +1,6 @@
 using System;
 using PigeonCorp.Command;
+using PigeonCorp.Dispatcher;
 using PigeonCorp.MainTopBar.Entity;
 using PigeonCorp.Persistence.Gateway;
 using PigeonCorp.Persistence.TitleData;
@@ -7,6 +8,7 @@ using PigeonCorp.Persistence.UserData;
 using PigeonCorp.Research.Entity;
 using PigeonCorp.ValueModifiers.Entity;
 using PigeonCorp.ValueModifiers.UseCase;
+using UniRx;
 using Zenject;
 
 namespace PigeonCorp.Research.Adapter
@@ -42,6 +44,7 @@ namespace PigeonCorp.Research.Adapter
             
             InitializeSubViewModels();
             InitializeSubMediators();
+            SubscribeToCurrency();
         }
         
         public void OnOpenButtonClick()
@@ -63,7 +66,7 @@ namespace PigeonCorp.Research.Adapter
             
             Gateway.Instance.UpdateResearchData(SerializeEntityModel());
         }
-
+        
         private void InitializeSubViewModels()
         {
             for (int i = 0; i < _entity.Bonuses.Count; i++)
@@ -83,10 +86,22 @@ namespace PigeonCorp.Research.Adapter
                 new BonusMediator().Initialize(
                     bonusEntity,
                     bonusConfig,
-                    _mainTopBarEntity,
                     _valueModifiers
                 );
             }
+        }
+
+        private void SubscribeToCurrency()
+        {
+            _mainTopBarEntity.Currency.AsObservable().Subscribe(currency =>
+            {
+                foreach (var bonus in _entity.Bonuses)
+                {
+                    var nextCost = bonus.NextCost.Value;
+                    var enoughCurrency = currency >= nextCost;
+                    _viewModel.BonusViewModels[bonus.Id].ButtonInteractable.Value = enoughCurrency;
+                }
+            }).AddTo(MainDispatcher.Disposables);
         }
         
         private BonusConfig FindBonusConfigByType(BonusType type)

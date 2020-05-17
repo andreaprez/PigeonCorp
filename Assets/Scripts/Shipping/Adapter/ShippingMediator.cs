@@ -54,10 +54,11 @@ namespace PigeonCorp.Shipping.Adapter
             _grantShippingRevenueCommand = grantShippingRevenueCommand;
             _valueModifiers = (ShippingValueModifiers) getShippingValueModifiersUC.Execute();
 
-            SubscribeToTotalProduction();
-            SubscribeToEntity();
             InitializeSubViewModels();
             InitializeSubMediators();
+            SubscribeToEntity();
+            SubscribeToTotalProduction();
+            SubscribeToCurrency();
             
             MainThreadDispatcher.StartCoroutine(VehicleSpawner());
             MainThreadDispatcher.StartCoroutine(GrantShippingRevenue());
@@ -92,15 +93,29 @@ namespace PigeonCorp.Shipping.Adapter
             
             Gateway.Instance.UpdateShippingData(SerializeEntityModel());
         }
-        
-        private void SubscribeToTotalProduction()
-        {
-            _hatcheriesEntity.TotalProduction.AsObservable().Subscribe(production =>
-            {
-                _entity.UpdateUsedShippingRate();
-            }).AddTo(MainDispatcher.Disposables);
-        }
 
+        private void InitializeSubViewModels()
+        {
+            for (int i = 0; i < _entity.Vehicles.Count; i++)
+            {
+                var viewModel = new VehicleViewModel();
+                _viewModel.VehicleViewModels.Add(viewModel);
+            }
+        }
+        
+        private void InitializeSubMediators()
+        {
+            for (int i = 0; i < _entity.Vehicles.Count; i++)
+            {
+                new VehicleMediator().Initialize(
+                    _entity,
+                    _entity.Vehicles[i],
+                    _config,
+                    _valueModifiers
+                );
+            }
+        }
+        
         private void SubscribeToEntity()
         {
             _entity.UsedShippingRate.AsObservable().Subscribe(used =>
@@ -124,30 +139,28 @@ namespace PigeonCorp.Shipping.Adapter
                 _viewModel.ShippingRatePercentage.Value = shippingRatePercentage;
             }).AddTo(MainDispatcher.Disposables);
         }
+        
+        private void SubscribeToTotalProduction()
+        {
+            _hatcheriesEntity.TotalProduction.AsObservable().Subscribe(production =>
+            {
+                _entity.UpdateUsedShippingRate();
+            }).AddTo(MainDispatcher.Disposables);
+        }
 
-        private void InitializeSubViewModels()
+        private void SubscribeToCurrency()
         {
-            for (int i = 0; i < _entity.Vehicles.Count; i++)
+            _mainTopBarEntity.Currency.AsObservable().Subscribe(currency =>
             {
-                var viewModel = new VehicleViewModel();
-                _viewModel.VehicleViewModels.Add(viewModel);
-            }
+                foreach (var vehicle in _entity.Vehicles)
+                {
+                    var nextCost = vehicle.NextCost.Value;
+                    var enoughCurrency = currency >= nextCost;
+                    _viewModel.VehicleViewModels[vehicle.Id].ButtonInteractable.Value = enoughCurrency;
+                }
+            }).AddTo(MainDispatcher.Disposables);
         }
-        
-        private void InitializeSubMediators()
-        {
-            for (int i = 0; i < _entity.Vehicles.Count; i++)
-            {
-                new VehicleMediator().Initialize(
-                    _entity,
-                    _entity.Vehicles[i],
-                    _config,
-                    _mainTopBarEntity,
-                    _valueModifiers
-                );
-            }
-        }
-        
+
         private IEnumerator VehicleSpawner()
         {
             while (true)

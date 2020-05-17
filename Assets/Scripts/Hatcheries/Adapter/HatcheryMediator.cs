@@ -15,7 +15,6 @@ namespace PigeonCorp.Hatcheries.Adapter
         private HatcheriesEntity _hatcheriesEntity;
         private HatcheryEntity _entity;
         private HatcheriesTitleData _config;
-        private MainTopBarEntity _mainTopBarEntity;
         private ICommand<int, int> _spawnHatcheryCommand;
         private HatcheriesValueModifiers _valueModifiers;
         private HatcheryViewModel _viewModel;
@@ -24,7 +23,6 @@ namespace PigeonCorp.Hatcheries.Adapter
             HatcheriesEntity hatcheriesEntity,
             HatcheryEntity entity,
             HatcheriesTitleData config,
-            MainTopBarEntity mainTopBarEntity,
             ICommand<int, int> spawnHatcheryCommand,
             HatcheriesValueModifiers valueModifiers
         )
@@ -32,7 +30,6 @@ namespace PigeonCorp.Hatcheries.Adapter
             _hatcheriesEntity = hatcheriesEntity;
             _entity = entity;
             _config = config;
-            _mainTopBarEntity = mainTopBarEntity;
             _spawnHatcheryCommand = spawnHatcheryCommand;
             _valueModifiers = valueModifiers;
             
@@ -41,19 +38,8 @@ namespace PigeonCorp.Hatcheries.Adapter
             _viewModel.ButtonInteractable.Value = true;
             _viewModel.UpgradeAvailable.Value = true;
 
-            SubscribeToCurrency();
             SubscribeToEntity();
             SubscribeToValueModifiers();
-        }
-
-        private void SubscribeToCurrency()
-        {
-            _mainTopBarEntity.Currency.AsObservable().Subscribe(currency =>
-            {
-                var nextCost = _entity.NextCost.Value;
-                var enoughCurrency = currency >= nextCost;
-                _viewModel.ButtonInteractable.Value = enoughCurrency;
-            }).AddTo(MainDispatcher.Disposables);
         }
 
         private void SubscribeToEntity()

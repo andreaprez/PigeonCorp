@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Evolution.UseCase;
 using PigeonCorp.Evolution.Adapter;
 using PigeonCorp.Evolution.Entity;
 using PigeonCorp.Hatcheries.Adapter;
@@ -92,10 +93,12 @@ namespace PigeonCorp.GameInstallation
             
             
             var evolutionEntity = new EvolutionEntity();
+            var resetFarmCommand = new ResetFarmCommand(evolutionEntity);
             new EvolutionInstaller().Install(
                 evolutionEntity,
                 evolutionData,
                 evolutionConfig,
+                resetFarmCommand,
                 getEvolutionModifiersUC
             );
             

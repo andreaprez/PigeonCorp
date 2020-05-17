@@ -14,7 +14,6 @@ namespace PigeonCorp.Shipping.Adapter
         private ShippingEntity _shippingEntity;
         private VehicleEntity _entity;
         private ShippingTitleData _config;
-        private MainTopBarEntity _mainTopBarEntity;
         private ShippingValueModifiers _valueModifiers;
         private VehicleViewModel _viewModel;
 
@@ -22,14 +21,12 @@ namespace PigeonCorp.Shipping.Adapter
             ShippingEntity shippingEntity,
             VehicleEntity entity,
             ShippingTitleData config,
-            MainTopBarEntity mainTopBarEntity,
             ShippingValueModifiers valueModifiers
         )
         {
             _shippingEntity = shippingEntity;
             _entity = entity;
             _config = config;
-            _mainTopBarEntity = mainTopBarEntity;
             _valueModifiers = valueModifiers;
             
             _viewModel = ProjectContext.Instance.Container
@@ -37,19 +34,8 @@ namespace PigeonCorp.Shipping.Adapter
             _viewModel.ButtonInteractable.Value = true;
             _viewModel.UpgradeAvailable.Value = true;
 
-            SubscribeToCurrency();
             SubscribeToEntity();
             SubscribeToValueModifiers();
-        }
-        
-        private void SubscribeToCurrency()
-        {
-            _mainTopBarEntity.Currency.AsObservable().Subscribe(currency =>
-            {
-                var nextCost = _entity.NextCost.Value;
-                var enoughCurrency = currency >= nextCost;
-                _viewModel.ButtonInteractable.Value = enoughCurrency;
-            }).AddTo(MainDispatcher.Disposables);
         }
 
         private void SubscribeToEntity()
