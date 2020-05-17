@@ -1,4 +1,5 @@
-﻿using PigeonCorp.Hatcheries.Adapter;
+﻿using PigeonCorp.Evolution.Adapter;
+using PigeonCorp.Hatcheries.Adapter;
 using PigeonCorp.MainBuyButton.Adapter;
 using PigeonCorp.MainScreen.Framework;
 using PigeonCorp.MainTopBar.Adapter;
@@ -40,6 +41,10 @@ namespace PigeonCorp.GameInstallation
             ProjectContext.Instance.Container
                 .Bind<ResearchViewModel>()
                 .AsSingle();
+            
+            ProjectContext.Instance.Container
+                .Bind<EvolutionViewModel>()
+                .AsSingle();
         }
         
         private void BindMediators()
@@ -63,13 +68,17 @@ namespace PigeonCorp.GameInstallation
             ProjectContext.Instance.Container
                 .Bind<ResearchMediator>()
                 .AsSingle();
+            
+            ProjectContext.Instance.Container
+                .Bind<EvolutionMediator>()
+                .AsSingle();
         }
 
         private void BindPrefabs()
         {
             ProjectContext.Instance.Container
                 .Bind<PigeonBehaviour>()
-                .FromResource("Prefabs/Main/Pigeon");
+                .FromResource("Prefabs/Main/World/Pigeon");
         }
     }
 }

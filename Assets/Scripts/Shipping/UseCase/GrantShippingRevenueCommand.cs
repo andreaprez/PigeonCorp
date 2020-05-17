@@ -1,4 +1,5 @@
 using PigeonCorp.Command;
+using PigeonCorp.Evolution.Entity;
 using PigeonCorp.Shipping.Entity;
 
 namespace PigeonCorp.Shipping.UseCase
@@ -6,25 +7,26 @@ namespace PigeonCorp.Shipping.UseCase
     public class GrantShippingRevenueCommand : ICommand
     {
         private readonly ICommand<float> _addCurrencyCommand;
-        // private readonly EvolutionModel _evolutionModel;
+        private readonly EvolutionEntity _evolutionEntity;
         private readonly ShippingEntity _shippingEntity;
 
         public GrantShippingRevenueCommand(
             ICommand<float> addCurrencyCommand,
-            //EvolutionModel evolutionModel,
+            EvolutionEntity evolutionEntity,
             ShippingEntity shippingEntity
         )
         {
             _addCurrencyCommand = addCurrencyCommand;
-            //_evolutionModel = evolutionModel;
+            _evolutionEntity = evolutionEntity;
             _shippingEntity = shippingEntity;
         }
 
         public void Execute()
         {
-            // var revenue = _evolutionModel.EggValue * _shippingModel.UsedShippingRate.Value;
-            var revenue = 1 * _shippingEntity.UsedShippingRate.Value;
+            var revenue = _evolutionEntity.CurrentEggValue.Value * _shippingEntity.UsedShippingRate.Value;
             _addCurrencyCommand.Execute(revenue);
+            
+            _evolutionEntity.CurrentFarmValue.Value += revenue;
         }
     }
 }

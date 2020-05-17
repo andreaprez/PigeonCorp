@@ -24,6 +24,10 @@ namespace PigeonCorp.GameInstallation
             var researchData = new ResearchUserData(researchConfig);
             Gateway.Instance.UpdateResearchData(researchData);
             
+            var evolutionConfig = Gateway.Instance.GetEvolutionConfig();
+            var evolutionData = new EvolutionUserData(evolutionConfig);
+            Gateway.Instance.UpdateEvolutionData(evolutionData);
+            
             var userInitData = new UserInitializedUserData(true);
             Gateway.Instance.UpdateUserInitialized(userInitData);
         }

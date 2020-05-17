@@ -17,10 +17,10 @@ namespace PigeonCorp.Persistence.UserData
             CurrentPigeons = config.InitialPigeons;
         }
         
-        public UserStateUserData(MainTopBarEntity model)
+        public UserStateUserData(MainTopBarEntity entity)
         {
-            Currency = model.Currency.Value;
-            CurrentPigeons = model.PigeonsCount.Value;
+            Currency = entity.Currency.Value;
+            CurrentPigeons = entity.PigeonsCount.Value;
         }
     }
 }

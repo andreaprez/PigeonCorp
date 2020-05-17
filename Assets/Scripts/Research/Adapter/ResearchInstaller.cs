@@ -26,13 +26,15 @@ namespace PigeonCorp.Research.Adapter
             UC_GetMainBuyButtonValueModifiers getMainBuyButtonModifiersUC,
             UC_GetHatcheriesValueModifiers getHatcheriesModifiersUC,
             UC_GetShippingValueModifiers getShippingModifiersUC,
-            UC_GetResearchValueModifiers getResearchModifiersUC
+            UC_GetResearchValueModifiers getResearchModifiersUC,
+            UC_GetEvolutionValueModifiers getEvolutionModifiersUC
         )
         {
             _buyButtonApplicable = getMainBuyButtonModifiersUC.Execute();
             _hatcheriesApplicable = getHatcheriesModifiersUC.Execute();
             _shippingApplicable = getShippingModifiersUC.Execute();
             _researchApplicable = getResearchModifiersUC.Execute();
+            _evolutionApplicable = getEvolutionModifiersUC.Execute();
             
             InitEntity(entity, data, config);
             
@@ -67,7 +69,7 @@ namespace PigeonCorp.Research.Adapter
                         break;
                     case BonusType.EGG_VALUE_MULTIPLIER:
                         bonus = new MultiplierBonusEntity();
-                        bonus.ApplicableBonusEntity = _shippingApplicable; // TODO: Change by _evolutionApplicable;
+                        bonus.ApplicableBonusEntity = _evolutionApplicable;
                         break;
                     case BonusType.EGG_LAYING_RATE_MULTIPLIER:
                         bonus = new MultiplierBonusEntity();
