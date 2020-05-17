@@ -48,9 +48,9 @@ MonoBehaviour:
     Tiers:
     - Value: 1
       Cost: 0
-    - Value: 2
+    - Value: 1.5
       Cost: 30
-    - Value: 3
+    - Value: 2
       Cost: 50
   - Type: 3
     UnitType:

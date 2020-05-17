@@ -28,6 +28,9 @@ namespace PigeonCorp.ValueModifiers.UseCase
             
             var research = new ResearchValueModifiers();
             _repository.Add(research);
+            
+            var evolution = new EvolutionValueModifiers();
+            _repository.Add(evolution);
         }
     }
 }

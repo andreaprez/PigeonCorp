@@ -1,4 +1,7 @@
 using System.Collections.Generic;
+using Evolution.UseCase;
+using PigeonCorp.Evolution.Adapter;
+using PigeonCorp.Evolution.Entity;
 using PigeonCorp.Hatcheries.Adapter;
 using PigeonCorp.Hatcheries.Entity;
 using PigeonCorp.Hatcheries.UseCase;
@@ -54,12 +57,14 @@ namespace PigeonCorp.GameInstallation
             var hatcheriesConfig = Gateway.Instance.GetHatcheriesConfig();
             var shippingConfig = Gateway.Instance.GetShippingConfig();
             var researchConfig = Gateway.Instance.GetResearchConfig();
+            var evolutionConfig = Gateway.Instance.GetEvolutionConfig();
 
             // USER DATA RETRIEVING
             var userStateData = Gateway.Instance.GetUserStateData();
             var hatcheriesData = Gateway.Instance.GetHatcheriesData();
             var shippingData = Gateway.Instance.GetShippingData();
             var researchData = Gateway.Instance.GetResearchData();
+            var evolutionData = Gateway.Instance.GetEvolutionData();
             
             // GAME INIT
             var mainTopBarEntity = new MainTopBarEntity();
@@ -84,7 +89,18 @@ namespace PigeonCorp.GameInstallation
             var getHatcheriesModifiersUC = new UC_GetHatcheriesValueModifiers(valueModifiersRepository);
             var getShippingModifiersUC = new UC_GetShippingValueModifiers(valueModifiersRepository);
             var getResearchModifiersUC = new UC_GetResearchValueModifiers(valueModifiersRepository);
+            var getEvolutionModifiersUC = new UC_GetEvolutionValueModifiers(valueModifiersRepository);
             
+            
+            var evolutionEntity = new EvolutionEntity();
+            var resetFarmCommand = new ResetFarmCommand(evolutionEntity);
+            new EvolutionInstaller().Install(
+                evolutionEntity,
+                evolutionData,
+                evolutionConfig,
+                resetFarmCommand,
+                getEvolutionModifiersUC
+            );
             
             var researchEntity = new ResearchEntity();
             new ResearchInstaller().Install(
@@ -96,7 +112,8 @@ namespace PigeonCorp.GameInstallation
                 getMainBuyButtonModifiersUC,
                 getHatcheriesModifiersUC,
                 getShippingModifiersUC,
-                getResearchModifiersUC
+                getResearchModifiersUC,
+                getEvolutionModifiersUC
             );
             
             var hatcheriesEntity = new HatcheriesEntity();
@@ -113,7 +130,10 @@ namespace PigeonCorp.GameInstallation
             );
 
             var shippingEntity = new ShippingEntity();
-            var grantShippingRevenueCommand = new GrantShippingRevenueCommand(addCurrencyCommand, shippingEntity);
+            var grantShippingRevenueCommand = new GrantShippingRevenueCommand(
+                addCurrencyCommand, 
+                evolutionEntity,
+                shippingEntity);
             new ShippingInstaller().Install(
                 shippingEntity,
                 shippingData,

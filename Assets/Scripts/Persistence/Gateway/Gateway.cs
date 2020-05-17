@@ -56,6 +56,11 @@ namespace PigeonCorp.Persistence.Gateway
             return TitleDataGateway.Get<ResearchTitleData>();
         }
         
+        public EvolutionTitleData GetEvolutionConfig()
+        {
+            return TitleDataGateway.Get<EvolutionTitleData>();
+        }
+        
         #endregion
         
         
@@ -107,6 +112,16 @@ namespace PigeonCorp.Persistence.Gateway
         }
         
         public void UpdateResearchData(ResearchUserData data)
+        {
+            UserDataGateway.Update(data);
+        }
+        
+        public EvolutionUserData GetEvolutionData()
+        {
+            return UserDataGateway.Get<EvolutionUserData>();
+        }
+        
+        public void UpdateEvolutionData(EvolutionUserData data)
         {
             UserDataGateway.Update(data);
         }

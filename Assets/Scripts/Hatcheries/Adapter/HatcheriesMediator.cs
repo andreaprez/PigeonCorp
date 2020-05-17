@@ -45,10 +45,10 @@ namespace PigeonCorp.Hatcheries.Adapter
             _spawnHatcheryCommand = spawnHatcheryCommand;
             _valueModifiers = (HatcheriesValueModifiers)getHatcheriesValueModifiersUC.Execute();
 
-            SubscribeToPigeonsCount();
-            SubscribeToEntity();
             InitializeSubViewModels();
             InitializeSubMediators();
+            SubscribeToEntity();
+            SubscribeToTopBarEntity();
         }
 
         public void OnOpenButtonClick()
@@ -80,14 +80,28 @@ namespace PigeonCorp.Hatcheries.Adapter
             
             Gateway.Instance.UpdateHatcheriesData(SerializeEntityModel());
         }
-        
-        private void SubscribeToPigeonsCount()
+
+        private void InitializeSubViewModels()
         {
-            _mainTopBarEntity.PigeonsCount.AsObservable().Subscribe(pigeons =>
+            for (int i = 0; i < _entity.Hatcheries.Count; i++)
             {
-                _entity.UpdateUsedCapacity();
-            })
-            .AddTo(MainDispatcher.Disposables);
+                var viewModel = new HatcheryViewModel();
+                _viewModel.HatcheryViewModels.Add(viewModel);
+            }
+        }
+        
+        private void InitializeSubMediators()
+        {
+            for (int i = 0; i < _entity.Hatcheries.Count; i++)
+            {
+                new HatcheryMediator().Initialize(
+                    _entity,
+                    _entity.Hatcheries[i],
+                    _config,
+                    _spawnHatcheryCommand,
+                    _valueModifiers
+                );
+            }
         }
 
         private void SubscribeToEntity()
@@ -113,29 +127,24 @@ namespace PigeonCorp.Hatcheries.Adapter
                 _viewModel.CapacityPercentage.Value = capacityPercentage;
             }).AddTo(MainDispatcher.Disposables);
         }
-
-        private void InitializeSubViewModels()
-        {
-            for (int i = 0; i < _entity.Hatcheries.Count; i++)
-            {
-                var viewModel = new HatcheryViewModel();
-                _viewModel.HatcheryViewModels.Add(viewModel);
-            }
-        }
         
-        private void InitializeSubMediators()
+        private void SubscribeToTopBarEntity()
         {
-            for (int i = 0; i < _entity.Hatcheries.Count; i++)
+            _mainTopBarEntity.Currency.AsObservable().Subscribe(currency =>
             {
-                new HatcheryMediator().Initialize(
-                    _entity,
-                    _entity.Hatcheries[i],
-                    _config,
-                    _mainTopBarEntity,
-                    _spawnHatcheryCommand,
-                    _valueModifiers
-                );
-            }
+                foreach (var hatchery in _entity.Hatcheries)
+                {
+                    var nextCost = hatchery.NextCost.Value;
+                    var enoughCurrency = currency >= nextCost;
+                    _viewModel.HatcheryViewModels[hatchery.Id].ButtonInteractable.Value = enoughCurrency;
+                }
+            }).AddTo(MainDispatcher.Disposables);
+            
+            _mainTopBarEntity.PigeonsCount.AsObservable().Subscribe(pigeons =>
+            {
+                _entity.UpdateUsedCapacity();
+            })
+            .AddTo(MainDispatcher.Disposables);
         }
         
         private HatcheriesUserData SerializeEntityModel()

@@ -10,5 +10,6 @@ namespace PigeonCorp.Persistence.TitleData
         public HatcheriesTitleData Hatcheries;
         public ShippingTitleData Shipping;
         public ResearchTitleData Research;
+        public EvolutionTitleData Evolution;
     }
 }
