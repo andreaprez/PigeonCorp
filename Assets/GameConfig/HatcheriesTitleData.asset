@@ -15,19 +15,19 @@ MonoBehaviour:
   HatcheriesConfiguration:
   - Name: One
     Icon: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
-    Cost: 10
+    Cost: 120
     MaxCapacity: 20
-    EggLayingRate: 10
+    EggLayingRate: 2
   - Name: Two
     Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
-    Cost: 40
-    MaxCapacity: 50
-    EggLayingRate: 20
+    Cost: 300
+    MaxCapacity: 80
+    EggLayingRate: 5
   - Name: Three
     Icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-    Cost: 90
-    MaxCapacity: 100
-    EggLayingRate: 50
+    Cost: 640
+    MaxCapacity: 200
+    EggLayingRate: 12
   InitialHatcheries:
   - Built: 1
     Level: 1

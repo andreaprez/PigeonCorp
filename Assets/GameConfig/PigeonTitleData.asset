@@ -12,10 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c38433c932c7436892512df1e48af56a, type: 3}
   m_Name: PigeonTitleData
   m_EditorClassIdentifier: 
-  MovementSpeed: 16
-  RotationSpeed: 16
-  RecalculationTime: 0.5
-  MovementNoise: 1
-  TargetReachedOffset: 0.8
-  Cost: 10
-  EvolutionCostMultiplier: 1.5
+  Cost: 20
