@@ -1,5 +1,7 @@
+using System;
 using PigeonCorp.Dispatcher;
 using PigeonCorp.MainTopBar.Adapter;
+using PigeonCorp.Utils;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,12 +27,12 @@ namespace PigeonCorp.MainTopBar.Framework
         {
             _viewModel.Currency.Subscribe(currency =>
             {
-                _currency.text = currency.ToString();
+                _currency.text = String.Format(DisplayableNumberFormat.THOUSAND_SEPARATOR_WITH_ONE_DECIMAL, currency);
             }).AddTo(MainDispatcher.Disposables);
             
             _viewModel.PigeonsCount.Subscribe(pigeons =>
             {
-                _pigeonsCount.text = pigeons.ToString();
+                _pigeonsCount.text = String.Format(DisplayableNumberFormat.THOUSAND_SEPARATOR, pigeons);
             }).AddTo(MainDispatcher.Disposables);
         }
     }

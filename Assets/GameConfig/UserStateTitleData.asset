@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: UserStateTitleData
   m_EditorClassIdentifier: 
   InitialPigeons: 0
-  InitialCurrency: 20000
+  InitialCurrency: 2000

@@ -1,5 +1,7 @@
+using System;
 using PigeonCorp.Dispatcher;
 using PigeonCorp.Shipping.Adapter;
+using PigeonCorp.Utils;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
@@ -29,14 +31,12 @@ namespace PigeonCorp.Shipping.Framework
         {
             _viewModel.MaxShippingRate.Subscribe(maxRate =>
             {
-                _maxShippingRateText.text = maxRate.ToString();
-                
+                _maxShippingRateText.text = String.Format(DisplayableNumberFormat.THOUSAND_SEPARATOR, maxRate);
             }).AddTo(MainDispatcher.Disposables);
             
             _viewModel.ShippingRatePercentage.Subscribe(percentage =>
             {
                 _maxShippingRateBar.fillAmount = percentage;
-                
             }).AddTo(MainDispatcher.Disposables);
             
             _viewModel.IsOpen.Subscribe(isOpen =>

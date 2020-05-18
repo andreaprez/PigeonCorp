@@ -16,15 +16,15 @@ MonoBehaviour:
   - Name: One
     Icon: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
     Cost: 200
-    MaxShippingRate: 2000
+    MaxShippingRate: 1000
   - Name: Two
     Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
     Cost: 450
-    MaxShippingRate: 4000
+    MaxShippingRate: 2500
   - Name: Three
     Icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
     Cost: 1200
-    MaxShippingRate: 10000
+    MaxShippingRate: 8000
   InitialVehicles:
   - Purchased: 0
     Level: 0

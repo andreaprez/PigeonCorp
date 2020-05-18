@@ -1,5 +1,7 @@
+using System;
 using PigeonCorp.Dispatcher;
 using PigeonCorp.Hatcheries.Adapter;
+using PigeonCorp.Utils;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
@@ -29,14 +31,12 @@ namespace PigeonCorp.Hatcheries.Framework
         {
             _viewModel.MaxCapacity.Subscribe(maxCapacity =>
             {
-                _maxCapacityText.text = maxCapacity.ToString();
-                
+                _maxCapacityText.text = String.Format(DisplayableNumberFormat.THOUSAND_SEPARATOR, maxCapacity);
             }).AddTo(MainDispatcher.Disposables);
             
             _viewModel.CapacityPercentage.Subscribe(percentage =>
             {
                 _maxCapacityBar.fillAmount = percentage;
-                
             }).AddTo(MainDispatcher.Disposables);
             
             _viewModel.IsOpen.Subscribe(isOpen =>
