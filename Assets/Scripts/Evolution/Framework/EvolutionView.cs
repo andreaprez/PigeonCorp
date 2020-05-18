@@ -1,5 +1,7 @@
+using System;
 using PigeonCorp.Dispatcher;
 using PigeonCorp.Evolution.Adapter;
+using PigeonCorp.Utils;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
@@ -43,31 +45,26 @@ namespace PigeonCorp.Evolution.Framework
             _viewModel.PigeonIcon.Subscribe(icon =>
             {
                 _pigeonIcon.sprite = icon;
-                
             }).AddTo(MainDispatcher.Disposables);
             
             _viewModel.PigeonName.Subscribe(name =>
             {
                 _pigeonNameText.text = name;
-                
             }).AddTo(MainDispatcher.Disposables);
             
             _viewModel.EggValue.Subscribe(pigeonValue =>
             {
-                _pigeonValueText.text = pigeonValue.ToString();
-                
+                _pigeonValueText.text = String.Format(DisplayableNumberFormat.THOUSAND_SEPARATOR, pigeonValue);
             }).AddTo(MainDispatcher.Disposables);
             
             _viewModel.CurrentFarmValue.Subscribe(value =>
             {
-                _currentFarmValueText.text = value.ToString();
-                
+                _currentFarmValueText.text = String.Format(DisplayableNumberFormat.THOUSAND_SEPARATOR_WITH_ONE_DECIMAL, value);
             }).AddTo(MainDispatcher.Disposables);
             
             _viewModel.RequiredFarmValue.Subscribe(required =>
             {
-                _requiredFarmValueText.text = required.ToString();
-                
+                _requiredFarmValueText.text = String.Format(DisplayableNumberFormat.THOUSAND_SEPARATOR_WITH_ONE_DECIMAL, required);
             }).AddTo(MainDispatcher.Disposables);
             
             _viewModel.ButtonInteractable.Subscribe(interactable =>

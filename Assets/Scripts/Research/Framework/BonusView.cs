@@ -1,5 +1,7 @@
+using System;
 using PigeonCorp.Dispatcher;
 using PigeonCorp.Research.Adapter;
+using PigeonCorp.Utils;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
@@ -58,17 +60,17 @@ namespace PigeonCorp.Research.Framework
             
             _viewModel.CurrentValue.Subscribe(value =>
             {
-                _currentValueText.text = value.ToString();
+                _currentValueText.text = value;
             }).AddTo(MainDispatcher.Disposables);
             
             _viewModel.NextValue.Subscribe(value =>
             {
-                _nextValueText.text = value.ToString();
+                _nextValueText.text = value;
             }).AddTo(MainDispatcher.Disposables);
             
             _viewModel.Cost.Subscribe(cost =>
             {
-                _researchCostText.text = cost.ToString();
+                _researchCostText.text = String.Format(DisplayableNumberFormat.THOUSAND_SEPARATOR, cost);
             }).AddTo(MainDispatcher.Disposables);
         }
 

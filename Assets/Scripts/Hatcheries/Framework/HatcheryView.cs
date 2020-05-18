@@ -1,5 +1,7 @@
+using System;
 using PigeonCorp.Dispatcher;
 using PigeonCorp.Hatcheries.Adapter;
+using PigeonCorp.Utils;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
@@ -67,7 +69,7 @@ namespace PigeonCorp.Hatcheries.Framework
             
             _viewModel.MaxCapacity.Subscribe(maxCapacity =>
             {
-                _capacityText.text = maxCapacity.ToString();
+                _capacityText.text = String.Format(DisplayableNumberFormat.THOUSAND_SEPARATOR, maxCapacity);
             }).AddTo(MainDispatcher.Disposables);
             
             _viewModel.CapacityPercentage.Subscribe(percentage =>
@@ -77,8 +79,8 @@ namespace PigeonCorp.Hatcheries.Framework
             
             _viewModel.Cost.Subscribe(cost =>
             {
-                _upgradeCostText.text = cost.ToString();
-                _buildCostText.text = cost.ToString();
+                _upgradeCostText.text = String.Format(DisplayableNumberFormat.THOUSAND_SEPARATOR, cost);
+                _buildCostText.text = String.Format(DisplayableNumberFormat.THOUSAND_SEPARATOR, cost);
             }).AddTo(MainDispatcher.Disposables);
         }
 
