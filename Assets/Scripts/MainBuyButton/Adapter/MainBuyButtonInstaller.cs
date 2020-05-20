@@ -26,6 +26,7 @@ namespace PigeonCorp.MainBuyButton.Adapter
             InitEntity(entity, pigeonConfig);
             
             var pigeonFactory = new PigeonFactory(
+                pigeonConfig,
                 getPigeonsContainerUC,
                 getPigeonDestinationsUC,
                 getRandomBuiltHatcheryIdUC

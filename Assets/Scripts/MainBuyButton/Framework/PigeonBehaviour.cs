@@ -24,7 +24,7 @@ namespace PigeonCorp.MainScreen.Framework
         
         private void Hide()
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }
