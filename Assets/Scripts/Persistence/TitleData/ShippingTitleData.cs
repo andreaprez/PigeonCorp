@@ -11,7 +11,7 @@ namespace PigeonCorp.Persistence.TitleData
         public List<VehicleState> InitialVehicles;
         public float TimeToSpawnVehicleInSeconds;
         public float VehicleSpeed;
-        public float TimeToDestroyVehicle;
+        public float TimeToHideVehicle;
     }
 
     [Serializable]

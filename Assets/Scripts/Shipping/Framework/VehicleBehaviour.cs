@@ -8,20 +8,20 @@ namespace PigeonCorp.Shipping.Framework
     public class VehicleBehaviour : MonoBehaviour
     {
         private float _speed;
-        private float _timeToDestroy;
+        private float _timeToHide;
         
         public void Initialize(ShippingTitleData config)
         {
             _speed = config.VehicleSpeed;
-            _timeToDestroy = config.TimeToDestroyVehicle;
+            _timeToHide = config.TimeToHideVehicle;
 
-            MainThreadDispatcher.StartCoroutine(DestroyInTime());
+            MainThreadDispatcher.StartCoroutine(HideInTime());
         }
 
-        private IEnumerator DestroyInTime()
+        private IEnumerator HideInTime()
         {
-            yield return new WaitForSeconds(_timeToDestroy);
-            Destroy(gameObject);
+            yield return new WaitForSeconds(_timeToHide);
+            gameObject.SetActive(false);
         }
 
         private void Update()
