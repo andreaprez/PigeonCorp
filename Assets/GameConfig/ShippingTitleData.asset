@@ -36,4 +36,4 @@ MonoBehaviour:
     Level: 0
   TimeToSpawnVehicleInSeconds: 20
   VehicleSpeed: 24
-  TimeToDestroyVehicle: 6
+  TimeToHideVehicle: 10
