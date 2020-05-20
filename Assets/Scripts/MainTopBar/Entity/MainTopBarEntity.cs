@@ -4,6 +4,8 @@ namespace PigeonCorp.MainTopBar.Entity
 {
     public class MainTopBarEntity
     {
+        public long LastTimeOnline;
+        
         public readonly ReactiveProperty<int> PigeonsCount;
         public readonly ReactiveProperty<float> Currency;
 

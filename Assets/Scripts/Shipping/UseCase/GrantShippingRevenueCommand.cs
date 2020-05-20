@@ -26,7 +26,7 @@ namespace PigeonCorp.Shipping.UseCase
             var revenue = _evolutionEntity.CurrentEggValue.Value * _shippingEntity.UsedShippingRate.Value;
             _addCurrencyCommand.Execute(revenue);
             
-            _evolutionEntity.CurrentFarmValue.Value += revenue;
+            _evolutionEntity.IncreaseFarmValue(revenue);
         }
     }
 }

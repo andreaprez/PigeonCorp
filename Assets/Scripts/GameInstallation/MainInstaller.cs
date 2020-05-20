@@ -158,6 +158,14 @@ namespace PigeonCorp.GameInstallation
                 getMainBuyButtonModifiersUC,
                 getRandomBuiltHatcheryIdUC
             );
+            
+            var grantOfflineRevenueCommand = new GrantOfflineRevenueCommand(
+                addCurrencyCommand,
+                evolutionEntity,
+                shippingEntity,
+                mainTopBarEntity
+            );
+            grantOfflineRevenueCommand.Execute();
         }
     }
 }
