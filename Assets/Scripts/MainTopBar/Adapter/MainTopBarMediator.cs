@@ -1,8 +1,10 @@
+using System.Collections;
 using PigeonCorp.Dispatcher;
 using PigeonCorp.MainTopBar.Entity;
 using PigeonCorp.Persistence.Gateway;
 using PigeonCorp.Persistence.UserData;
 using UniRx;
+using UnityEngine;
 using Zenject;
 
 namespace PigeonCorp.MainTopBar.Adapter
@@ -23,6 +25,8 @@ namespace PigeonCorp.MainTopBar.Adapter
             _entity = entity;
 
             SubscribeToEntity();
+            
+            MainThreadDispatcher.StartCoroutine(SaveLastTimeOnline());
         }
 
         private void SubscribeToEntity()
@@ -42,6 +46,15 @@ namespace PigeonCorp.MainTopBar.Adapter
                 .AddTo(MainDispatcher.Disposables);
         }
 
+        private IEnumerator SaveLastTimeOnline()
+        {
+            while (true)
+            {
+                Gateway.Instance.UpdateUserStateData(SerializeEntityModel());
+                yield return new WaitForSeconds(10);
+            }
+        }
+        
         private UserStateUserData SerializeEntityModel()
         {
             return new UserStateUserData(_entity);

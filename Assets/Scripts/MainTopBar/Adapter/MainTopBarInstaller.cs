@@ -17,6 +17,7 @@ namespace PigeonCorp.MainTopBar.Adapter
 
         private void InitEntity(MainTopBarEntity entity, UserStateUserData userStateData)
         {
+            entity.LastTimeOnline = userStateData.LastTimeOnline;
             entity.Currency.Value = userStateData.Currency;
             entity.PigeonsCount.Value = userStateData.CurrentPigeons;
         }

@@ -31,5 +31,10 @@ namespace PigeonCorp.Evolution.Entity
         {
             CurrentEggId.Value += 1;
         }
+
+        public void IncreaseFarmValue(float value)
+        {
+            CurrentFarmValue.Value += value;
+        }
     }
 }
