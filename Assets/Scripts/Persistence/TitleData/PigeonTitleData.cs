@@ -6,5 +6,6 @@ namespace PigeonCorp.Persistence.TitleData
     public class PigeonTitleData : ScriptableObject
     {
         public float Cost;
+        public float PoolSize;
     }
 }
