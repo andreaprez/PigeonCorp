@@ -9,8 +9,9 @@ namespace PigeonCorp.Shipping.Adapter
 {
     public class VehicleFactory : IFactory<int>
     {
-        private readonly List<VehicleBehaviour> _vehiclePrefabs;
         private List<VehicleBehaviour> _vehicleInstances;
+        
+        private readonly List<VehicleBehaviour> _vehiclePrefabs;
         private readonly Transform _container;
         private readonly ShippingTitleData _config;
 
