@@ -10,12 +10,13 @@ namespace PigeonCorp.MainBuyButton.Adapter
 {
     public class PigeonFactory : Factory.IFactory<int>
     {
+        private Queue<PigeonBehaviour> _pigeonPool;
+        
         private readonly PigeonTitleData _pigeonConfig;
         private readonly PigeonBehaviour _pigeonPrefab;
         private readonly Transform _pigeonContainer;
         private readonly List<Transform> _pigeonDestinations;
         private readonly UC_GetRandomBuiltHatcheryId _getRandomBuiltHatcheryIdUC;
-        private Queue<PigeonBehaviour> _pigeonPool;
 
         public PigeonFactory(
             PigeonTitleData pigeonConfig,

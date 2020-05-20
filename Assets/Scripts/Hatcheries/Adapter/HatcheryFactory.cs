@@ -7,6 +7,8 @@ namespace PigeonCorp.Hatcheries.Adapter
 {
     public class HatcheryFactory : IFactory<int, int>
     {
+        private List<List<GameObject>> _hatcheryInstances;
+
         private readonly List<GameObject> _hatcheryPrefabs;
         private readonly List<Transform> _hatcheryContainers;
 
@@ -17,18 +19,40 @@ namespace PigeonCorp.Hatcheries.Adapter
         {
             _hatcheryPrefabs = getHatcheryPrefabsUC.Execute();
             _hatcheryContainers = getHatcheriesContainersUC.Execute();
+            
+            InitializePrefabInstances();
+        }
+        
+        private void InitializePrefabInstances()
+        {
+            _hatcheryInstances = new List<List<GameObject>>();
+
+            for (int positionId = 0; positionId < _hatcheryContainers.Count; positionId++)
+            {
+                _hatcheryInstances.Add(new List<GameObject>());
+                for (int prefabId = 0; prefabId < _hatcheryPrefabs.Count; prefabId++)
+                {
+                    GameObject hatchery = Object.Instantiate(_hatcheryPrefabs[prefabId], _hatcheryContainers[positionId]);
+                    hatchery.gameObject.SetActive(false);
+                    _hatcheryInstances[positionId].Add(hatchery);
+                }
+            }
         }
         
         public void Create(int prefabId, int positionId)
         {
-            if (_hatcheryContainers[positionId].childCount > 0)
+            foreach (var hatcheryPrefab in _hatcheryInstances[positionId])
             {
-                Object.Destroy(_hatcheryContainers[positionId].GetChild(0).gameObject);
+                if (hatcheryPrefab.activeInHierarchy)
+                {
+                    hatcheryPrefab.SetActive(false);
+                }
             }
-            
-            var prefab = _hatcheryPrefabs[prefabId];
-            var position = _hatcheryContainers[positionId];
-            Object.Instantiate(prefab, position);
+
+            GameObject hatchery = _hatcheryInstances[positionId][prefabId];
+            hatchery.transform.position = _hatcheryContainers[positionId].position;
+            hatchery.transform.rotation = _hatcheryContainers[positionId].rotation;
+            hatchery.gameObject.SetActive(true);
         }
     }
 }
