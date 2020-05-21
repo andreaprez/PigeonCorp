@@ -17,7 +17,6 @@ namespace PigeonCorp.GameInstallation
         {
             BindViewModels();
             BindMediators();
-            BindPrefabs();
         }
 
         private void BindViewModels()
@@ -72,13 +71,6 @@ namespace PigeonCorp.GameInstallation
             ProjectContext.Instance.Container
                 .Bind<EvolutionMediator>()
                 .AsSingle();
-        }
-
-        private void BindPrefabs()
-        {
-            ProjectContext.Instance.Container
-                .Bind<PigeonBehaviour>()
-                .FromResource("Prefabs/Main/World/Pigeon");
         }
     }
 }
