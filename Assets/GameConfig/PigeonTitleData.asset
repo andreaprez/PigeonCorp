@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: PigeonTitleData
   m_EditorClassIdentifier: 
   Cost: 5
-  PoolSize: 100
+  PoolSize: 120
