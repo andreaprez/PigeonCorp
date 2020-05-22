@@ -8,6 +8,7 @@ using PigeonCorp.Hatcheries.UseCase;
 using PigeonCorp.MainBuyButton.Adapter;
 using PigeonCorp.MainBuyButton.Entity;
 using PigeonCorp.MainBuyButton.UseCase;
+using PigeonCorp.MainScreen.Framework;
 using PigeonCorp.MainTopBar.Adapter;
 using PigeonCorp.MainTopBar.Entity;
 using PigeonCorp.MainTopBar.UseCase;
@@ -29,6 +30,7 @@ namespace PigeonCorp.GameInstallation
         [SerializeField] private TitleDataHolder titleDataHolder;
         [Space]
         [SerializeField] private Transform _pigeonsContainer;
+        [SerializeField] private List<PigeonBehaviour> _pigeonPrefabs;
         [SerializeField] private List<Transform> _pigeonDestinations;
         [Space]
         [SerializeField] private List<GameObject> _hatcheryPrefabs;
@@ -36,7 +38,7 @@ namespace PigeonCorp.GameInstallation
         [Space]
         [SerializeField] private List<VehicleBehaviour> _vehiclePrefabs;
         [SerializeField] private Transform _vehicleContainer;
-
+        
         private void Start()
         {
             // GATEWAY INITIALIZATION
@@ -76,6 +78,7 @@ namespace PigeonCorp.GameInstallation
             var initValueModifiersRepositoryUC = new UC_InitValueModifiersRepository();
             var valueModifiersRepository = initValueModifiersRepositoryUC.Execute();
             
+            var getPigeonPrefabsUC = new UC_GetPigeonPrefabs(_pigeonPrefabs);
             var getPigeonsContainerUC = new UC_GetPigeonsContainer(_pigeonsContainer);
             var getPigeonDestinationsUC = new UC_GetPigeonDestinations(_pigeonDestinations);
             
@@ -147,16 +150,22 @@ namespace PigeonCorp.GameInstallation
                 getShippingModifiersUC
             );
             
+            var pigeonFactory = new PigeonFactory(
+                pigeonConfig,
+                getPigeonPrefabsUC,
+                getPigeonsContainerUC,
+                getPigeonDestinationsUC,
+                getRandomBuiltHatcheryIdUC,
+                evolutionEntity
+            );
             var mainBuyButtonEntity = new MainBuyButtonEntity();
             new MainBuyButtonInstaller().Install(
                 mainBuyButtonEntity,
                 mainTopBarEntity,
                 pigeonConfig,
                 subtractCurrencyCommand,
-                getPigeonsContainerUC,
-                getPigeonDestinationsUC,
                 getMainBuyButtonModifiersUC,
-                getRandomBuiltHatcheryIdUC
+                pigeonFactory
             );
             
             var grantOfflineRevenueCommand = new GrantOfflineRevenueCommand(

@@ -8,7 +8,6 @@ namespace PigeonCorp.Research.Adapter
         public readonly ReactiveProperty<bool> ButtonInteractable;
         public readonly ReactiveProperty<bool> ResearchAvailable;
         public readonly ReactiveProperty<string> Name;
-        public readonly ReactiveProperty<Sprite> Icon;
         public readonly ReactiveProperty<string> CurrentValue;
         public readonly ReactiveProperty<string> NextValue;
         public readonly ReactiveProperty<float> Cost;
@@ -18,7 +17,6 @@ namespace PigeonCorp.Research.Adapter
             ButtonInteractable = new ReactiveProperty<bool>();
             ResearchAvailable = new ReactiveProperty<bool>();
             Name = new ReactiveProperty<string>();
-            Icon = new ReactiveProperty<Sprite>();
             CurrentValue = new ReactiveProperty<string>();
             NextValue = new ReactiveProperty<string>();
             Cost = new ReactiveProperty<float>();

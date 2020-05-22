@@ -7,6 +7,7 @@ namespace PigeonCorp.Evolution.Adapter
     public class EvolutionViewModel
     {
         public readonly ReactiveProperty<bool> IsOpen;
+        public readonly ReactiveProperty<Sprite> OpenButtonIcon;
         public readonly ReactiveProperty<Sprite> PigeonIcon;
         public readonly ReactiveProperty<string> PigeonName;
         public readonly ReactiveProperty<float> EggValue;
@@ -20,6 +21,7 @@ namespace PigeonCorp.Evolution.Adapter
         public EvolutionViewModel()
         {
             IsOpen = new ReactiveProperty<bool>();
+            OpenButtonIcon = new ReactiveProperty<Sprite>();
             PigeonIcon = new ReactiveProperty<Sprite>();
             PigeonName = new ReactiveProperty<string>();
             EggValue = new ReactiveProperty<float>();

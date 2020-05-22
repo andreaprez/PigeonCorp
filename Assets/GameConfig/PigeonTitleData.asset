@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c38433c932c7436892512df1e48af56a, type: 3}
   m_Name: PigeonTitleData
   m_EditorClassIdentifier: 
-  Cost: 20
-  PoolSize: 60
+  Cost: 5
+  PoolSize: 140

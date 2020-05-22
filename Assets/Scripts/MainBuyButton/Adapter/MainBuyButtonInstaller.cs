@@ -1,6 +1,4 @@
 using PigeonCorp.Command;
-using PigeonCorp.Hatcheries.Entity;
-using PigeonCorp.Hatcheries.UseCase;
 using PigeonCorp.MainBuyButton.Entity;
 using PigeonCorp.MainBuyButton.UseCase;
 using PigeonCorp.MainTopBar.Entity;
@@ -17,20 +15,12 @@ namespace PigeonCorp.MainBuyButton.Adapter
             MainTopBarEntity mainTopBarEntity,
             PigeonTitleData pigeonConfig,
             ICommand<float> subtractCurrencyCommand,
-            UC_GetPigeonsContainer getPigeonsContainerUC,
-            UC_GetPigeonDestinations getPigeonDestinationsUC,
             UC_GetMainBuyButtonValueModifiers getMainBuyButtonModifiersUC,
-            UC_GetRandomBuiltHatcheryId getRandomBuiltHatcheryIdUC
+            PigeonCorp.Factory.IFactory<int> pigeonFactory
         )
         {
             InitEntity(entity, pigeonConfig);
             
-            var pigeonFactory = new PigeonFactory(
-                pigeonConfig,
-                getPigeonsContainerUC,
-                getPigeonDestinationsUC,
-                getRandomBuiltHatcheryIdUC
-            );
             var spawnPigeonCommand = new SpawnPigeonCommand(mainTopBarEntity, pigeonFactory);
 
             ProjectContext.Instance.Container

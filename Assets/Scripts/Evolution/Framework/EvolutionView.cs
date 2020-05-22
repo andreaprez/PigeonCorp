@@ -19,6 +19,7 @@ namespace PigeonCorp.Evolution.Framework
         [Space]
         [SerializeField] private Button _evolveButton;
         [Space]
+        [SerializeField] private Image _openButtonIcon;
         [SerializeField] private Image _pigeonIcon;
         [SerializeField] private Text _pigeonNameText;
         [SerializeField] private Text _pigeonValueText;
@@ -40,6 +41,11 @@ namespace PigeonCorp.Evolution.Framework
             _viewModel.IsOpen.Subscribe(isOpen =>
             {
                 gameObject.SetActive(isOpen);
+            }).AddTo(MainDispatcher.Disposables);
+            
+            _viewModel.OpenButtonIcon.Subscribe(icon =>
+            {
+                _openButtonIcon.sprite = icon;
             }).AddTo(MainDispatcher.Disposables);
             
             _viewModel.PigeonIcon.Subscribe(icon =>

@@ -15,7 +15,6 @@ namespace PigeonCorp.Research.Framework
         [Space]
         [SerializeField] private int _id;
         [SerializeField] private Text _bonusName;
-        [SerializeField] private Image _bonusIcon;
         [SerializeField] private Text _researchCostText;
         [SerializeField] private Text _currentValueText;
         [SerializeField] private Text _nextValueText;
@@ -52,12 +51,7 @@ namespace PigeonCorp.Research.Framework
                 _bonusName.text = name;
                 
             }).AddTo(MainDispatcher.Disposables);
-            
-            _viewModel.Icon.Subscribe(icon =>
-            {
-                _bonusIcon.sprite = icon;
-            }).AddTo(MainDispatcher.Disposables);
-            
+
             _viewModel.CurrentValue.Subscribe(value =>
             {
                 _currentValueText.text = value;

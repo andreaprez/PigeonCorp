@@ -139,6 +139,7 @@ namespace PigeonCorp.Evolution.Adapter
             _entity.CurrentPigeonIcon.AsObservable().Subscribe(icon =>
             {
                 _viewModel.PigeonIcon.Value = icon;
+                _viewModel.OpenButtonIcon.Value = icon;
             }).AddTo(MainDispatcher.Disposables);
             
             _entity.CurrentPigeonName.AsObservable().Subscribe(name =>

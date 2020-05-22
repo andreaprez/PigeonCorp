@@ -109,7 +109,6 @@ namespace PigeonCorp.Research.Adapter
                     bonus.Type = bonusConfig.Type;
                     bonus.UnitType = bonusConfig.UnitType;
                     bonus.Name.Value = bonusConfig.Name;
-                    bonus.Icon.Value = bonusConfig.Icon;
                     bonus.Tier.Value = bonusState.CurrentTier;
                     bonus.CurrentValue.Value = bonusConfig.Tiers[bonus.Tier.Value].Value;
 

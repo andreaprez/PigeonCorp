@@ -13,18 +13,18 @@ MonoBehaviour:
   m_Name: HatcheriesTitleData
   m_EditorClassIdentifier: 
   HatcheriesConfiguration:
-  - Name: One
-    Icon: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  - Name: Coop
+    Icon: {fileID: 21300000, guid: 5835904908f122c40a64c8ae06aa9e65, type: 3}
     Cost: 120
     MaxCapacity: 20
     EggLayingRate: 2
-  - Name: Two
-    Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  - Name: Shack
+    Icon: {fileID: 21300000, guid: 1d8e5a2c69ccbba478ee2b15c7952481, type: 3}
     Cost: 300
     MaxCapacity: 80
     EggLayingRate: 5
-  - Name: Three
-    Icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  - Name: Double Decker
+    Icon: {fileID: 21300000, guid: ad4d054bb9de1e547ae054cb741bd710, type: 3}
     Cost: 640
     MaxCapacity: 200
     EggLayingRate: 12

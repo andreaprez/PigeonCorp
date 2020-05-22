@@ -17,7 +17,6 @@ namespace PigeonCorp.Persistence.TitleData
         public BonusType Type;
         public ValueUnitType UnitType;
         public string Name;
-        public Sprite Icon;
         public List<BonusTier> Tiers;
     }
     
