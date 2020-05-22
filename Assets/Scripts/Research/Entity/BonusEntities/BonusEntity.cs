@@ -13,7 +13,6 @@ namespace PigeonCorp.Research.Entity
 
         public readonly ReactiveProperty<int> Tier;
         public readonly ReactiveProperty<string> Name;
-        public readonly ReactiveProperty<Sprite> Icon;
         public readonly ReactiveProperty<float> CurrentValue;
         public readonly ReactiveProperty<float> NextValue;
         public readonly ReactiveProperty<float> NextCost;
@@ -22,7 +21,6 @@ namespace PigeonCorp.Research.Entity
         {
             Tier = new ReactiveProperty<int>();
             Name = new ReactiveProperty<string>();
-            Icon = new ReactiveProperty<Sprite>();
             CurrentValue = new ReactiveProperty<float>();
             NextValue = new ReactiveProperty<float>();
             NextCost = new ReactiveProperty<float>();

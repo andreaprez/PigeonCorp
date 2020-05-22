@@ -14,15 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShippingConfiguration:
   - Name: One
-    Icon: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+    Icon: {fileID: 21300000, guid: b9054ad4f1b90a744b479ea667b4fd4e, type: 3}
     Cost: 200
     MaxShippingRate: 1000
   - Name: Two
-    Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    Icon: {fileID: 21300000, guid: 71aa7727f1e9cb14195a5de563ecc595, type: 3}
     Cost: 450
     MaxShippingRate: 2500
   - Name: Three
-    Icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+    Icon: {fileID: 21300000, guid: 978f92946421ca748b5660c8c68ffc78, type: 3}
     Cost: 1200
     MaxShippingRate: 8000
   InitialVehicles:

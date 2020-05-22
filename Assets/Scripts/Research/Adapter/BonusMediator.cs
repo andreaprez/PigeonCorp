@@ -43,7 +43,6 @@ namespace PigeonCorp.Research.Adapter
                 if (level > 0)
                 {
                     _entity.Name.Value = _config.Name;
-                    _entity.Icon.Value = _config.Icon;
                     _entity.CurrentValue.Value = _config.Tiers[_entity.Tier.Value].Value;
                     if (_entity.Tier.Value < _config.Tiers.Count - 1)
                     {
@@ -61,11 +60,6 @@ namespace PigeonCorp.Research.Adapter
             _entity.Name.AsObservable().Subscribe(name =>
             {
                 _viewModel.Name.Value = name;
-            }).AddTo(MainDispatcher.Disposables);
-
-            _entity.Icon.AsObservable().Subscribe(icon =>
-            {
-                _viewModel.Icon.Value = icon;
             }).AddTo(MainDispatcher.Disposables);
 
             _entity.NextCost.AsObservable().Subscribe(cost =>

@@ -127,7 +127,7 @@ RectTransform:
   m_AnchorMin: {x: 0.1, y: 0.1}
   m_AnchorMax: {x: 0.9, y: 0.9}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -20, y: -20}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3696672356134802326
 CanvasRenderer:
@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.45834818, g: 0.9433962, b: 0.84856313, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -194,7 +194,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4840686263620273472}
+  - {fileID: 6734389685932959031}
   - {fileID: 3696672356134802324}
   m_Father: {fileID: 3696672355960991546}
   m_RootOrder: 2
@@ -212,7 +212,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3696672358020601894}
   m_CullTransparentMesh: 0
---- !u!1 &8470377023278407881
+--- !u!1 &8860083798186099820
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -220,9 +220,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4840686263620273472}
-  - component: {fileID: 8049336763515956660}
-  - component: {fileID: 993680265965952787}
+  - component: {fileID: 6734389685932959031}
+  - component: {fileID: 6992281728457526150}
+  - component: {fileID: 429353576214461529}
   m_Layer: 5
   m_Name: CurrentEvolution_Background
   m_TagString: Untagged
@@ -230,13 +230,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &4840686263620273472
+--- !u!224 &6734389685932959031
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8470377023278407881}
+  m_GameObject: {fileID: 8860083798186099820}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -249,35 +249,35 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &8049336763515956660
+--- !u!222 &6992281728457526150
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8470377023278407881}
+  m_GameObject: {fileID: 8860083798186099820}
   m_CullTransparentMesh: 0
---- !u!114 &993680265965952787
+--- !u!114 &429353576214461529
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8470377023278407881}
+  m_GameObject: {fileID: 8860083798186099820}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.7410195, g: 1, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 56d4d964efaa4a04fb659cb590768a08, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 16865e4db9d66984abd0579ed56a1369, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -629,7 +629,7 @@ PrefabInstance:
     - target: {fileID: 6334935974332904244, guid: b040836e09d3ffc4eb51e72ebde9a000,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.15
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 6334935974332904244, guid: b040836e09d3ffc4eb51e72ebde9a000,
         type: 3}
@@ -639,7 +639,7 @@ PrefabInstance:
     - target: {fileID: 6334935974332904244, guid: b040836e09d3ffc4eb51e72ebde9a000,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.85
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 6334935974332904244, guid: b040836e09d3ffc4eb51e72ebde9a000,
         type: 3}
