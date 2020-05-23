@@ -77,9 +77,9 @@ namespace PigeonCorp.Shipping.Adapter
         public void OnPurchaseButtonClick(int id)
         {
             var cost = _entity.Vehicles[id].NextCost.Value;
-            _subtractCurrencyCommand.Execute(cost);
                     
             _entity.Vehicles[id].Purchase();
+            _subtractCurrencyCommand.Execute(cost);
             
             Gateway.Instance.UpdateShippingData(SerializeEntityModel());
         }
