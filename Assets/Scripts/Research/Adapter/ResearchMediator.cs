@@ -60,9 +60,9 @@ namespace PigeonCorp.Research.Adapter
         public void OnResearchButtonClick(int id)
         {
             var cost = _entity.Bonuses[id].NextCost.Value;
-            _subtractCurrencyCommand.Execute(cost);
                     
             _entity.Bonuses[id].Research();
+            _subtractCurrencyCommand.Execute(cost);
             
             Gateway.Instance.UpdateResearchData(SerializeEntityModel());
         }

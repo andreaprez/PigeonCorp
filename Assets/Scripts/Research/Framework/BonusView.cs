@@ -1,4 +1,3 @@
-using System;
 using PigeonCorp.Dispatcher;
 using PigeonCorp.Research.Adapter;
 using PigeonCorp.Utils;
@@ -64,7 +63,7 @@ namespace PigeonCorp.Research.Framework
             
             _viewModel.Cost.Subscribe(cost =>
             {
-                _researchCostText.text = String.Format(DisplayableNumberFormat.THOUSAND_SEPARATOR, cost);
+                _researchCostText.text = DisplayableNumber.Parse(DisplayableNumber.THOUSAND_SEPARATOR, cost);
             }).AddTo(MainDispatcher.Disposables);
         }
 
