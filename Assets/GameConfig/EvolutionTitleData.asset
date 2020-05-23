@@ -21,16 +21,16 @@ MonoBehaviour:
   - Name: Albino
     Icon: {fileID: 21300000, guid: da232aa270ac5334fac52c2657376ccf, type: 3}
     EggValue: 2
-    RequiredFarmValue: 15000
+    RequiredFarmValue: 60000
   - Name: Parrot
     Icon: {fileID: 21300000, guid: beabac9e5bfbdf042affb7f07cd4f020, type: 3}
     EggValue: 4
-    RequiredFarmValue: 40000
+    RequiredFarmValue: 240000
   - Name: Crowny
     Icon: {fileID: 21300000, guid: 2544a8a85dc86564ca711dbda164c10b, type: 3}
-    EggValue: 8
-    RequiredFarmValue: 90000
+    EggValue: 7
+    RequiredFarmValue: 600000
   - Name: Rainbow
     Icon: {fileID: 21300000, guid: 8119e38026d58fe44a1b71007f587dba, type: 3}
-    EggValue: 14
-    RequiredFarmValue: 200000
+    EggValue: 10
+    RequiredFarmValue: 1000000

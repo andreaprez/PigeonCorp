@@ -64,9 +64,9 @@ namespace PigeonCorp.Hatcheries.Adapter
         public void OnBuildButtonClick(int id)
         {
             var cost = _entity.Hatcheries[id].NextCost.Value;
-            _subtractCurrencyCommand.Execute(cost);
                     
             _entity.Hatcheries[id].Build();
+            _subtractCurrencyCommand.Execute(cost);
             
             Gateway.Instance.UpdateHatcheriesData(SerializeEntityModel());
         }

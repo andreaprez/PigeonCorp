@@ -18,131 +18,122 @@ MonoBehaviour:
       Unit: x
       Position: 0
     Name: Pigeon Button Rate
-    Icon: {fileID: 21300000, guid: 57b4e2c47cea955408bdd2874bbd40af, type: 3}
     Tiers:
     - Value: 1
       Cost: 0
     - Value: 2
-      Cost: 20
+      Cost: 500
     - Value: 3
-      Cost: 20
+      Cost: 1200
   - Type: 1
     UnitType:
       Unit: x
       Position: 0
     Name: Egg Value
-    Icon: {fileID: 21300000, guid: 57b4e2c47cea955408bdd2874bbd40af, type: 3}
     Tiers:
     - Value: 1
       Cost: 0
     - Value: 1.5
-      Cost: 20
+      Cost: 800
     - Value: 2
-      Cost: 30
+      Cost: 2000
   - Type: 2
     UnitType:
       Unit: x
       Position: 0
     Name: Egg Laying Rate
-    Icon: {fileID: 21300000, guid: 57b4e2c47cea955408bdd2874bbd40af, type: 3}
     Tiers:
     - Value: 1
       Cost: 0
     - Value: 1.5
-      Cost: 30
+      Cost: 900
     - Value: 2
-      Cost: 50
+      Cost: 2300
   - Type: 3
     UnitType:
       Unit: '%'
       Position: 1
     Name: Hatchery Capacity
-    Icon: {fileID: 21300000, guid: 57b4e2c47cea955408bdd2874bbd40af, type: 3}
     Tiers:
     - Value: 0
       Cost: 0
     - Value: 10
-      Cost: 20
+      Cost: 900
     - Value: 30
-      Cost: 50
+      Cost: 2000
     - Value: 60
-      Cost: 80
+      Cost: 4500
     - Value: 100
-      Cost: 250
+      Cost: 8000
   - Type: 4
     UnitType:
       Unit: '%'
       Position: 1
     Name: Vehicle Shipping Rate
-    Icon: {fileID: 21300000, guid: 57b4e2c47cea955408bdd2874bbd40af, type: 3}
     Tiers:
     - Value: 0
       Cost: 0
     - Value: 10
-      Cost: 20
+      Cost: 1100
     - Value: 30
-      Cost: 50
+      Cost: 2500
     - Value: 60
-      Cost: 80
+      Cost: 5000
     - Value: 100
-      Cost: 250
+      Cost: 10000
   - Type: 5
     UnitType:
       Unit: '%'
       Position: 1
     Name: Research Discount
-    Icon: {fileID: 21300000, guid: 57b4e2c47cea955408bdd2874bbd40af, type: 3}
     Tiers:
     - Value: 0
       Cost: 0
     - Value: 5
-      Cost: 20
+      Cost: 400
     - Value: 20
-      Cost: 50
+      Cost: 2000
     - Value: 50
-      Cost: 100
+      Cost: 9000
   - Type: 6
     UnitType:
       Unit: '%'
       Position: 1
     Name: Hatchery Discount
-    Icon: {fileID: 21300000, guid: 57b4e2c47cea955408bdd2874bbd40af, type: 3}
     Tiers:
     - Value: 0
       Cost: 0
     - Value: 5
-      Cost: 20
+      Cost: 300
     - Value: 20
-      Cost: 50
+      Cost: 1500
     - Value: 50
-      Cost: 100
+      Cost: 8000
   - Type: 7
     UnitType:
       Unit: '%'
       Position: 1
     Name: Vehicle Discount
-    Icon: {fileID: 21300000, guid: 57b4e2c47cea955408bdd2874bbd40af, type: 3}
     Tiers:
     - Value: 0
       Cost: 0
     - Value: 5
-      Cost: 20
+      Cost: 300
     - Value: 20
-      Cost: 50
+      Cost: 1500
     - Value: 50
-      Cost: 100
+      Cost: 8000
   - Type: 8
     UnitType:
       Unit: '%'
       Position: 1
     Name: Pigeon Discount
-    Icon: {fileID: 21300000, guid: 57b4e2c47cea955408bdd2874bbd40af, type: 3}
     Tiers:
     - Value: 0
       Cost: 0
     - Value: 5
-      Cost: 20
+      Cost: 200
     - Value: 20
-      Cost: 50
+      Cost: 1000
     - Value: 50
-      Cost: 100
+      Cost: 6500
