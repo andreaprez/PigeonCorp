@@ -1,4 +1,3 @@
-using System;
 using PigeonCorp.Dispatcher;
 using PigeonCorp.Hatcheries.Adapter;
 using PigeonCorp.Utils;
@@ -31,7 +30,7 @@ namespace PigeonCorp.Hatcheries.Framework
         {
             _viewModel.MaxCapacity.Subscribe(maxCapacity =>
             {
-                _maxCapacityText.text = String.Format(DisplayableNumberFormat.THOUSAND_SEPARATOR, maxCapacity);
+                _maxCapacityText.text = DisplayableNumber.Parse(DisplayableNumber.THOUSAND_SEPARATOR, maxCapacity);
             }).AddTo(MainDispatcher.Disposables);
             
             _viewModel.CapacityPercentage.Subscribe(percentage =>

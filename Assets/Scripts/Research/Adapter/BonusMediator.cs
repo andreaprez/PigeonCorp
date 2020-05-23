@@ -1,6 +1,5 @@
 using System;
 using PigeonCorp.Dispatcher;
-using PigeonCorp.MainTopBar.Entity;
 using PigeonCorp.Persistence.TitleData;
 using PigeonCorp.Research.Entity;
 using PigeonCorp.Utils;

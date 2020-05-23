@@ -1,4 +1,3 @@
-using System;
 using PigeonCorp.Dispatcher;
 using PigeonCorp.Shipping.Adapter;
 using PigeonCorp.Utils;
@@ -69,7 +68,7 @@ namespace PigeonCorp.Shipping.Framework
             
             _viewModel.MaxShippingRate.Subscribe(maxRate =>
             {
-                _shippingRateText.text = String.Format(DisplayableNumberFormat.THOUSAND_SEPARATOR, maxRate);
+                _shippingRateText.text = DisplayableNumber.Parse(DisplayableNumber.THOUSAND_SEPARATOR, maxRate);
             }).AddTo(MainDispatcher.Disposables);
             
             _viewModel.ShippingRatePercentage.Subscribe(percentage =>
@@ -79,8 +78,8 @@ namespace PigeonCorp.Shipping.Framework
             
             _viewModel.Cost.Subscribe(cost =>
             {
-                _upgradeCostText.text = String.Format(DisplayableNumberFormat.THOUSAND_SEPARATOR, cost);
-                _purchaseCostText.text = String.Format(DisplayableNumberFormat.THOUSAND_SEPARATOR, cost);
+                _upgradeCostText.text = DisplayableNumber.Parse(DisplayableNumber.THOUSAND_SEPARATOR, cost);
+                _purchaseCostText.text = DisplayableNumber.Parse(DisplayableNumber.THOUSAND_SEPARATOR, cost);
             }).AddTo(MainDispatcher.Disposables);
         }
 

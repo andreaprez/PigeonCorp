@@ -1,4 +1,3 @@
-using System;
 using PigeonCorp.Dispatcher;
 using PigeonCorp.Hatcheries.Adapter;
 using PigeonCorp.Utils;
@@ -69,7 +68,7 @@ namespace PigeonCorp.Hatcheries.Framework
             
             _viewModel.MaxCapacity.Subscribe(maxCapacity =>
             {
-                _capacityText.text = String.Format(DisplayableNumberFormat.THOUSAND_SEPARATOR, maxCapacity);
+                _capacityText.text = DisplayableNumber.Parse(DisplayableNumber.THOUSAND_SEPARATOR, maxCapacity);
             }).AddTo(MainDispatcher.Disposables);
             
             _viewModel.CapacityPercentage.Subscribe(percentage =>
@@ -79,8 +78,8 @@ namespace PigeonCorp.Hatcheries.Framework
             
             _viewModel.Cost.Subscribe(cost =>
             {
-                _upgradeCostText.text = String.Format(DisplayableNumberFormat.THOUSAND_SEPARATOR, cost);
-                _buildCostText.text = String.Format(DisplayableNumberFormat.THOUSAND_SEPARATOR, cost);
+                _upgradeCostText.text = DisplayableNumber.Parse(DisplayableNumber.THOUSAND_SEPARATOR, cost);
+                _buildCostText.text = DisplayableNumber.Parse(DisplayableNumber.THOUSAND_SEPARATOR, cost);
             }).AddTo(MainDispatcher.Disposables);
         }
 

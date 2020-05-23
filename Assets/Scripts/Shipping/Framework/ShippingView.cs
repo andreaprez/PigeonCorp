@@ -1,4 +1,3 @@
-using System;
 using PigeonCorp.Dispatcher;
 using PigeonCorp.Shipping.Adapter;
 using PigeonCorp.Utils;
@@ -31,7 +30,7 @@ namespace PigeonCorp.Shipping.Framework
         {
             _viewModel.MaxShippingRate.Subscribe(maxRate =>
             {
-                _maxShippingRateText.text = String.Format(DisplayableNumberFormat.THOUSAND_SEPARATOR, maxRate);
+                _maxShippingRateText.text = DisplayableNumber.Parse(DisplayableNumber.THOUSAND_SEPARATOR, maxRate);
             }).AddTo(MainDispatcher.Disposables);
             
             _viewModel.ShippingRatePercentage.Subscribe(percentage =>

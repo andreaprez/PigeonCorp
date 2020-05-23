@@ -1,4 +1,3 @@
-using System;
 using PigeonCorp.Dispatcher;
 using PigeonCorp.Evolution.Adapter;
 using PigeonCorp.Utils;
@@ -60,17 +59,17 @@ namespace PigeonCorp.Evolution.Framework
             
             _viewModel.EggValue.Subscribe(pigeonValue =>
             {
-                _pigeonValueText.text = String.Format(DisplayableNumberFormat.THOUSAND_SEPARATOR, pigeonValue);
+                _pigeonValueText.text = DisplayableNumber.Parse(DisplayableNumber.THOUSAND_SEPARATOR, pigeonValue);
             }).AddTo(MainDispatcher.Disposables);
             
             _viewModel.CurrentFarmValue.Subscribe(value =>
             {
-                _currentFarmValueText.text = String.Format(DisplayableNumberFormat.THOUSAND_SEPARATOR_WITH_ONE_DECIMAL, value);
+                _currentFarmValueText.text = DisplayableNumber.Parse(DisplayableNumber.THOUSAND_SEPARATOR_WITH_ONE_DECIMAL, value);
             }).AddTo(MainDispatcher.Disposables);
             
             _viewModel.RequiredFarmValue.Subscribe(required =>
             {
-                _requiredFarmValueText.text = String.Format(DisplayableNumberFormat.THOUSAND_SEPARATOR_WITH_ONE_DECIMAL, required);
+                _requiredFarmValueText.text = DisplayableNumber.Parse(DisplayableNumber.THOUSAND_SEPARATOR_WITH_ONE_DECIMAL, required);
             }).AddTo(MainDispatcher.Disposables);
             
             _viewModel.ButtonInteractable.Subscribe(interactable =>
