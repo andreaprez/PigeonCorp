@@ -9,10 +9,13 @@ namespace PigeonCorp.Utils
 
         public static string Parse(string format, float number)
         {
-            var formatted = String.Format(format, number);
-            formatted = formatted.TrimStart('0');
-
-            return formatted;
+            if (number > 0f)
+            {
+                var formatted = String.Format(format, number);
+                return formatted.TrimStart('0');
+            }
+            
+            return "0";
         }
     }
 }
