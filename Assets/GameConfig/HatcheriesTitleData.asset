@@ -16,17 +16,17 @@ MonoBehaviour:
   - Name: Coop
     Icon: {fileID: 21300000, guid: 5835904908f122c40a64c8ae06aa9e65, type: 3}
     Cost: 500
-    MaxCapacity: 20
+    MaxCapacity: 100
     EggLayingRate: 2
   - Name: Shack
     Icon: {fileID: 21300000, guid: 1d8e5a2c69ccbba478ee2b15c7952481, type: 3}
     Cost: 5000
-    MaxCapacity: 80
+    MaxCapacity: 300
     EggLayingRate: 5
   - Name: Double Decker
     Icon: {fileID: 21300000, guid: ad4d054bb9de1e547ae054cb741bd710, type: 3}
     Cost: 10000
-    MaxCapacity: 200
+    MaxCapacity: 650
     EggLayingRate: 12
   InitialHatcheries:
   - Built: 1

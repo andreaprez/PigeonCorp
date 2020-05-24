@@ -22,9 +22,9 @@ MonoBehaviour:
     - Value: 1
       Cost: 0
     - Value: 2
-      Cost: 500
+      Cost: 1000
     - Value: 3
-      Cost: 1200
+      Cost: 2200
   - Type: 1
     UnitType:
       Unit: x
@@ -34,9 +34,9 @@ MonoBehaviour:
     - Value: 1
       Cost: 0
     - Value: 1.5
-      Cost: 800
+      Cost: 1100
     - Value: 2
-      Cost: 2000
+      Cost: 2400
   - Type: 2
     UnitType:
       Unit: x
@@ -46,7 +46,7 @@ MonoBehaviour:
     - Value: 1
       Cost: 0
     - Value: 1.5
-      Cost: 900
+      Cost: 1000
     - Value: 2
       Cost: 2300
   - Type: 3
@@ -132,8 +132,8 @@ MonoBehaviour:
     - Value: 0
       Cost: 0
     - Value: 5
-      Cost: 200
+      Cost: 250
     - Value: 20
-      Cost: 1000
+      Cost: 1500
     - Value: 50
-      Cost: 6500
+      Cost: 7000
