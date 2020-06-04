@@ -1,6 +1,5 @@
 using PigeonCorp.Command;
 using PigeonCorp.MainBuyButton.Entity;
-using PigeonCorp.MainBuyButton.UseCase;
 using PigeonCorp.MainTopBar.Entity;
 using PigeonCorp.Persistence.TitleData;
 using PigeonCorp.ValueModifiers.UseCase;
@@ -15,13 +14,11 @@ namespace PigeonCorp.MainBuyButton.Adapter
             MainTopBarEntity mainTopBarEntity,
             PigeonTitleData pigeonConfig,
             ICommand<float> subtractCurrencyCommand,
-            UC_GetMainBuyButtonValueModifiers getMainBuyButtonModifiersUC,
-            PigeonCorp.Factory.IFactory<int> pigeonFactory
+            ICommand spawnPigeonCommand,
+            UC_GetMainBuyButtonValueModifiers getMainBuyButtonModifiersUC
         )
         {
             InitEntity(entity, pigeonConfig);
-            
-            var spawnPigeonCommand = new SpawnPigeonCommand(mainTopBarEntity, pigeonFactory);
 
             ProjectContext.Instance.Container
                 .Resolve<MainBuyButtonMediator>()
