@@ -1,6 +1,5 @@
 using PigeonCorp.Command;
 using PigeonCorp.Hatcheries.Entity;
-using PigeonCorp.Hatcheries.UseCase;
 using PigeonCorp.MainTopBar.Entity;
 using PigeonCorp.Persistence.TitleData;
 using PigeonCorp.Persistence.UserData;
@@ -17,19 +16,12 @@ namespace PigeonCorp.Hatcheries.Adapter
             HatcheriesTitleData config,
             MainTopBarEntity mainTopBarEntity,
             ICommand<float> subtractCurrencyCommand,
-            UC_GetHatcheryPrefabs getHatcheryPrefabsUC,
-            UC_GetHatcheriesContainers getHatcheriesContainersUC,
+            ICommand<int, int> spawnHatcheryCommand,
             UC_GetHatcheriesValueModifiers getHatcheriesValueModifiersUC
         )
         {
             InitEntity(entity, mainTopBarEntity, data, config);
 
-            var hatcheryFactory = new HatcheryFactory(
-                getHatcheryPrefabsUC,
-                getHatcheriesContainersUC
-            );
-            var spawnHatcheryCommand = new SpawnHatcheryCommand(hatcheryFactory);
-            
             ProjectContext.Instance.Container
                 .Resolve<HatcheriesMediator>()
                 .Initialize(

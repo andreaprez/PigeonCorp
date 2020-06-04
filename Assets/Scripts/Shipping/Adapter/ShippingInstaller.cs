@@ -4,7 +4,6 @@ using PigeonCorp.MainTopBar.Entity;
 using PigeonCorp.Persistence.TitleData;
 using PigeonCorp.Persistence.UserData;
 using PigeonCorp.Shipping.Entity;
-using PigeonCorp.Shipping.UseCase;
 using PigeonCorp.ValueModifiers.UseCase;
 using Zenject;
 
@@ -20,20 +19,12 @@ namespace PigeonCorp.Shipping.Adapter
             MainTopBarEntity mainTopBarEntity,
             ICommand<float> subtractCurrencyCommand,
             ICommand grantShippingRevenueCommand,
-            UC_GetVehiclePrefabs getVehiclePrefabsUC,
-            UC_GetVehicleContainer getVehicleContainerUC,
+            ICommand<int> spawnVehicleCommand,
             UC_GetShippingValueModifiers getShippingValueModifiersUC
         )
         {
             InitEntity(entity, hatcheriesEntity, data, config);
-            
-            var vehicleFactory = new VehicleFactory(
-                config,
-                getVehiclePrefabsUC,
-                getVehicleContainerUC
-            );
-            var spawnVehicleCommand = new SpawnVehicleCommand(vehicleFactory);
-            
+
             ProjectContext.Instance.Container
                 .Resolve<ShippingMediator>()
                 .Initialize(
