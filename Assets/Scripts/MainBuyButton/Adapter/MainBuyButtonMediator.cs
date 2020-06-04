@@ -1,5 +1,6 @@
 using PigeonCorp.Command;
 using PigeonCorp.Dispatcher;
+using PigeonCorp.Hatcheries.Entity;
 using PigeonCorp.MainBuyButton.Entity;
 using PigeonCorp.MainTopBar.Entity;
 using PigeonCorp.Persistence.TitleData;
@@ -16,6 +17,8 @@ namespace PigeonCorp.MainBuyButton.Adapter
         private readonly MainBuyButtonViewModel _viewModel;
 
         private MainBuyButtonEntity _entity;
+        private MainTopBarEntity _mainTopBarEntity;
+        private HatcheriesEntity _hatcheriesEntity;
         private PigeonTitleData _pigeonConfig;
         private ICommand _spawnPigeonCommand;
         private ICommand<float> _subtractCurrencyCommand;
@@ -28,37 +31,25 @@ namespace PigeonCorp.MainBuyButton.Adapter
 
         public void Initialize(
             MainBuyButtonEntity entity,
+            PigeonTitleData pigeonConfig,
+            MainTopBarEntity mainTopBarEntity,
+            HatcheriesEntity hatcheriesEntity,
             ICommand spawnPigeonCommand,
             ICommand<float> subtractCurrencyCommand,
-            MainTopBarEntity mainTopBarEntity,
-            PigeonTitleData pigeonConfig,
             UC_GetMainBuyButtonValueModifiers getMainBuyButtonModifiersUC
         )
         {
             _entity = entity;
+            _mainTopBarEntity = mainTopBarEntity;
+            _hatcheriesEntity = hatcheriesEntity;
             _pigeonConfig = pigeonConfig;
             _spawnPigeonCommand = spawnPigeonCommand;
             _subtractCurrencyCommand = subtractCurrencyCommand;
             _valueModifiers = (MainBuyButtonValueModifiers)getMainBuyButtonModifiersUC.Execute();
             
-            SubscribeToCurrency(mainTopBarEntity);
+            SubscribeToCurrency();
+            SubscribeToHatcheriesCapacity();
             SubscribeToValueModifiers();
-        }
-
-        private void SubscribeToCurrency(MainTopBarEntity mainTopBarEntity)
-        {
-            mainTopBarEntity.Currency.AsObservable().Subscribe(currency =>
-            {
-                var nextClickCost = _entity.PigeonsPerClick * _pigeonConfig.Cost;
-                if (currency < nextClickCost)
-                {
-                    _viewModel.IsInteractable.Value = false;
-                }
-                else
-                {
-                    _viewModel.IsInteractable.Value = true;
-                }
-            }).AddTo(MainDispatcher.Disposables);
         }
 
         public void OnButtonClick()
@@ -70,6 +61,50 @@ namespace PigeonCorp.MainBuyButton.Adapter
             {
                 _spawnPigeonCommand.Execute();
             }
+        }
+        
+        private void SubscribeToCurrency()
+        {
+            _mainTopBarEntity.Currency.AsObservable().Subscribe(currency =>
+            {
+                _viewModel.IsInteractable.Value = CheckCanBuyPigeon();
+            }).AddTo(MainDispatcher.Disposables);
+        }
+        
+        private void SubscribeToHatcheriesCapacity()
+        {
+            _hatcheriesEntity.MaxCapacity.AsObservable().Subscribe(maxCap =>
+            {
+                _viewModel.IsInteractable.Value = CheckCanBuyPigeon();
+            }).AddTo(MainDispatcher.Disposables);
+            _mainTopBarEntity.PigeonsCount.AsObservable().Subscribe(count =>
+            {
+                _viewModel.IsInteractable.Value = CheckCanBuyPigeon();
+            }).AddTo(MainDispatcher.Disposables);
+        }
+
+        private bool CheckCanBuyPigeon()
+        {
+            var enoughRoom = CheckHasRoomForMorePigeons();
+            var enoughCurrency = CheckHasEnoughCurrency();
+            var canBuy = enoughRoom && enoughCurrency;
+            return canBuy;
+        }
+
+        private bool CheckHasRoomForMorePigeons()
+        {
+            var currentPigeonsCount = _mainTopBarEntity.PigeonsCount.Value;
+            var maxCapacity = _hatcheriesEntity.MaxCapacity.Value;
+            var hasRoomForMorePigeons = currentPigeonsCount + _entity.PigeonsPerClick <= maxCapacity;
+            return hasRoomForMorePigeons;
+        }
+        
+        private bool CheckHasEnoughCurrency()
+        {
+            var currency = _mainTopBarEntity.Currency.Value;
+            var nextClickCost = _entity.PigeonsPerClick * _pigeonConfig.Cost;
+            var enoughCurrency = currency >= nextClickCost;
+            return enoughCurrency;
         }
 
         private void SubscribeToValueModifiers()

@@ -1,4 +1,5 @@
 using PigeonCorp.Command;
+using PigeonCorp.Hatcheries.Entity;
 using PigeonCorp.MainBuyButton.Entity;
 using PigeonCorp.MainTopBar.Entity;
 using PigeonCorp.Persistence.TitleData;
@@ -11,8 +12,9 @@ namespace PigeonCorp.MainBuyButton.Adapter
     {
         public void Install(
             MainBuyButtonEntity entity,
-            MainTopBarEntity mainTopBarEntity,
             PigeonTitleData pigeonConfig,
+            MainTopBarEntity mainTopBarEntity,
+            HatcheriesEntity hatcheriesEntity,
             ICommand<float> subtractCurrencyCommand,
             ICommand spawnPigeonCommand,
             UC_GetMainBuyButtonValueModifiers getMainBuyButtonModifiersUC
@@ -24,10 +26,11 @@ namespace PigeonCorp.MainBuyButton.Adapter
                 .Resolve<MainBuyButtonMediator>()
                 .Initialize(
                     entity,
+                    pigeonConfig,
+                    mainTopBarEntity,
+                    hatcheriesEntity,
                     spawnPigeonCommand,
                     subtractCurrencyCommand,
-                    mainTopBarEntity,
-                    pigeonConfig,
                     getMainBuyButtonModifiersUC
                 );
         }

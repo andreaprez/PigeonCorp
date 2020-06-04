@@ -187,8 +187,9 @@ namespace PigeonCorp.GameInstallation
             var spawnPigeonCommand = new SpawnPigeonCommand(mainTopBarEntity, pigeonFactory);
             new MainBuyButtonInstaller().Install(
                 mainBuyButtonEntity,
-                mainTopBarEntity,
                 pigeonConfig,
+                mainTopBarEntity,
+                hatcheriesEntity,
                 subtractCurrencyCommand,
                 spawnPigeonCommand,
                 getMainBuyButtonModifiersUC
