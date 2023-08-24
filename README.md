@@ -1,4 +1,4 @@
-# Pigeon-Corp
+# PigeonCorp
 
 ​Mobile Idle Clicker game developed in 3 months​ as a **final Degree project**. It takes the game _Egg, Inc._ as the principal reference.
 
