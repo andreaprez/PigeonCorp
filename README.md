@@ -12,11 +12,4 @@ See the project's page on my online portfolio: https://andrea-perez.webnode.es/p
 
 ## Specifics
 
-Developed in Unity3D Engine.
-
-Code build in C#.
-
-## Download
-
-Download the game on Itch.io: https://andrea-prezp.itch.io/pigeoncorp
-
+Developed in Unity3D Engine and C#.
